@@ -98,6 +98,7 @@ class PoseDetailScreen extends ConsumerWidget {
                         child: PoselyButton(
                           label: 'Try this pose ($totalCount)',
                           icon: Icons.photo_camera_rounded,
+                          expand: true,
                           onPressed: () => _useThisPose(context, ref, pose, queue),
                         ),
                       ),
@@ -108,6 +109,7 @@ class PoseDetailScreen extends ConsumerWidget {
                           label: isInQueue ? 'Remove' : 'Add to Queue',
                           icon: isInQueue ? Icons.playlist_remove_rounded : Icons.playlist_add_rounded,
                           variant: isInQueue ? PoselyButtonVariant.glass : PoselyButtonVariant.ghost,
+                          expand: true,
                           onPressed: () {
                             ref.read(photoshootQueueProvider.notifier).toggle(pose.id);
                           },
