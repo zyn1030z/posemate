@@ -21,6 +21,8 @@ abstract interface class PoseRepository {
     String? categoryId,
     PoseDifficulty? difficulty,
     PoseGender? gender,
+    PeopleCount? peopleCount,
+    BodyDirection? bodyDirection,
   });
 
   /// Fetches a single pose by its identifier.
@@ -41,6 +43,13 @@ abstract interface class PoseRepository {
 
   /// Returns the ids of every pose the user marked as favorite.
   Future<Set<String>> getFavoriteIds();
+
+  /// Searches poses by a free-text query string.
+  Future<ApiResult<Paginated<Pose>>> searchPoses({
+    required String query,
+    int page = 1,
+    int pageSize = AppConstants.defaultPageSize,
+  });
 
   /// Flips the favorite state of the pose and returns the new state:
   /// true when the pose is now a favorite, false when it no longer is.

@@ -11,14 +11,21 @@ import 'package:posely_ai/features/pose/domain/repositories/pose_repository.dart
 /// "not passed" from "explicitly set to null".
 const Object _sentinel = Object();
 
-/// The active pose library filters: category, difficulty, and gender.
+/// The active pose library filters: category, difficulty, gender, people
+/// count, and body direction.
 ///
 /// A plain immutable value type. Every field is nullable, where null
 /// means "no filter applied" for that dimension. Use copyWith to derive
 /// a new set of filters; passing an explicit null clears that filter.
 class PoseLibraryFilters {
   /// Creates a filter set; omitted fields apply no filter.
-  const PoseLibraryFilters({this.categoryId, this.difficulty, this.gender});
+  const PoseLibraryFilters({
+    this.categoryId,
+    this.difficulty,
+    this.gender,
+    this.peopleCount,
+    this.bodyDirection,
+  });
 
   /// Selected category id, or null for all categories.
   final String? categoryId;
@@ -29,11 +36,19 @@ class PoseLibraryFilters {
   /// Selected gender, or null for any gender.
   final PoseGender? gender;
 
+  /// Selected people count, or null for any count.
+  final PeopleCount? peopleCount;
+
+  /// Selected body direction, or null for any direction.
+  final BodyDirection? bodyDirection;
+
   /// Derives a new filter set, treating an explicit null as "clear".
   PoseLibraryFilters copyWith({
     Object? categoryId = _sentinel,
     Object? difficulty = _sentinel,
     Object? gender = _sentinel,
+    Object? peopleCount = _sentinel,
+    Object? bodyDirection = _sentinel,
   }) {
     return PoseLibraryFilters(
       categoryId: identical(categoryId, _sentinel)
@@ -43,6 +58,12 @@ class PoseLibraryFilters {
           ? this.difficulty
           : difficulty as PoseDifficulty?,
       gender: identical(gender, _sentinel) ? this.gender : gender as PoseGender?,
+      peopleCount: identical(peopleCount, _sentinel)
+          ? this.peopleCount
+          : peopleCount as PeopleCount?,
+      bodyDirection: identical(bodyDirection, _sentinel)
+          ? this.bodyDirection
+          : bodyDirection as BodyDirection?,
     );
   }
 
@@ -51,11 +72,14 @@ class PoseLibraryFilters {
     return other is PoseLibraryFilters &&
         other.categoryId == categoryId &&
         other.difficulty == difficulty &&
-        other.gender == gender;
+        other.gender == gender &&
+        other.peopleCount == peopleCount &&
+        other.bodyDirection == bodyDirection;
   }
 
   @override
-  int get hashCode => Object.hash(categoryId, difficulty, gender);
+  int get hashCode =>
+      Object.hash(categoryId, difficulty, gender, peopleCount, bodyDirection);
 }
 
 /// Accumulated pose library data: every loaded page plus paging flags.
@@ -161,6 +185,8 @@ class PoseLibraryController extends AsyncNotifier<PoseLibraryState> {
       categoryId: current.filters.categoryId,
       difficulty: current.filters.difficulty,
       gender: current.filters.gender,
+      peopleCount: current.filters.peopleCount,
+      bodyDirection: current.filters.bodyDirection,
     );
     if (requestId != _requestId) {
       // Filters changed while this page was in flight; drop it.
@@ -257,6 +283,8 @@ class PoseLibraryController extends AsyncNotifier<PoseLibraryState> {
       categoryId: filters.categoryId,
       difficulty: filters.difficulty,
       gender: filters.gender,
+      peopleCount: filters.peopleCount,
+      bodyDirection: filters.bodyDirection,
     );
     return result.fold(
       onSuccess: (pageData) => PoseLibraryState(
@@ -271,11 +299,15 @@ class PoseLibraryController extends AsyncNotifier<PoseLibraryState> {
   }
 }
 
+/// Never auto-retry: the UI offers pull-to-refresh and an explicit retry action.
+Duration? _noRetry(int retryCount, Object error) => null;
+
 /// The pose library list: loading on first build and on filter changes,
 /// then accumulated pages as data.
 final poseLibraryControllerProvider =
     AsyncNotifierProvider<PoseLibraryController, PoseLibraryState>(
   PoseLibraryController.new,
+  retry: _noRetry,
 );
 
 /// All pose categories for the filter chip row.
@@ -288,4 +320,4 @@ final poseCategoriesProvider = FutureProvider<List<PoseCategory>>((ref) async {
     onSuccess: (categories) => categories,
     onFailure: (exception) => throw exception,
   );
-});
+}, retry: _noRetry);

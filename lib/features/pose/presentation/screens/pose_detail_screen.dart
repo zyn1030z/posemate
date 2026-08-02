@@ -17,6 +17,7 @@ import 'package:posely_ai/features/pose/data/repositories/pose_repository_impl.d
 import 'package:posely_ai/features/pose/domain/entities/pose.dart';
 import 'package:posely_ai/features/pose/presentation/controllers/favorite_pose_ids_controller.dart';
 import 'package:posely_ai/features/pose/presentation/controllers/pose_detail_controller.dart';
+import 'package:posely_ai/features/pose/presentation/widgets/collection_picker_sheet.dart';
 import 'package:posely_ai/features/pose/presentation/widgets/pose_card.dart';
 
 /// Fallback copy for failures that are not typed AppException values.
@@ -193,16 +194,35 @@ class _PoseHero extends ConsumerWidget {
           Positioned(
             top: topInset + AppSpacing.sm,
             right: AppSpacing.lg,
-            child: PoselyIconButton(
-              icon: isFavorite
-                  ? Icons.favorite_rounded
-                  : Icons.favorite_border_rounded,
-              active: isFavorite,
-              onPressed: () => unawaited(
-                ref.read(favoritePoseIdsProvider.notifier).toggle(pose.id),
-              ),
-              semanticLabel:
-                  isFavorite ? 'Remove from favorites' : 'Add to favorites',
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                PoselyIconButton(
+                  icon: Icons.bookmark_add_outlined,
+                  onPressed: () => unawaited(
+                    showCollectionPicker(
+                      context: context,
+                      poseId: pose.id,
+                    ),
+                  ),
+                  semanticLabel: 'Save to collection',
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                PoselyIconButton(
+                  icon: isFavorite
+                      ? Icons.favorite_rounded
+                      : Icons.favorite_border_rounded,
+                  active: isFavorite,
+                  onPressed: () => unawaited(
+                    ref
+                        .read(favoritePoseIdsProvider.notifier)
+                        .toggle(pose.id),
+                  ),
+                  semanticLabel: isFavorite
+                      ? 'Remove from favorites'
+                      : 'Add to favorites',
+                ),
+              ],
             ),
           ),
         ],

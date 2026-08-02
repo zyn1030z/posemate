@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:posely_ai/core/config/app_config.dart';
 import 'package:posely_ai/core/config/constants/app_constants.dart';
+import 'package:posely_ai/core/config/constants/storage_keys.dart';
 import 'package:posely_ai/core/network/api_result.dart';
 import 'package:posely_ai/core/network/dio_client.dart';
 import 'package:posely_ai/core/network/paginated.dart';
@@ -8,6 +9,7 @@ import 'package:posely_ai/core/storage/local_storage.dart';
 import 'package:posely_ai/features/pose/data/datasources/pose_mock_datasource.dart';
 import 'package:posely_ai/features/pose/data/datasources/pose_remote_datasource.dart';
 import 'package:posely_ai/features/pose/data/models/pose_model.dart';
+import 'package:posely_ai/features/pose/data/repositories/cached_pose_repository.dart';
 import 'package:posely_ai/features/pose/domain/entities/pose.dart';
 import 'package:posely_ai/features/pose/domain/entities/pose_category.dart';
 import 'package:posely_ai/features/pose/domain/entities/pose_enums.dart';
@@ -24,16 +26,16 @@ import 'package:posely_ai/features/pose/domain/repositories/pose_repository.dart
 class PoseRepositoryImpl implements PoseRepository {
   /// Creates the repository with its collaborators.
   PoseRepositoryImpl({
-    required this._remoteDatasource,
-    required this._localStorage,
-  });
+    required PoseRemoteDatasource remoteDatasource,
+    required LocalStorage localStorage,
+  })  : _remoteDatasource = remoteDatasource,
+        _localStorage = localStorage {
+    _migrateOldKeys();
+  }
 
-  /// Storage key for the favorite pose ids, stored as a list of strings.
-  static const String _favoritesKey = 'favorites.ids';
-
-  /// Storage key for recently used poses, stored as a list of pose JSON
-  /// maps, most recent first.
-  static const String _recentKey = 'recent.poses';
+  /// Legacy keys used before unification. Kept only for migration.
+  static const String _legacyFavoritesKey = 'favorites.ids';
+  static const String _legacyRecentKey = 'recent.poses';
 
   /// Maximum number of recently used poses kept on the device.
   static const int _recentLimit = 12;
@@ -55,6 +57,8 @@ class PoseRepositoryImpl implements PoseRepository {
     String? categoryId,
     PoseDifficulty? difficulty,
     PoseGender? gender,
+    PeopleCount? peopleCount,
+    BodyDirection? bodyDirection,
   }) => guardApi(() async {
     final result = await _remoteDatasource.getPoses(
       page: page,
@@ -62,6 +66,10 @@ class PoseRepositoryImpl implements PoseRepository {
       categoryId: categoryId,
       difficulty: difficulty?.name,
       gender: gender?.name,
+      peopleCount: peopleCount?.name,
+      bodyDirection: bodyDirection == BodyDirection.threeQuarter
+          ? 'three-quarter'
+          : bodyDirection?.name,
     );
     return Paginated<Pose>(
       items: result.items.map((model) => model.toEntity()).toList(),
@@ -127,18 +135,39 @@ class PoseRepositoryImpl implements PoseRepository {
       }
       entries.add(map);
     }
-    await _localStorage.put(StorageBox.poses, _recentKey, entries);
+    await _localStorage.put(StorageBox.poses, StorageKeys.lastUsedPoseIds, entries);
   }
 
   @override
   Future<Set<String>> getFavoriteIds() async {
     final raw = _localStorage.get<List<dynamic>>(
       StorageBox.poses,
-      _favoritesKey,
+      StorageKeys.favoritePoseIds,
     );
     // Hive returns List<dynamic>; keep only well-typed entries.
     return (raw ?? const <dynamic>[]).whereType<String>().toSet();
   }
+
+  @override
+  Future<ApiResult<Paginated<Pose>>> searchPoses({
+    required String query,
+    int page = 1,
+    int pageSize = AppConstants.defaultPageSize,
+  }) =>
+      guardApi(() async {
+        final result = await _remoteDatasource.searchPoses(
+          query: query,
+          page: page,
+          pageSize: pageSize,
+        );
+        return Paginated<Pose>(
+          items: result.items.map((model) => model.toEntity()).toList(),
+          page: result.page,
+          pageSize: result.pageSize,
+          totalItems: result.totalItems,
+          hasMore: result.hasMore,
+        );
+      });
 
   @override
   Future<bool> toggleFavorite(String poseId) async {
@@ -149,14 +178,51 @@ class PoseRepositoryImpl implements PoseRepository {
     } else {
       ids.remove(poseId);
     }
-    await _localStorage.put(StorageBox.poses, _favoritesKey, ids.toList());
+    await _localStorage.put(StorageBox.poses, StorageKeys.favoritePoseIds, ids.toList());
     return isFavorite;
   }
 
   /// Reads the raw recently-used list, tolerating any stored shape.
   List<dynamic> _readRecentRaw() =>
-      _localStorage.get<List<dynamic>>(StorageBox.poses, _recentKey) ??
+      _localStorage.get<List<dynamic>>(StorageBox.poses, StorageKeys.lastUsedPoseIds) ??
       const <dynamic>[];
+
+  /// One-time migration from pre-unification storage keys.
+  ///
+  /// If data exists under the old keys, it is copied to the canonical
+  /// `StorageKeys` constants and the old entries are removed. This runs
+  /// synchronously in the constructor since Hive reads are sync; the
+  /// delete calls are fire-and-forget.
+  void _migrateOldKeys() {
+    if (_localStorage.contains(StorageBox.poses, _legacyFavoritesKey)) {
+      final old = _localStorage.get<List<dynamic>>(
+        StorageBox.poses,
+        _legacyFavoritesKey,
+      );
+      if (old != null) {
+        _localStorage.put(
+          StorageBox.poses,
+          StorageKeys.favoritePoseIds,
+          old,
+        );
+      }
+      _localStorage.delete(StorageBox.poses, _legacyFavoritesKey);
+    }
+    if (_localStorage.contains(StorageBox.poses, _legacyRecentKey)) {
+      final old = _localStorage.get<List<dynamic>>(
+        StorageBox.poses,
+        _legacyRecentKey,
+      );
+      if (old != null) {
+        _localStorage.put(
+          StorageBox.poses,
+          StorageKeys.lastUsedPoseIds,
+          old,
+        );
+      }
+      _localStorage.delete(StorageBox.poses, _legacyRecentKey);
+    }
+  }
 
   /// Serializes a pose entity to a wire-shaped map so the stored value can
   /// be parsed back through the pose wire model.
@@ -185,10 +251,12 @@ final poseRemoteDatasourceProvider = Provider<PoseRemoteDatasource>((ref) {
   return PoseApiDatasource(dio: ref.watch(dioProvider));
 });
 
-/// Provides the app-wide pose repository.
+/// Provides the app-wide pose repository, wrapped in a cache-aside decorator.
 final poseRepositoryProvider = Provider<PoseRepository>(
-  (ref) => PoseRepositoryImpl(
-    remoteDatasource: ref.watch(poseRemoteDatasourceProvider),
-    localStorage: ref.watch(localStorageProvider),
+  (ref) => CachedPoseRepository(
+    PoseRepositoryImpl(
+      remoteDatasource: ref.watch(poseRemoteDatasourceProvider),
+      localStorage: ref.watch(localStorageProvider),
+    ),
   ),
 );

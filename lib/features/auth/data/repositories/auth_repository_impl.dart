@@ -25,12 +25,16 @@ import 'package:talker_flutter/talker_flutter.dart';
 class AuthRepositoryImpl implements AuthRepository {
   /// Creates the repository with its collaborators.
   AuthRepositoryImpl({
-    required this._remoteDatasource,
-    required this._socialAuthService,
-    required this._tokenStorage,
-    required this._localStorage,
-    required this._talker,
-  });
+    required AuthRemoteDatasource remoteDatasource,
+    required SocialAuthService socialAuthService,
+    required SecureTokenStorage tokenStorage,
+    required LocalStorage localStorage,
+    required Talker talker,
+  })  : _remoteDatasource = remoteDatasource,
+        _socialAuthService = socialAuthService,
+        _tokenStorage = tokenStorage,
+        _localStorage = localStorage,
+        _talker = talker;
 
   final AuthRemoteDatasource _remoteDatasource;
   final SocialAuthService _socialAuthService;

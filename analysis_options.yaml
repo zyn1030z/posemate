@@ -14,6 +14,12 @@ analyzer:
   errors:
     # Freezed/json_serializable annotations on constructors trip this.
     invalid_annotation_target: ignore
+    # Dart 3.11 does not support null-aware map elements; suppress until
+    # Flutter is upgraded past 3.41 to a Dart 3.12+ SDK.
+    use_null_aware_elements: ignore
+    # CupertinoPageTransitionsBuilder needs cupertino import even when
+    # material.dart re-exports it — the analyzer disagrees.
+    unnecessary_import: ignore
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"

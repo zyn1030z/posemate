@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:posely_ai/core/config/constants/storage_keys.dart';
 import 'package:posely_ai/core/error/app_exception.dart';
 import 'package:posely_ai/core/network/paginated.dart';
 import 'package:posely_ai/core/storage/local_storage.dart';
@@ -21,8 +22,8 @@ Pose _pose(String id) => Pose(
 );
 
 void main() {
-  const favoritesKey = 'favorites.ids';
-  const recentKey = 'recent.poses';
+  const favoritesKey = StorageKeys.favoritePoseIds;
+  const recentKey = StorageKeys.lastUsedPoseIds;
 
   late _MockPoseRemoteDatasource remote;
   late InMemoryLocalStorage localStorage;

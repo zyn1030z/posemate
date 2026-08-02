@@ -2,6 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:posely_ai/features/pose/data/repositories/pose_repository_impl.dart';
 import 'package:posely_ai/features/pose/domain/entities/pose.dart';
 
+/// Never auto-retry: the UI shows an error state with manual retry.
+Duration? _noRetry(int retryCount, Object error) => null;
+
 /// A single pose by id for the detail screen.
 ///
 /// Auto-disposed so a closed detail screen does not pin stale data;
@@ -14,4 +17,4 @@ final poseDetailProvider =
     onSuccess: (pose) => pose,
     onFailure: (exception) => throw exception,
   );
-});
+}, retry: _noRetry);

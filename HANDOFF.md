@@ -4,8 +4,8 @@
 > development of Posely AI on a different machine or with a different AI coding system.
 > Read sections 1–5 before writing any code. Section 6 is the immediate next action.
 >
-> **Status date:** 2026-08-02 · **Phases 1–3 complete, Phase 4 ~85% complete** ·
-> `flutter analyze` = 0 issues · `flutter test` = **231 passing, 1 failing** (see §6.1)
+> **Status date:** 2026-08-02 · **Phases 1–6 complete** ·
+> `flutter analyze` = 0 issues · `flutter test` = **250 passing, 0 failing**
 
 ---
 
@@ -286,44 +286,19 @@ conversion is automatic**; never add `@JsonKey` just for casing.
 
 ---
 
-## 6. IMMEDIATE NEXT ACTIONS (finish Phase 4)
+## 6. IMMEDIATE NEXT ACTIONS (Start Phase 7)
 
-### 6.1 🔴 Fix the 1 failing test (start here)
+### 6.1 Phase 7 — Upload Photo → Pose Extraction
 
-**Test:** `test/features/pose/presentation/pose_library_controller_test.dart` →
-`"build surfaces a first-page failure as error state"`
-**Symptom:** `expectLater(container.read(poseLibraryControllerProvider.future), throwsA(isA<ServerException>()))`
-never completes → `TimeoutException after 30s`.
-**Root cause:** Riverpod 3.3 auto-retries failed provider builds (§4.3), so the future stays pending.
-**Fix:** add the `retry: _noRetry` opt-out to the pose providers, exactly as
-`lib/features/home/presentation/controllers/home_feed_controller.dart` (~line 100) already does:
+The next major feature block is enabling users to upload custom photos and extract a pose skeleton from them.
+- [ ] **Define extraction models:** Create domain/data models for `ExtractionJob` and its statuses.
+- [ ] **Build `ExtractionRepository`:** To handle multipart image uploads and status polling.
+- [ ] **Create `UploadPoseScreen`:** UI for picking an image, cropping it, and uploading it for extraction.
 
-```dart
-/// Never auto-retry: the UI offers pull-to-refresh and an explicit retry action.
-Duration? _noRetry(int retryCount, Object error) => null;
-```
-
-Apply to `poseLibraryControllerProvider`, and review `favoritePoseIdsProvider`,
-`poseCategoriesProvider`, and `poseDetailProvider` for the same treatment.
-
-### 6.2 Remaining Phase 4 scope
-
-- [ ] **Cache-aside for library pages** in the `posely_cache` Hive box (page 1 per filter combo,
-      TTL, serve-stale-then-refresh). Currently every load hits the datasource.
-- [ ] **Collections** (named user groups: create / rename / delete / add / remove pose).
-      Only a flat favorites set exists today.
-- [ ] **Filter parity with the product spec:** add *people count* and *orientation*
-      (`bodyDirection`) filters — currently only category / difficulty / gender.
-- [ ] **Unify storage keys.** `PoseRepositoryImpl` uses private literals `'favorites.ids'` /
-      `'recent.poses'` while `StorageKeys.favoritePoseIds` / `StorageKeys.lastUsedPoseIds`
-      sit unused. Pick the `StorageKeys` constants and delete the literals.
-      ⚠️ If any dev build has already written data, add a one-time migration.
-- [ ] Update `docs/DEVELOPMENT_PLAN.md` Phase 4 checkboxes when each lands.
-
-### 6.3 Recommended verification improvement
+### 6.2 Recommended verification improvement
 
 Nothing has run on a device yet. Before Phase 8 (camera) it is worth doing one
-`flutter run --flavor dev` on a physical Android device to shake out Gradle/asset/permission
+`flutter run --flavor dev` on a physical iOS or Android device to shake out build/asset/permission
 issues while the app is still simple.
 
 ---

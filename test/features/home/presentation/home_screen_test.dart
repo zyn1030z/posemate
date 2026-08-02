@@ -114,6 +114,11 @@ void main() {
           builder: (BuildContext context, GoRouterState state) =>
               const Scaffold(body: Center(child: Text('camera-stub'))),
         ),
+        GoRoute(
+          path: RoutePaths.search,
+          builder: (BuildContext context, GoRouterState state) =>
+              const Scaffold(body: Center(child: Text('search-stub'))),
+        ),
       ],
     );
     addTearDown(router.dispose);
@@ -129,13 +134,6 @@ void main() {
         ),
       ),
     );
-  }
-
-  /// Pumps through a full toast lifecycle so no timers stay pending.
-  Future<void> drainToast(WidgetTester tester) async {
-    await tester.pump(const Duration(seconds: 3));
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.pump();
   }
 
   group('HomeScreen', () {
@@ -235,7 +233,7 @@ void main() {
       expect(find.text('library-stub'), findsOneWidget);
     });
 
-    testWidgets('search affordance teases the Phase 5 search as a toast',
+    testWidgets('search affordance navigates to the search screen',
         (WidgetTester tester) async {
       final repository = _MockPoseRepository();
       stubSuccess(repository);
@@ -244,12 +242,9 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Search any pose or vibe…'));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 300));
+      await tester.pumpAndSettle();
 
-      expect(find.text('AI Search arrives in Phase 5'), findsOneWidget);
-
-      await drainToast(tester);
+      expect(find.text('search-stub'), findsOneWidget);
     });
 
     testWidgets('shows the error view when the feed fails and retry '

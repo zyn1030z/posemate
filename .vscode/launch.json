@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Posely Dev (Debug)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_dev.dart",
+            "flutterMode": "debug"
+        },
+        {
+            "name": "Posely Dev (Profile)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_dev.dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "Posely UAT (Debug)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_uat.dart",
+            "flutterMode": "debug"
+        },
+        {
+            "name": "Posely Prod (Release)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_prod.dart",
+            "flutterMode": "release"
+        }
+    ]
+}

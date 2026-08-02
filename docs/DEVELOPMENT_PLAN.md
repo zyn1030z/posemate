@@ -47,32 +47,34 @@
 
 ## Phase 4 — Pose Library
 
-- [ ] Pose/category entities, models, repository, use cases
-- [ ] Library screen: category tabs, trending, recommended rails
-- [ ] Pose grid with infinite scroll (`Paginated<T>`), pose detail screen
-- [ ] Filters (category, difficulty, people count, orientation)
-- [ ] Collections: save/unsave, `posely_poses` Hive box
-- [ ] Cache-aside for library pages (`posely_cache`)
-- [ ] Mock dataset in `assets/mock/`
-- [ ] Tests: repository cache logic, controller pagination, widget states
+- [x] Pose/category entities, models, repository, use cases
+- [x] Library screen: category tabs, trending, recommended rails
+- [x] Pose grid with infinite scroll (`Paginated<T>`), pose detail screen
+- [x] Filters (category, difficulty, people count, orientation)
+- [x] Collections: save/unsave, `posely_poses` Hive box, collection picker UI
+- [x] Cache-aside for library pages (`posely_cache`)
+- [x] Mock dataset in `assets/mock/`
+- [x] Tests: repository cache logic, controller pagination, widget states
 
 ## Phase 5 — AI Search
 
-- [ ] Search endpoint wiring (`/poses/search`) + use case
-- [ ] Debounced search controller; query state + cancellation
-- [ ] Search UI: suggestions, filters, results grid
-- [ ] Recent searches persisted in Hive
-- [ ] Empty/error/loading states
-- [ ] Tests: debounce, cancellation, state folds
+- [x] Search endpoint wiring (`/poses/search`) + use case
+- [x] Debounced search controller; query state + cancellation
+- [x] Search UI: suggestions, filters, results grid
+- [x] Recent searches persisted in Hive
+- [x] Empty/error/loading states
+- [x] Tests: updated home screen test, debounce + stale guard in controller
 
-## Phase 6 — AI Pose Generator
+## Phase 6 — AI Pose Generator ✅
 
-- [ ] Prompt composer UI (scene, style, people count)
-- [ ] Generate job flow: `POST /ai/generate-poses` → poll `GET /ai/jobs/{id}`
-- [ ] Job progress UI (lottie), result grid, retry/regenerate
-- [ ] Save generated poses to library/collections
-- [ ] Free-tier quota + premium gating hooks
-- [ ] Tests: job polling controller, failure/timeout paths
+- [x] Define `AiJob` and `GeneratePrompt` models (Data & Domain).
+- [x] Build `AiRepository` and its fake provider for synthetic job polling.
+- [x] Implement `GenerateJobController` managing the split-phase submit/poll lifecycle.
+- [x] Build `PoseGeneratorScreen` (prompt UI) and `JobProgressView`.
+- [x] Build `GenerateResultsView` and Premium gating overlay handling `402`.
+- [x] Save generated poses to library/collections
+- [x] Free-tier quota + premium gating hooks
+- [x] Tests: job polling controller, failure/timeout paths
 
 ## Phase 7 — Upload → Pose Extraction
 

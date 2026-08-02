@@ -42,12 +42,15 @@ class AuthInterceptor extends Interceptor {
   /// `refreshDioFactory` is a test seam: it builds the short-lived bare Dio
   /// used for the refresh call itself. Production code uses the default.
   AuthInterceptor({
-    required this._tokenStorage,
-    required this._talker,
-    this._retryDio,
+    required SecureTokenStorage tokenStorage,
+    required Talker talker,
+    Dio? retryDio,
     this.onSessionExpired,
     Dio Function(BaseOptions options)? refreshDioFactory,
-  }) : _refreshDioFactory = refreshDioFactory ?? Dio.new;
+  })  : _tokenStorage = tokenStorage,
+        _talker = talker,
+        _retryDio = retryDio,
+        _refreshDioFactory = refreshDioFactory ?? Dio.new;
 
   /// Invoked once per failed refresh after tokens are cleared, so the app
   /// can route to the sign-in screen. Settable after construction because
