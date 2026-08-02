@@ -1,0 +1,17 @@
+# Global code-generation configuration for Posely AI.
+#
+# Wire format policy: the backend speaks snake_case JSON; Dart models use
+# lowerCamelCase. field_rename converts automatically so models never need
+# per-field @JsonKey annotations for casing.
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          field_rename: snake
+          explicit_to_json: true
+          include_if_null: false
+      freezed:
+        options:
+          # Keep generated files focused; equal/toString stay enabled.
+          copy_with: true

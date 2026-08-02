@@ -1,0 +1,241 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:posely_ai/core/design/design.dart';
+import 'package:posely_ai/core/router/route_paths.dart';
+import 'package:posely_ai/core/services/haptics/haptic_service.dart';
+import 'package:posely_ai/core/theme/tokens/app_blur.dart';
+import 'package:posely_ai/core/theme/tokens/app_colors.dart';
+import 'package:posely_ai/core/theme/tokens/app_durations.dart';
+import 'package:posely_ai/core/theme/tokens/app_gradients.dart';
+import 'package:posely_ai/core/theme/tokens/app_radius.dart';
+import 'package:posely_ai/core/theme/tokens/app_shadows.dart';
+import 'package:posely_ai/core/theme/tokens/app_spacing.dart';
+import 'package:posely_ai/core/theme/tokens/app_typography.dart';
+
+/// Height of the floating glass navigation bar.
+const double _barHeight = 68;
+
+/// Diameter of the center camera capture button.
+const double _cameraButtonSize = 54;
+
+/// Vertical lift of the camera button above the bar.
+const double _cameraButtonLift = -6;
+
+/// Persistent app scaffold hosting the tabbed navigation shell.
+///
+/// Renders the active branch behind a floating glass bottom bar with
+/// four tab items and a center emerald camera capture button. The body
+/// extends behind the bar so branch content scrolls underneath the
+/// glass.
+class AppShell extends ConsumerWidget {
+  /// Creates the app shell around the given navigation shell.
+  const AppShell({super.key, required this.navigationShell});
+
+  /// Branch container provided by the stateful shell route.
+  final StatefulNavigationShell navigationShell;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      extendBody: true,
+      body: navigationShell,
+      bottomNavigationBar: _GlassNavBar(navigationShell: navigationShell),
+    );
+  }
+}
+
+/// The floating glass bottom bar with tab items and the camera button.
+class _GlassNavBar extends ConsumerWidget {
+  const _GlassNavBar({required this.navigationShell});
+
+  final StatefulNavigationShell navigationShell;
+
+  void _onItemTap(WidgetRef ref, int index) {
+    if (index != navigationShell.currentIndex) {
+      unawaited(ref.read(hapticServiceProvider).selection());
+    }
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
+  }
+
+  void _onCameraTap(BuildContext context, WidgetRef ref) {
+    unawaited(ref.read(hapticServiceProvider).medium());
+    unawaited(context.push(RoutePaths.camera));
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final index = navigationShell.currentIndex;
+
+    return SafeArea(
+      minimum: const EdgeInsets.only(bottom: AppSpacing.md),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+        // The camera button floats above the bar, so it lives outside the
+        // glass panel's clip in a stack overlaying the center slot.
+        child: Stack(
+          alignment: Alignment.center,
+          clipBehavior: Clip.none,
+          children: [
+            DecoratedBox(
+              decoration: const BoxDecoration(
+                borderRadius: AppRadius.brPill,
+                boxShadow: AppShadows.soft,
+              ),
+              child: GlassPanel(
+                borderRadius: AppRadius.brPill,
+                blurSigma: AppBlur.heavy,
+                child: SizedBox(
+                  height: _barHeight,
+                  child: Row(
+                    children: [
+                      _NavItem(
+                        label: 'Home',
+                        activeIcon: Icons.home_rounded,
+                        inactiveIcon: Icons.home_outlined,
+                        selected: index == 0,
+                        onTap: () => _onItemTap(ref, 0),
+                      ),
+                      _NavItem(
+                        label: 'Poses',
+                        activeIcon: Icons.grid_view_rounded,
+                        inactiveIcon: Icons.grid_view_rounded,
+                        selected: index == 1,
+                        onTap: () => _onItemTap(ref, 1),
+                      ),
+                      // Reserved slot underneath the floating camera button.
+                      const Spacer(),
+                      _NavItem(
+                        label: 'Gallery',
+                        activeIcon: Icons.photo_library_rounded,
+                        inactiveIcon: Icons.photo_library_outlined,
+                        selected: index == 2,
+                        onTap: () => _onItemTap(ref, 2),
+                      ),
+                      _NavItem(
+                        label: 'Profile',
+                        activeIcon: Icons.person_rounded,
+                        inactiveIcon: Icons.person_outlined,
+                        selected: index == 3,
+                        onTap: () => _onItemTap(ref, 3),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            _CameraButton(onTap: () => _onCameraTap(context, ref)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// A single tab item: icon, active dot, and active label.
+class _NavItem extends StatelessWidget {
+  const _NavItem({
+    required this.label,
+    required this.activeIcon,
+    required this.inactiveIcon,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final IconData activeIcon;
+  final IconData inactiveIcon;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Semantics(
+        button: true,
+        selected: selected,
+        label: label,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: onTap,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                selected ? activeIcon : inactiveIcon,
+                size: 24,
+                color: selected
+                    ? AppColors.emerald400
+                    : AppColors.textSecondary,
+              ),
+              const SizedBox(height: AppSpacing.xxs),
+              AnimatedContainer(
+                duration: AppDurations.fast,
+                width: 4,
+                height: 4,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: selected ? AppColors.emerald400 : Colors.transparent,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.xxs),
+              AnimatedOpacity(
+                duration: AppDurations.fast,
+                opacity: selected ? 1 : 0,
+                child: Text(
+                  label,
+                  style: AppTypography.caption.copyWith(
+                    color: AppColors.emerald400,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The center emerald capture button that opens the full-screen camera.
+class _CameraButton extends StatelessWidget {
+  const _CameraButton({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      label: 'Open camera',
+      child: GestureDetector(
+        onTap: onTap,
+        child: Transform.translate(
+          offset: const Offset(0, _cameraButtonLift),
+          child: Container(
+            width: _cameraButtonSize,
+            height: _cameraButtonSize,
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: AppGradients.emeraldHero,
+              boxShadow: AppShadows.emeraldGlow,
+            ),
+            child: const Icon(
+              Icons.photo_camera_rounded,
+              size: 26,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
