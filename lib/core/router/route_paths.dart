@@ -87,8 +87,8 @@ abstract final class RoutePaths {
   /// Helper to build a concrete gallery photo location.
   static String galleryPhotoFor(String id) => '/gallery/$id';
 
-  /// Helper to build a concrete camera location with a target pose.
-  static String cameraFor(String poseId) => '/camera?poseId=$poseId';
+  /// Helper to build a concrete camera location with a target pose queue.
+  static String cameraFor(List<String> poseIds) => '/camera?poseIds=${poseIds.join(',')}';
 }
 
 /// Named-route identifiers mirroring the paths in RoutePaths.

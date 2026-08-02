@@ -215,9 +215,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RoutePaths.camera,
         name: RouteNames.camera,
-        builder: (context, state) => CameraScreen(
-          poseId: state.uri.queryParameters['poseId'],
-        ),
+        builder: (context, state) {
+          final idsParam = state.uri.queryParameters['poseIds'];
+          final poseIds = idsParam?.split(',').where((e) => e.isNotEmpty).toList();
+          return CameraScreen(poseIds: poseIds);
+        },
       ),
       // Dev-only design-system showcase; reached via
       // context.go(RoutePaths.designGallery) — never linked in production UI.

@@ -53,7 +53,16 @@ class PoseDetailScreen extends ConsumerWidget {
   void _useThisPose(BuildContext context, WidgetRef ref, Pose pose) {
     // PoselyButton already fires the light tap haptic on press.
     unawaited(ref.read(poseRepositoryProvider).markUsed(pose));
-    unawaited(context.push<Object?>(RoutePaths.camera));
+    
+    // Create a mock queue for demonstration (current pose + 3 hardcoded mock poses)
+    final mockQueue = {
+      pose.id,
+      'posely-shore-look-back',
+      'posely-latte-art-lean',
+      'posely-warrior-two-hold',
+    }.toList(); // Use Set to remove duplicates if the current pose is one of the mock ones
+
+    unawaited(context.push<Object?>(RoutePaths.cameraFor(mockQueue)));
   }
 
   @override
@@ -147,7 +156,13 @@ class _PoseDetailBody extends StatelessWidget {
                     icon: const Icon(Icons.camera_alt_rounded),
                     label: const Text('Try this Pose'),
                     onPressed: () {
-                      context.push(RoutePaths.cameraFor(pose.id));
+                      final mockQueue = {
+                        pose.id,
+                        'posely-shore-look-back',
+                        'posely-latte-art-lean',
+                        'posely-warrior-two-hold',
+                      }.toList();
+                      context.push(RoutePaths.cameraFor(mockQueue));
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),

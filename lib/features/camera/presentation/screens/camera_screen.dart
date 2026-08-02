@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,12 +10,13 @@ import 'package:posely_ai/core/theme/tokens/app_spacing.dart';
 import 'package:posely_ai/features/camera/presentation/controllers/camera_session_controller.dart';
 import 'package:posely_ai/features/camera/presentation/widgets/camera_guides.dart';
 import 'package:posely_ai/features/camera/presentation/widgets/interactive_silhouette_overlay.dart';
+import 'package:posely_ai/features/pose/domain/entities/pose.dart';
 import 'package:posely_ai/features/pose/presentation/controllers/pose_detail_controller.dart';
 
 class CameraScreen extends ConsumerStatefulWidget {
-  const CameraScreen({super.key, this.poseId});
+  const CameraScreen({super.key, this.poseIds});
 
-  final String? poseId;
+  final List<String>? poseIds;
 
   @override
   ConsumerState<CameraScreen> createState() => _CameraScreenState();
@@ -27,6 +29,9 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
   bool _isLocked = false;
   bool _isFlipped = false;
 
+  int _currentIndex = 0;
+  final Set<String> _completedPoseIds = {};
+
   Future<void> _handleCapture() async {
     if (_isCapturing) return;
 
@@ -36,6 +41,19 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
     try {
       await ref.read(cameraSessionProvider.notifier).captureImage();
       if (!mounted) return;
+      
+      // Mark current pose as completed and advance queue
+      if (widget.poseIds != null && widget.poseIds!.isNotEmpty) {
+        final currentId = widget.poseIds![_currentIndex];
+        _completedPoseIds.add(currentId);
+        
+        // Find next uncompleted pose
+        final nextIndex = widget.poseIds!.indexWhere((id) => !_completedPoseIds.contains(id));
+        if (nextIndex != -1) {
+          setState(() => _currentIndex = nextIndex);
+        }
+      }
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Saved to Gallery! 📸')),
       );
@@ -64,10 +82,15 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
   }
 
   Widget _buildCamera(BuildContext context, CameraController controller) {
-    // Look up the target pose if we have an ID
-    final targetPose = widget.poseId != null
-        ? ref.watch(poseDetailProvider(widget.poseId!)).value
-        : null;
+    // Load all poses in the queue
+    final poses = widget.poseIds?.map((id) {
+      return ref.watch(poseDetailProvider(id)).value;
+    }).whereType<Pose>().toList() ?? [];
+
+    Pose? targetPose;
+    if (poses.isNotEmpty && _currentIndex < poses.length) {
+      targetPose = poses[_currentIndex];
+    }
 
     return Stack(
       fit: StackFit.expand,
@@ -156,7 +179,59 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
               ],
             ),
           ),
+        // Bottom Filmstrip Carousel
+        if (poses.isNotEmpty)
+          Positioned(
+            bottom: MediaQuery.of(context).padding.bottom + 140, // Above shutter button
+            left: 0,
+            right: 0,
+            height: 64,
+            child: ListView.separated(
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+              scrollDirection: Axis.horizontal,
+              itemCount: poses.length,
+              separatorBuilder: (context, index) => const SizedBox(width: AppSpacing.sm),
+              itemBuilder: (context, index) {
+                final pose = poses[index];
+                final isSelected = index == _currentIndex;
+                final isCompleted = _completedPoseIds.contains(pose.id);
 
+                return GestureDetector(
+                  onTap: () => setState(() => _currentIndex = index),
+                  child: Container(
+                    width: 48,
+                    height: 64,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: isSelected ? AppColors.primary : Colors.transparent,
+                        width: 2,
+                      ),
+                      image: DecorationImage(
+                        image: CachedNetworkImageProvider(pose.previewUrl),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: isCompleted
+                        ? DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: Colors.black45,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.check_circle_rounded,
+                                color: AppColors.success,
+                                size: 24,
+                              ),
+                            ),
+                          )
+                        : null,
+                  ),
+                );
+              },
+            ),
+          ),
         // Bottom Controls (Capture, Flip Camera)
         Positioned(
           bottom: MediaQuery.of(context).padding.bottom + AppSpacing.xl,
