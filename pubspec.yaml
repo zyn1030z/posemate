@@ -91,6 +91,7 @@ dependencies:
   collection: ^1.19.1
 # vector_math is pinned by flutter_test — track the SDK's pin.
   vector_math: ^2.2.0
+  image: ^4.8.0
 
 dev_dependencies:
   flutter_test:

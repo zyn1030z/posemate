@@ -66,7 +66,47 @@ class _GlassNavBar extends ConsumerWidget {
 
   void _onCameraTap(BuildContext context, WidgetRef ref) {
     unawaited(ref.read(hapticServiceProvider).medium());
-    unawaited(context.push(RoutePaths.camera));
+    showModalBottomSheet<void>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 16),
+            const Text(
+              'Create Pose',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            ListTile(
+              leading: const Icon(Icons.photo_camera_rounded),
+              title: const Text('AI Camera Viewfinder'),
+              subtitle: const Text('Realtime coaching (Phase 8)'),
+              onTap: () {
+                Navigator.pop(context);
+                context.push(RoutePaths.camera);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.upload_file_rounded),
+              title: const Text('Extract from Photo'),
+              subtitle: const Text('Upload a photo to extract skeleton'),
+              onTap: () {
+                Navigator.pop(context);
+                context.push(RoutePaths.uploadPose);
+              },
+            ),
+            const SizedBox(height: 16),
+          ],
+        ),
+      ),
+    );
   }
 
   @override

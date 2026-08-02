@@ -8,6 +8,7 @@ import 'package:posely_ai/core/services/logger/app_logger.dart';
 import 'package:posely_ai/core/shared/widgets/coming_soon_screen.dart';
 import 'package:posely_ai/core/shell/app_shell.dart';
 import 'package:posely_ai/features/ai/presentation/screens/pose_generator_screen.dart';
+import 'package:posely_ai/features/extraction/presentation/screens/upload_pose_screen.dart';
 import 'package:posely_ai/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:posely_ai/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:posely_ai/features/auth/presentation/screens/login_screen.dart';
@@ -203,6 +204,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.poseGenerator,
         name: RouteNames.poseGenerator,
         builder: (context, state) => const PoseGeneratorScreen(),
+      ),
+      GoRoute(
+        path: RoutePaths.uploadPose,
+        name: RouteNames.uploadPose,
+        builder: (context, state) => const UploadPoseScreen(),
       ),
       // PHASE-8: replaced by the real camera experience.
       GoRoute(

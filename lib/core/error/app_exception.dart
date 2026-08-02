@@ -83,6 +83,8 @@ sealed class AppException implements Exception {
     CancelledException() => 'The request was cancelled.',
     UnknownException() => 'Something unexpected went wrong. '
         'Please try again.',
+    NoPoseDetectedException() => 'We could not detect a person in this photo. '
+        'Please try another photo.',
   };
 
   /// Maps an HTTP error response onto a status-specific subtype.
@@ -93,11 +95,7 @@ sealed class AppException implements Exception {
       403 => ForbiddenException(cause: e, stackTrace: e.stackTrace),
       404 => NotFoundException(cause: e, stackTrace: e.stackTrace),
       409 => ConflictException(cause: e, stackTrace: e.stackTrace),
-      422 => ValidationException(
-        fieldErrors: _parseFieldErrors(e.response?.data),
-        cause: e,
-        stackTrace: e.stackTrace,
-      ),
+      422 => _parse422(e),
       429 => RateLimitException(cause: e, stackTrace: e.stackTrace),
       final int code when code >= 500 => ServerException(
         statusCode: code,
@@ -110,6 +108,23 @@ sealed class AppException implements Exception {
         stackTrace: e.stackTrace,
       ),
     };
+  }
+
+  static AppException _parse422(DioException e) {
+    final data = e.response?.data;
+    if (data is Map<dynamic, dynamic>) {
+      if (data['code'] == 'no_pose_detected') {
+        return NoPoseDetectedException(
+          cause: e,
+          stackTrace: e.stackTrace,
+        );
+      }
+    }
+    return ValidationException(
+      fieldErrors: _parseFieldErrors(data),
+      cause: e,
+      stackTrace: e.stackTrace,
+    );
   }
 
   /// Defensively extracts per-field validation messages from a response body
@@ -157,6 +172,7 @@ sealed class AppException implements Exception {
     ValidationException() => 'ValidationException',
     CacheException() => 'CacheException',
     CancelledException() => 'CancelledException',
+    NoPoseDetectedException() => 'NoPoseDetectedException',
     UnknownException() => 'UnknownException',
   };
 
@@ -290,9 +306,17 @@ final class CancelledException extends AppException {
 
 /// A failure that matched no other category; always carries its cause.
 final class UnknownException extends AppException {
-  /// Creates a catch-all failure.
   const UnknownException({
-    super.message = 'An unexpected error occurred.',
+    super.message = 'An unknown error occurred.',
+    super.cause,
+    super.stackTrace,
+  });
+}
+
+/// Thrown when an image upload for pose extraction does not contain any detected people.
+class NoPoseDetectedException extends AppException {
+  const NoPoseDetectedException({
+    super.message = 'No person could be detected in the uploaded image.',
     super.cause,
     super.stackTrace,
   });
