@@ -30,4 +30,7 @@ abstract final class StorageKeys {
 
   /// Pose ids the user has marked as favorites.
   static const String favoritePoseIds = 'pose.favorite_ids';
+
+  /// Recent search query strings, most recent first.
+  static const String recentSearchQueries = 'pose.recent_searches';
 }

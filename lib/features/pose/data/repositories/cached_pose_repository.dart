@@ -132,4 +132,16 @@ class CachedPoseRepository implements PoseRepository {
   @override
   Future<bool> toggleFavorite(String poseId) =>
       _delegate.toggleFavorite(poseId);
+
+  @override
+  Future<ApiResult<Paginated<Pose>>> searchPoses({
+    required String query,
+    int page = 1,
+    int pageSize = AppConstants.defaultPageSize,
+  }) =>
+      _delegate.searchPoses(
+        query: query,
+        page: page,
+        pageSize: pageSize,
+      );
 }

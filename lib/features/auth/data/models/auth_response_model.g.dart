@@ -20,8 +20,6 @@ Map<String, dynamic> _$AuthResponseModelToJson(_AuthResponseModel instance) =>
     <String, dynamic>{
       'user': instance.user.toJson(),
       'access_token': instance.accessToken,
-      if (instance.refreshToken != null)
-        'refresh_token': instance.refreshToken,
-      if (instance.expiresAt != null)
-        'expires_at': instance.expiresAt?.toIso8601String(),
+      'refresh_token': ?instance.refreshToken,
+      'expires_at': ?instance.expiresAt?.toIso8601String(),
     };

@@ -48,8 +48,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ref.read(homeFeedControllerProvider.notifier).refresh();
 
   void _showSearchTeaser() {
-    // PHASE-5: navigate to RoutePaths.search once the search route lands.
-    PoselyToast.show(context, message: 'AI Search arrives in Phase 5');
+    context.push(RoutePaths.search);
   }
 
   @override

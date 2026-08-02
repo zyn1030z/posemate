@@ -35,6 +35,16 @@ abstract interface class PoseRemoteDatasource {
 
   /// Fetches personalized pose recommendations for the current user.
   Future<List<PoseModel>> getRecommended();
+
+  /// Searches poses by a query string.
+  ///
+  /// Mirrors `POST /poses/search` — the query is a free-text search
+  /// (semantic or keyword) and the results are paginated.
+  Future<Paginated<PoseModel>> searchPoses({
+    required String query,
+    required int page,
+    required int pageSize,
+  });
 }
 
 /// Dio-backed implementation talking to the real backend.
@@ -117,6 +127,24 @@ class PoseApiDatasource implements PoseRemoteDatasource {
       _requireBody(response),
       _poseFromJson,
     ).items;
+  }
+
+  @override
+  Future<Paginated<PoseModel>> searchPoses({
+    required String query,
+    required int page,
+    required int pageSize,
+  }) async {
+    final response = await _dio.post<Map<String, dynamic>>(
+      ApiEndpoints.search,
+      data: <String, dynamic>{
+        'query': query,
+        'page': page,
+        'page_size': pageSize,
+      },
+    );
+    final body = _requireBody(response);
+    return Paginated<PoseModel>.fromJson(body, _poseFromJson);
   }
 
   /// Decodes one pose item inside a pagination envelope.

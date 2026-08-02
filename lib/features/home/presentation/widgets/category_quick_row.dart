@@ -21,8 +21,13 @@ class CategoryQuickRow extends StatelessWidget {
   /// Maximum number of category chips rendered before the 'All' chip.
   static const int _maxChips = 8;
 
+  void _openCategory(BuildContext context, PoseCategory category) {
+    context.push(
+      '${RoutePaths.search}?q=${Uri.encodeComponent(category.name)}',
+    );
+  }
+
   void _openLibrary(BuildContext context) {
-    // PHASE-5: deep-link category selection via query param.
     context.push(RoutePaths.poseLibrary);
   }
 
@@ -37,7 +42,7 @@ class CategoryQuickRow extends StatelessWidget {
           for (final category in categories.take(_maxChips)) ...<Widget>[
             PoselyChip(
               label: '${category.emoji} ${category.name}',
-              onTap: () => _openLibrary(context),
+              onTap: () => _openCategory(context, category),
             ),
             const SizedBox(width: AppSpacing.sm),
           ],

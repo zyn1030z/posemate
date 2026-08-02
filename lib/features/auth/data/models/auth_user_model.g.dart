@@ -23,8 +23,7 @@ Map<String, dynamic> _$AuthUserModelToJson(_AuthUserModel instance) =>
       'id': instance.id,
       'email': instance.email,
       'display_name': instance.displayName,
-      if (instance.avatarUrl != null) 'avatar_url': instance.avatarUrl,
+      'avatar_url': ?instance.avatarUrl,
       'is_premium': instance.isPremium,
-      if (instance.createdAt != null)
-        'created_at': instance.createdAt?.toIso8601String(),
+      'created_at': ?instance.createdAt?.toIso8601String(),
     };

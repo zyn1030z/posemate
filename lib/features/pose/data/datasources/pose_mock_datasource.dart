@@ -132,6 +132,38 @@ class PoseMockDatasource implements PoseRemoteDatasource {
       ..shuffle(Random(_recommendationSeed));
   }
 
+  @override
+  Future<Paginated<PoseModel>> searchPoses({
+    required String query,
+    required int page,
+    required int pageSize,
+  }) async {
+    await _delay();
+    final library = await _load();
+    final lowerQuery = query.toLowerCase();
+    final filtered = library.poses
+        .where(
+          (pose) =>
+              pose.name.toLowerCase().contains(lowerQuery) ||
+              pose.tags.any(
+                (tag) => tag.toLowerCase().contains(lowerQuery),
+              ) ||
+              pose.categoryId.toLowerCase().contains(lowerQuery),
+        )
+        .toList();
+    final start = (page - 1) * pageSize;
+    final items = start >= filtered.length
+        ? const <PoseModel>[]
+        : filtered.sublist(start, min(start + pageSize, filtered.length));
+    return Paginated<PoseModel>(
+      items: items,
+      page: page,
+      pageSize: pageSize,
+      totalItems: filtered.length,
+      hasMore: start + items.length < filtered.length,
+    );
+  }
+
   Future<_MockPoseLibrary> _load() => _library ??= _parseAsset();
 
   Future<_MockPoseLibrary> _parseAsset() async {

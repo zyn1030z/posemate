@@ -7,6 +7,7 @@ import 'package:posely_ai/core/router/route_paths.dart';
 import 'package:posely_ai/core/services/logger/app_logger.dart';
 import 'package:posely_ai/core/shared/widgets/coming_soon_screen.dart';
 import 'package:posely_ai/core/shell/app_shell.dart';
+import 'package:posely_ai/features/ai/presentation/screens/pose_generator_screen.dart';
 import 'package:posely_ai/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:posely_ai/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:posely_ai/features/auth/presentation/screens/login_screen.dart';
@@ -15,6 +16,7 @@ import 'package:posely_ai/features/auth/presentation/screens/register_screen.dar
 import 'package:posely_ai/features/home/presentation/screens/home_screen.dart';
 import 'package:posely_ai/features/pose/presentation/screens/pose_detail_screen.dart';
 import 'package:posely_ai/features/pose/presentation/screens/pose_library_screen.dart';
+import 'package:posely_ai/features/pose/presentation/screens/pose_search_screen.dart';
 import 'package:posely_ai/features/settings/presentation/screens/design_gallery_screen.dart';
 import 'package:posely_ai/features/splash/presentation/screens/splash_screen.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -50,7 +52,7 @@ final routerRefreshProvider = Provider<ValueNotifier<int>>((ref) {
 /// Paths for all of these are already reserved in RoutePaths; routes are
 /// registered here as the owning feature lands.
 ///
-/// PHASE-5: search, collections.
+/// PHASE-5: search ✅, collections ✅.
 /// PHASE-6: generate, upload — AI pose generator and custom uploads.
 /// PHASE-8: camera — realtime AI coaching viewfinder.
 /// PHASE-9: gallery, gallery/:photoId.
@@ -189,6 +191,18 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => PoseDetailScreen(
           poseId: state.pathParameters['poseId']!,
         ),
+      ),
+      GoRoute(
+        path: RoutePaths.search,
+        name: RouteNames.search,
+        builder: (context, state) => PoseSearchScreen(
+          initialQuery: state.uri.queryParameters['q'],
+        ),
+      ),
+      GoRoute(
+        path: RoutePaths.poseGenerator,
+        name: RouteNames.poseGenerator,
+        builder: (context, state) => const PoseGeneratorScreen(),
       ),
       // PHASE-8: replaced by the real camera experience.
       GoRoute(

@@ -105,7 +105,7 @@ void main() {
         id: 'abc',
         name: 'Test',
         poseIds: const ['p1', 'p2'],
-        createdAt: DateTime(2025, 1, 1),
+        createdAt: DateTime(2025),
         updatedAt: DateTime(2025, 6, 15),
       );
 

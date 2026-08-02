@@ -149,6 +149,27 @@ class PoseRepositoryImpl implements PoseRepository {
   }
 
   @override
+  Future<ApiResult<Paginated<Pose>>> searchPoses({
+    required String query,
+    int page = 1,
+    int pageSize = AppConstants.defaultPageSize,
+  }) =>
+      guardApi(() async {
+        final result = await _remoteDatasource.searchPoses(
+          query: query,
+          page: page,
+          pageSize: pageSize,
+        );
+        return Paginated<Pose>(
+          items: result.items.map((model) => model.toEntity()).toList(),
+          page: result.page,
+          pageSize: result.pageSize,
+          totalItems: result.totalItems,
+          hasMore: result.hasMore,
+        );
+      });
+
+  @override
   Future<bool> toggleFavorite(String poseId) async {
     final ids = await getFavoriteIds();
     final isFavorite = !ids.contains(poseId);
