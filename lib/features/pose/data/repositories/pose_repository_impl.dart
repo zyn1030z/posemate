@@ -9,6 +9,7 @@ import 'package:posely_ai/core/storage/local_storage.dart';
 import 'package:posely_ai/features/pose/data/datasources/pose_mock_datasource.dart';
 import 'package:posely_ai/features/pose/data/datasources/pose_remote_datasource.dart';
 import 'package:posely_ai/features/pose/data/models/pose_model.dart';
+import 'package:posely_ai/features/pose/data/repositories/cached_pose_repository.dart';
 import 'package:posely_ai/features/pose/domain/entities/pose.dart';
 import 'package:posely_ai/features/pose/domain/entities/pose_category.dart';
 import 'package:posely_ai/features/pose/domain/entities/pose_enums.dart';
@@ -229,10 +230,12 @@ final poseRemoteDatasourceProvider = Provider<PoseRemoteDatasource>((ref) {
   return PoseApiDatasource(dio: ref.watch(dioProvider));
 });
 
-/// Provides the app-wide pose repository.
+/// Provides the app-wide pose repository, wrapped in a cache-aside decorator.
 final poseRepositoryProvider = Provider<PoseRepository>(
-  (ref) => PoseRepositoryImpl(
-    remoteDatasource: ref.watch(poseRemoteDatasourceProvider),
-    localStorage: ref.watch(localStorageProvider),
+  (ref) => CachedPoseRepository(
+    PoseRepositoryImpl(
+      remoteDatasource: ref.watch(poseRemoteDatasourceProvider),
+      localStorage: ref.watch(localStorageProvider),
+    ),
   ),
 );
