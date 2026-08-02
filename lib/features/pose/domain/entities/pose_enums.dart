@@ -57,3 +57,67 @@ enum PoseGender {
     return PoseGender.values.asNameMap()[value];
   }
 }
+
+/// How many people appear in the pose.
+enum PeopleCount {
+  /// A single subject.
+  solo,
+
+  /// Two subjects posing together.
+  duo,
+
+  /// Three or more subjects.
+  group;
+
+  /// Human-readable name for filter chips and detail screens.
+  String get label => switch (this) {
+    PeopleCount.solo => 'Solo',
+    PeopleCount.duo => 'Duo',
+    PeopleCount.group => 'Group',
+  };
+
+  /// Parses a wire value by enum name, returning null when the value is
+  /// null or matches no count.
+  static PeopleCount? tryParse(String? value) {
+    if (value == null) {
+      return null;
+    }
+    return PeopleCount.values.asNameMap()[value];
+  }
+}
+
+/// Direction the subject's body faces in the reference photograph.
+enum BodyDirection {
+  /// Facing the camera head-on.
+  front,
+
+  /// Turned away from the camera.
+  back,
+
+  /// Perpendicular to the camera.
+  side,
+
+  /// Between front and side, roughly 45 degrees.
+  threeQuarter;
+
+  /// Human-readable name for filter chips and detail screens.
+  String get label => switch (this) {
+    BodyDirection.front => 'Front',
+    BodyDirection.back => 'Back',
+    BodyDirection.side => 'Side',
+    BodyDirection.threeQuarter => 'Three-Quarter',
+  };
+
+  /// Parses a wire value by enum name or hyphenated alias, returning null
+  /// when the value is null or matches no direction.
+  static BodyDirection? tryParse(String? value) {
+    if (value == null) {
+      return null;
+    }
+    // Support both enum name (threeQuarter) and wire format (three-quarter).
+    if (value == 'three-quarter') {
+      return BodyDirection.threeQuarter;
+    }
+    return BodyDirection.values.asNameMap()[value];
+  }
+}

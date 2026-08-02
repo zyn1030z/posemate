@@ -21,12 +21,16 @@ class GetPosesUseCase {
     String? categoryId,
     PoseDifficulty? difficulty,
     PoseGender? gender,
+    PeopleCount? peopleCount,
+    BodyDirection? bodyDirection,
   }) => _repository.getPoses(
     page: page,
     pageSize: pageSize,
     categoryId: categoryId,
     difficulty: difficulty,
     gender: gender,
+    peopleCount: peopleCount,
+    bodyDirection: bodyDirection,
   );
 }
 

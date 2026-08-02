@@ -13,8 +13,8 @@ class SecureTokenStorage {
   /// A custom `FlutterSecureStorage` can be injected for tests; production
   /// code uses the platform default.
   const SecureTokenStorage({
-    this._storage = const FlutterSecureStorage(),
-  });
+    FlutterSecureStorage storage = const FlutterSecureStorage(),
+  }) : _storage = storage;
 
   final FlutterSecureStorage _storage;
 

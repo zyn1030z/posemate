@@ -40,7 +40,7 @@ abstract interface class AuthRemoteDatasource {
 /// docs/API_CONTRACTS.md: the token payload is the top-level JSON object.
 class AuthApiDatasource implements AuthRemoteDatasource {
   /// Creates the datasource with the app-wide Dio client.
-  const AuthApiDatasource({required this._dio});
+  const AuthApiDatasource({required Dio dio}) : _dio = dio;
 
   final Dio _dio;
 

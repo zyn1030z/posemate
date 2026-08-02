@@ -23,6 +23,8 @@ abstract interface class PoseRemoteDatasource {
     String? categoryId,
     String? difficulty,
     String? gender,
+    String? peopleCount,
+    String? bodyDirection,
   });
 
   /// Fetches a single pose by its identifier.
@@ -42,7 +44,7 @@ abstract interface class PoseRemoteDatasource {
 /// endpoint returns the pose object itself.
 class PoseApiDatasource implements PoseRemoteDatasource {
   /// Creates the datasource with the app-wide Dio client.
-  const PoseApiDatasource({required this._dio});
+  const PoseApiDatasource({required Dio dio}) : _dio = dio;
 
   final Dio _dio;
 
@@ -71,15 +73,19 @@ class PoseApiDatasource implements PoseRemoteDatasource {
     String? categoryId,
     String? difficulty,
     String? gender,
+    String? peopleCount,
+    String? bodyDirection,
   }) async {
     final response = await _dio.get<Map<String, dynamic>>(
       ApiEndpoints.poses,
       queryParameters: <String, dynamic>{
         'page': page,
         'page_size': pageSize,
-        'category_id': ?categoryId,
-        'difficulty': ?difficulty,
-        'gender': ?gender,
+        if (categoryId != null) 'category_id': categoryId,
+        if (difficulty != null) 'difficulty': difficulty,
+        if (gender != null) 'gender': gender,
+        if (peopleCount != null) 'people_count': peopleCount,
+        if (bodyDirection != null) 'body_direction': bodyDirection,
       },
     );
     return Paginated<PoseModel>.fromJson(

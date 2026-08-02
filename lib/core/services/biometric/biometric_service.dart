@@ -17,9 +17,10 @@ class BiometricService {
   /// A custom `LocalAuthentication` can be injected for tests; production
   /// code uses the plugin default.
   BiometricService({
-    required this._talker,
+    required Talker talker,
     LocalAuthentication? localAuth,
-  }) : _localAuth = localAuth ?? LocalAuthentication();
+  })  : _talker = talker,
+        _localAuth = localAuth ?? LocalAuthentication();
 
   final Talker _talker;
   final LocalAuthentication _localAuth;

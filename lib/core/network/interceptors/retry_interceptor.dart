@@ -18,10 +18,12 @@ class RetryInterceptor extends Interceptor {
   ///
   /// A custom random source can be injected for deterministic tests.
   RetryInterceptor({
-    required this._dio,
-    required this._talker,
+    required Dio dio,
+    required Talker talker,
     Random? random,
-  }) : _random = random ?? Random();
+  })  : _dio = dio,
+        _talker = talker,
+        _random = random ?? Random();
 
   /// Maximum number of retries after the initial attempt.
   static const int _maxRetries = 2;

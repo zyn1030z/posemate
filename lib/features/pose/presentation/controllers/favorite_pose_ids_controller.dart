@@ -52,8 +52,12 @@ class FavoritePoseIdsController extends AsyncNotifier<Set<String>> {
   }
 }
 
+/// Never auto-retry: optimistic revert handles failure for the user.
+Duration? _noRetry(int retryCount, Object error) => null;
+
 /// The user's favorite pose ids, shared by every heart in the app.
 final favoritePoseIdsProvider =
     AsyncNotifierProvider<FavoritePoseIdsController, Set<String>>(
   FavoritePoseIdsController.new,
+  retry: _noRetry,
 );

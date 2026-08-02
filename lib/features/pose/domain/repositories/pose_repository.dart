@@ -21,6 +21,8 @@ abstract interface class PoseRepository {
     String? categoryId,
     PoseDifficulty? difficulty,
     PoseGender? gender,
+    PeopleCount? peopleCount,
+    BodyDirection? bodyDirection,
   });
 
   /// Fetches a single pose by its identifier.

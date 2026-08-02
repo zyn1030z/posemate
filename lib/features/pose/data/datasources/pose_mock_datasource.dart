@@ -58,6 +58,8 @@ class PoseMockDatasource implements PoseRemoteDatasource {
     String? categoryId,
     String? difficulty,
     String? gender,
+    String? peopleCount,
+    String? bodyDirection,
   }) async {
     await _delay();
     final library = await _load();
@@ -66,7 +68,9 @@ class PoseMockDatasource implements PoseRemoteDatasource {
           (pose) =>
               (categoryId == null || pose.categoryId == categoryId) &&
               (difficulty == null || pose.difficulty == difficulty) &&
-              (gender == null || pose.gender == gender),
+              (gender == null || pose.gender == gender) &&
+              (bodyDirection == null || pose.bodyDirection == bodyDirection) &&
+              _matchesPeopleCount(pose, peopleCount),
         )
         .toList();
     final start = (page - 1) * pageSize;
@@ -80,6 +84,19 @@ class PoseMockDatasource implements PoseRemoteDatasource {
       totalItems: filtered.length,
       hasMore: start + items.length < filtered.length,
     );
+  }
+
+  /// Mock-only: derives people count from the gender field.
+  ///
+  /// The mock dataset doesn't have a dedicated people_count field,
+  /// so we infer: couple → duo, everything else → solo. Group is
+  /// not present in the mock data.
+  static bool _matchesPeopleCount(PoseModel pose, String? count) {
+    if (count == null) {
+      return true;
+    }
+    final derived = pose.gender == 'couple' ? 'duo' : 'solo';
+    return derived == count;
   }
 
   @override
