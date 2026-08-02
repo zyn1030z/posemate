@@ -13,6 +13,7 @@ import 'package:posely_ai/core/theme/tokens/app_gradients.dart';
 import 'package:posely_ai/core/theme/tokens/app_radius.dart';
 import 'package:posely_ai/core/theme/tokens/app_spacing.dart';
 import 'package:posely_ai/core/theme/tokens/app_typography.dart';
+import 'package:posely_ai/features/camera/presentation/controllers/photoshoot_queue_controller.dart';
 import 'package:posely_ai/features/pose/data/repositories/pose_repository_impl.dart';
 import 'package:posely_ai/features/pose/domain/entities/pose.dart';
 import 'package:posely_ai/features/pose/presentation/controllers/favorite_pose_ids_controller.dart';
@@ -50,19 +51,14 @@ class PoseDetailScreen extends ConsumerWidget {
   /// Id of the pose to load and display.
   final String poseId;
 
-  void _useThisPose(BuildContext context, WidgetRef ref, Pose pose) {
+  void _useThisPose(BuildContext context, WidgetRef ref, Pose pose, Set<String> queue) {
     // PoselyButton already fires the light tap haptic on press.
     unawaited(ref.read(poseRepositoryProvider).markUsed(pose));
     
-    // Create a mock queue for demonstration (current pose + 3 hardcoded mock poses)
-    final mockQueue = {
-      pose.id,
-      'posely-shore-look-back',
-      'posely-latte-art-lean',
-      'posely-warrior-two-hold',
-    }.toList(); // Use Set to remove duplicates if the current pose is one of the mock ones
+    // Final queue includes the current pose if not already there, plus the user's photoshoot queue
+    final finalQueue = {pose.id, ...queue}.toList();
 
-    unawaited(context.push<Object?>(RoutePaths.cameraFor(mockQueue)));
+    unawaited(context.push<Object?>(RoutePaths.cameraFor(finalQueue)));
   }
 
   @override
@@ -89,11 +85,37 @@ class PoseDetailScreen extends ConsumerWidget {
                 AppSpacing.xl,
                 AppSpacing.lg,
               ),
-              child: PoselyButton(
-                label: 'Use this pose',
-                icon: Icons.photo_camera_rounded,
-                expand: true,
-                onPressed: () => _useThisPose(context, ref, pose),
+              child: Consumer(
+                builder: (context, ref, child) {
+                  final queue = ref.watch(photoshootQueueProvider);
+                  final isInQueue = queue.contains(pose.id);
+                  final totalCount = queue.length + (isInQueue ? 0 : 1);
+
+                  return Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 3,
+                        child: PoselyButton(
+                          label: 'Try this pose ($totalCount)',
+                          icon: Icons.photo_camera_rounded,
+                          onPressed: () => _useThisPose(context, ref, pose, queue),
+                        ),
+                      ),
+                      const SizedBox(width: AppSpacing.sm),
+                      Expanded(
+                        flex: 2,
+                        child: PoselyButton(
+                          label: isInQueue ? 'Remove' : 'Add to Queue',
+                          icon: isInQueue ? Icons.playlist_remove_rounded : Icons.playlist_add_rounded,
+                          variant: isInQueue ? PoselyButtonVariant.glass : PoselyButtonVariant.ghost,
+                          onPressed: () {
+                            ref.read(photoshootQueueProvider.notifier).toggle(pose.id);
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
     );
@@ -152,23 +174,27 @@ class _PoseDetailBody extends StatelessWidget {
                 const SizedBox(height: AppSpacing.xl),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton.icon(
-                    icon: const Icon(Icons.camera_alt_rounded),
-                    label: const Text('Try this Pose'),
-                    onPressed: () {
-                      final mockQueue = {
-                        pose.id,
-                        'posely-shore-look-back',
-                        'posely-latte-art-lean',
-                        'posely-warrior-two-hold',
-                      }.toList();
-                      context.push(RoutePaths.cameraFor(mockQueue));
+                  child: Consumer(
+                    builder: (context, ref, child) {
+                      final queue = ref.watch(photoshootQueueProvider);
+                      final isInQueue = queue.contains(pose.id);
+                      final totalCount = queue.length + (isInQueue ? 0 : 1);
+                      return ElevatedButton.icon(
+                        icon: const Icon(Icons.camera_alt_rounded),
+                        label: Text('Try this Pose ($totalCount)'),
+                        onPressed: () {
+                          // Manually call markUsed here since we bypass _useThisPose
+                          unawaited(ref.read(poseRepositoryProvider).markUsed(pose));
+                          final finalQueue = {pose.id, ...queue}.toList();
+                          context.push(RoutePaths.cameraFor(finalQueue));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+                          backgroundColor: AppColors.primary,
+                          foregroundColor: Colors.white,
+                        ),
+                      );
                     },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: Colors.white,
-                    ),
                   ),
                 ),
                 const SizedBox(height: AppSpacing.xl),
