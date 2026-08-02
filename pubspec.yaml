@@ -126,6 +126,7 @@ flutter:
     - assets/icons/
     - assets/lottie/
     - assets/mock/
+    - assets/mock/lineart/
     - assets/fonts/OFL-Inter.txt
 
   # Inter (text) + Inter Display (large headings) — SIL OFL 1.1, license

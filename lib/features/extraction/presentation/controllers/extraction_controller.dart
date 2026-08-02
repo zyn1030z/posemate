@@ -16,7 +16,7 @@ class ExtractionController extends AsyncNotifier<Pose?> {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final repository = ref.read(extractionRepositoryProvider);
-      return await repository.extractPose(image);
+      return repository.extractPose(image);
     });
   }
 

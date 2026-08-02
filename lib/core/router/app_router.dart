@@ -8,12 +8,13 @@ import 'package:posely_ai/core/services/logger/app_logger.dart';
 import 'package:posely_ai/core/shared/widgets/coming_soon_screen.dart';
 import 'package:posely_ai/core/shell/app_shell.dart';
 import 'package:posely_ai/features/ai/presentation/screens/pose_generator_screen.dart';
-import 'package:posely_ai/features/extraction/presentation/screens/upload_pose_screen.dart';
 import 'package:posely_ai/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:posely_ai/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:posely_ai/features/auth/presentation/screens/login_screen.dart';
 import 'package:posely_ai/features/auth/presentation/screens/onboarding_screen.dart';
 import 'package:posely_ai/features/auth/presentation/screens/register_screen.dart';
+import 'package:posely_ai/features/camera/presentation/screens/camera_screen.dart';
+import 'package:posely_ai/features/extraction/presentation/screens/upload_pose_screen.dart';
 import 'package:posely_ai/features/home/presentation/screens/home_screen.dart';
 import 'package:posely_ai/features/pose/presentation/screens/pose_detail_screen.dart';
 import 'package:posely_ai/features/pose/presentation/screens/pose_library_screen.dart';
@@ -210,14 +211,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: RouteNames.uploadPose,
         builder: (context, state) => const UploadPoseScreen(),
       ),
-      // PHASE-8: replaced by the real camera experience.
+      // PHASE-8: Real camera experience.
       GoRoute(
         path: RoutePaths.camera,
         name: RouteNames.camera,
-        builder: (context, state) => const ComingSoonScreen(
-          title: 'AI Camera',
-          phase: 'Phase 8',
-          icon: Icons.photo_camera_rounded,
+        builder: (context, state) => CameraScreen(
+          poseId: state.uri.queryParameters['poseId'],
         ),
       ),
       // Dev-only design-system showcase; reached via

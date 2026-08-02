@@ -64,7 +64,7 @@ void main() {
   });
 
   test('extractPose sets state to error on failure', () async {
-    final exception = const NoPoseDetectedException();
+    const exception = NoPoseDetectedException();
     when(() => repository.extractPose(any())).thenThrow(exception);
 
     final controller = container.read(extractionControllerProvider.notifier);

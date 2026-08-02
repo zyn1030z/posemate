@@ -141,6 +141,22 @@ class _PoseDetailBody extends StatelessWidget {
                   ),
                 ],
                 const SizedBox(height: AppSpacing.xl),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    icon: const Icon(Icons.camera_alt_rounded),
+                    label: const Text('Try this Pose'),
+                    onPressed: () {
+                      context.push(RoutePaths.cameraFor(pose.id));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+                      backgroundColor: AppColors.primary,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.xl),
               ],
             ),
           ),

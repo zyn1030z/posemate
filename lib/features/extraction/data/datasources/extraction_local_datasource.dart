@@ -21,7 +21,6 @@ final class ExtractionLocalDatasourceImpl implements ExtractionLocalDatasource {
     final poseDetector = mlkit.PoseDetector(
       options: mlkit.PoseDetectorOptions(
         mode: mlkit.PoseDetectionMode.single,
-        model: mlkit.PoseDetectionModel.base,
       ),
     );
 
@@ -31,8 +30,6 @@ final class ExtractionLocalDatasourceImpl implements ExtractionLocalDatasource {
         throw const NoPoseDetectedException();
       }
 
-      final mlkitPose = poses.first;
-      
       // We don't have a backend-generated overlay URL.
       // We return the local file path as a placeholder, and the UI
       // would need to adapt to rendering ML Kit poses or local files.

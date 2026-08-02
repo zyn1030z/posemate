@@ -18,6 +18,13 @@ sealed class AppException implements Exception {
     this.stackTrace,
   });
 
+  /// Factory for API timeouts with an optional custom message.
+  const factory AppException.apiTimeout({
+    String message,
+    Object? cause,
+    StackTrace? stackTrace,
+  }) = ApiTimeoutException;
+
   /// Maps a `DioException` onto the closest `AppException` subtype.
   ///
   /// Connectivity-level failures become `NetworkException`, timeouts become
@@ -62,10 +69,9 @@ sealed class AppException implements Exception {
 
   /// Human-friendly, jargon-free text suitable for showing directly to users.
   String get userMessage => switch (this) {
-    NetworkException() =>
-      'You appear to be offline. Check your connection and try again.',
-    ApiTimeoutException() => 'This is taking longer than expected. '
-        'Please try again in a moment.',
+    NetworkException() || ApiTimeoutException() =>
+      'Please check your internet connection and try again.',
+    AppCameraException() => message,
     UnauthorizedException() => 'Your session has expired. '
         'Please sign in again.',
     ForbiddenException() => 'You do not have access to this content.',
@@ -173,6 +179,7 @@ sealed class AppException implements Exception {
     CacheException() => 'CacheException',
     CancelledException() => 'CancelledException',
     NoPoseDetectedException() => 'NoPoseDetectedException',
+    AppCameraException() => 'AppCameraException',
     UnknownException() => 'UnknownException',
   };
 
@@ -320,4 +327,18 @@ class NoPoseDetectedException extends AppException {
     super.cause,
     super.stackTrace,
   });
+}
+
+/// Thrown when the camera cannot be initialized or accessed.
+final class AppCameraException extends AppException {
+  /// Creates a [AppCameraException].
+  const AppCameraException({
+    super.message = 'Failed to access the camera.',
+    super.cause,
+    super.stackTrace,
+  });
+
+  @override
+  String toString() => 'AppCameraException: $message'
+      '${cause != null ? ' (cause: $cause)' : ''}';
 }

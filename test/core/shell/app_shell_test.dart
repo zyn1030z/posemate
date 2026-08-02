@@ -112,7 +112,11 @@ void main() {
       expect(router.state.matchedLocation, RoutePaths.home);
 
       await tester.tap(find.byIcon(Icons.photo_camera_rounded));
-      await _pumpNavigation(tester);
+      await _pumpNavigation(tester); // Bottom sheet animation
+
+      // Tap 'AI Camera Viewfinder' in the bottom sheet
+      await tester.tap(find.text('AI Camera Viewfinder'));
+      await _pumpNavigation(tester); // Push to camera
 
       expect(router.state.matchedLocation, RoutePaths.camera);
 
