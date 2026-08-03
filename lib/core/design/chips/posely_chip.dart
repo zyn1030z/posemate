@@ -44,7 +44,9 @@ class PoselyChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<PoselyColors>()!;
-    final foreground = selected ? AppColors.primary : AppColors.textPrimary;
+    final foreground = selected
+        ? AppColors.primary
+        : Theme.of(context).colorScheme.onSurface;
 
     final chip = AnimatedContainer(
       duration: AppDurations.base,

@@ -48,7 +48,9 @@ class HomeHeader extends ConsumerWidget {
             children: <Widget>[
               Text(
                 '${greetingFor(DateTime.now())} 👋',
-                style: AppTypography.bodyMuted,
+                style: AppTypography.bodyMuted.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               ),
               const SizedBox(height: AppSpacing.xs),
               Text(

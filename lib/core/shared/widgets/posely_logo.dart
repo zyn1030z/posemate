@@ -66,12 +66,14 @@ class PoselyWordmark extends StatelessWidget {
           letterSpacing: fontSize * -0.03,
           height: 1,
         ),
-        children: const [
+        children: [
           TextSpan(
             text: 'Posely',
-            style: TextStyle(color: AppColors.textPrimary),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ),
-          TextSpan(
+          const TextSpan(
             text: 'AI',
             style: TextStyle(color: AppColors.primary),
           ),

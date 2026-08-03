@@ -149,7 +149,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         const SizedBox(height: AppSpacing.sm),
         Text(
           'Sign in to continue creating.',
-          style: AppTypography.bodyMuted,
+          style: AppTypography.bodyMuted.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
           textAlign: TextAlign.center,
         ),
       ],
@@ -271,7 +273,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       children: <Widget>[
         Text.rich(
           TextSpan(
-            style: AppTypography.bodyMuted,
+            style: AppTypography.bodyMuted.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
             children: <InlineSpan>[
               const TextSpan(text: 'New to Posely?  '),
               TextSpan(

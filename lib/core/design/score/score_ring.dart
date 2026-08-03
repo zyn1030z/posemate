@@ -149,7 +149,7 @@ class _ScoreRingState extends State<ScoreRing>
                               fontSize: widget.size * 0.14,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0,
-                              color: AppColors.textSecondary,
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
                             ),
                           ),
                         ],
@@ -157,7 +157,9 @@ class _ScoreRingState extends State<ScoreRing>
                       if (widget.label != null)
                         Text(
                           widget.label!,
-                          style: AppTypography.caption,
+                          style: AppTypography.caption.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                     ],

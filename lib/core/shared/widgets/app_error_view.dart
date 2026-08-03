@@ -77,7 +77,9 @@ class AppErrorView extends StatelessWidget {
                 const SizedBox(height: AppSpacing.sm),
                 Text(
                   message,
-                  style: AppTypography.bodyMuted,
+                  style: AppTypography.bodyMuted.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 if (onRetry != null) ...<Widget>[

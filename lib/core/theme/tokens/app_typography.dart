@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:posely_ai/core/theme/tokens/app_colors.dart';
-
 /// Typography tokens for Posely AI.
 ///
 /// Clean geometric type: tight negative tracking on large sizes,
@@ -142,7 +140,6 @@ abstract final class AppTypography {
         weight: FontWeight.w700,
         height: 1.1,
         letterSpacing: -1.2,
-        color: AppColors.textPrimary,
         family: displayFamily,
       );
 
@@ -152,7 +149,6 @@ abstract final class AppTypography {
         weight: FontWeight.w700,
         height: 1.2,
         letterSpacing: -0.5,
-        color: AppColors.textPrimary,
         family: displayFamily,
       );
 
@@ -162,7 +158,6 @@ abstract final class AppTypography {
         weight: FontWeight.w600,
         height: 1.25,
         letterSpacing: -0.3,
-        color: AppColors.textPrimary,
       );
 
   /// Title inside a card or list tile.
@@ -171,7 +166,6 @@ abstract final class AppTypography {
         weight: FontWeight.w600,
         height: 1.3,
         letterSpacing: -0.2,
-        color: AppColors.textPrimary,
       );
 
   /// Default body copy.
@@ -180,24 +174,27 @@ abstract final class AppTypography {
         weight: FontWeight.w400,
         height: 1.5,
         letterSpacing: -0.1,
-        color: AppColors.textPrimary,
       );
 
   /// Muted body copy for supporting paragraphs.
+  ///
+  /// Does not carry a color — apply `Theme.of(context).colorScheme
+  /// .onSurfaceVariant` at the call site for brightness-aware muting.
   static TextStyle get bodyMuted => _style(
         size: 15,
         weight: FontWeight.w400,
         height: 1.5,
         letterSpacing: -0.1,
-        color: AppColors.textSecondary,
       );
 
   /// Small caption text under images and controls.
+  ///
+  /// Does not carry a color — apply `Theme.of(context).colorScheme
+  /// .onSurfaceVariant` at the call site for brightness-aware muting.
   static TextStyle get caption => _style(
         size: 13,
         weight: FontWeight.w400,
         height: 1.4,
-        color: AppColors.textTertiary,
       );
 
   /// Tiny uppercase-style eyebrow label with wide tracking.
@@ -206,7 +203,6 @@ abstract final class AppTypography {
         weight: FontWeight.w600,
         height: 1.3,
         letterSpacing: 1.2,
-        color: AppColors.textTertiary,
       );
 
   /// Button label style.
@@ -215,7 +211,6 @@ abstract final class AppTypography {
         weight: FontWeight.w600,
         height: 1.2,
         letterSpacing: 0.1,
-        color: AppColors.textPrimary,
       );
 
   /// Extra-large bold style for category codes and pose identifiers,
@@ -225,7 +220,6 @@ abstract final class AppTypography {
         weight: FontWeight.w800,
         height: 1.1,
         letterSpacing: -1.5,
-        color: AppColors.textPrimary,
         family: displayFamily,
       );
 
@@ -236,7 +230,6 @@ abstract final class AppTypography {
         weight: FontWeight.w700,
         height: 1.0,
         letterSpacing: -1.5,
-        color: AppColors.textPrimary,
         family: displayFamily,
         features: const <FontFeature>[FontFeature.tabularFigures()],
       );

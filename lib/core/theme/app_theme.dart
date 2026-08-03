@@ -74,7 +74,9 @@ abstract final class PoselyTheme {
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
-        titleTextStyle: AppTypography.sectionTitle,
+        titleTextStyle: AppTypography.sectionTitle.copyWith(
+          color: scheme.onSurface,
+        ),
         iconTheme: const IconThemeData(color: AppColors.textPrimary),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
@@ -207,15 +209,21 @@ abstract final class PoselyTheme {
         backgroundColor: AppColors.surface,
         elevation: 0,
         shape: const RoundedRectangleBorder(borderRadius: AppRadius.brXl),
-        titleTextStyle: AppTypography.sectionTitle,
-        contentTextStyle: AppTypography.bodyMuted,
+        titleTextStyle: AppTypography.sectionTitle.copyWith(
+          color: scheme.onSurface,
+        ),
+        contentTextStyle: AppTypography.bodyMuted.copyWith(
+          color: scheme.onSurfaceVariant,
+        ),
       ),
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
         backgroundColor: AppColors.surface,
         elevation: 4,
         shape: const RoundedRectangleBorder(borderRadius: AppRadius.brLg),
-        contentTextStyle: AppTypography.body,
+        contentTextStyle: AppTypography.body.copyWith(
+          color: scheme.onSurface,
+        ),
         actionTextColor: AppColors.primary,
       ),
       navigationBarTheme: NavigationBarThemeData(

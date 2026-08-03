@@ -151,7 +151,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
         const SizedBox(height: AppSpacing.sm),
         Text(
           'Enter your account email and we will send a reset link.',
-          style: AppTypography.bodyMuted,
+          style: AppTypography.bodyMuted.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: AppSpacing.sectionGap),
@@ -188,7 +190,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     if (_resendSeconds > 0) {
       return Text(
         'Resend in ${_resendSeconds}s',
-        style: AppTypography.caption,
+        style: AppTypography.caption.copyWith(
+          color: Theme.of(context).colorScheme.outline,
+        ),
       );
     }
     return Semantics(

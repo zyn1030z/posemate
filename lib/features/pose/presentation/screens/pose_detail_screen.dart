@@ -425,7 +425,12 @@ class _StatCard extends StatelessWidget {
             style: AppTypography.cardTitle,
           ),
           const SizedBox(height: AppSpacing.xxs),
-          Text(label, style: AppTypography.caption),
+          Text(
+            label,
+            style: AppTypography.caption.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
         ],
       ),
     );

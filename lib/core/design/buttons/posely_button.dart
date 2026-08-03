@@ -107,12 +107,12 @@ class _PoselyButtonState extends State<PoselyButton> {
         PoselyButtonSize.small => 14,
       };
 
-  Color _foreground(PoselyColors colors) {
+  Color _foreground(BuildContext context, PoselyColors colors) {
     return switch (widget.variant) {
       PoselyButtonVariant.primary => AppColors.textOnPrimary,
-      PoselyButtonVariant.glass => AppColors.textPrimary,
+      PoselyButtonVariant.glass => Theme.of(context).colorScheme.onSurface,
       PoselyButtonVariant.ghost =>
-        _pressed ? AppColors.primary : AppColors.textSecondary,
+        _pressed ? AppColors.primary : Theme.of(context).colorScheme.onSurfaceVariant,
       PoselyButtonVariant.danger => colors.danger,
     };
   }
@@ -172,7 +172,7 @@ class _PoselyButtonState extends State<PoselyButton> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<PoselyColors>()!;
-    final foreground = _foreground(colors);
+    final foreground = _foreground(context, colors);
 
     final Widget inner;
     if (widget.loading) {

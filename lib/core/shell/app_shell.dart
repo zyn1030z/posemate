@@ -200,7 +200,7 @@ class _NavItem extends StatelessWidget {
                 size: 24,
                 color: selected
                     ? AppColors.primary
-                    : AppColors.textSecondary,
+                    : Theme.of(context).colorScheme.onSurfaceVariant,
               ),
               const SizedBox(height: AppSpacing.xxs),
               AnimatedContainer(

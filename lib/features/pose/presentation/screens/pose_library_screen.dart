@@ -220,7 +220,9 @@ class _PoseLibraryScreenState extends ConsumerState<PoseLibraryScreen> {
               const SizedBox(height: AppSpacing.xs),
               Text(
                 '${value.poses.length} poses',
-                style: AppTypography.caption,
+                style: AppTypography.caption.copyWith(
+                  color: Theme.of(context).colorScheme.outline,
+                ),
               ),
             ],
           ],
@@ -389,7 +391,9 @@ class _PoseLibraryScreenState extends ConsumerState<PoseLibraryScreen> {
         child: Center(
           child: Text(
             'You have seen them all ✨',
-            style: AppTypography.caption,
+            style: AppTypography.caption.copyWith(
+              color: Theme.of(context).colorScheme.outline,
+            ),
           ),
         ),
       );
@@ -421,7 +425,8 @@ class _FilterPickerChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final posely = context.posely;
-    final foreground = active ? AppColors.primary : AppColors.textSecondary;
+    final foreground =
+        active ? AppColors.primary : Theme.of(context).colorScheme.onSurfaceVariant;
     return Semantics(
       button: true,
       selected: active,
@@ -511,7 +516,7 @@ class _OptionTile extends StatelessWidget {
                     style: AppTypography.body.copyWith(
                       color: selected
                           ? AppColors.primary
-                          : AppColors.textPrimary,
+                          : Theme.of(context).colorScheme.onSurface,
                       fontWeight:
                           selected ? FontWeight.w600 : FontWeight.w400,
                     ),

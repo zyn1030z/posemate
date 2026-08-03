@@ -60,14 +60,14 @@ class PoseRail extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.md),
         if (poses.isEmpty && emptyHint != null)
-          _buildEmptyHint()
+          _buildEmptyHint(context)
         else if (poses.isNotEmpty)
           _buildList(),
       ],
     );
   }
 
-  Widget _buildEmptyHint() {
+  Widget _buildEmptyHint(BuildContext context) {
     return Padding(
       padding: AppSpacing.screenPadding,
       child: SizedBox(
@@ -78,7 +78,9 @@ class PoseRail extends StatelessWidget {
           child: Center(
             child: Text(
               emptyHint!,
-              style: AppTypography.caption,
+              style: AppTypography.caption.copyWith(
+                color: Theme.of(context).colorScheme.outline,
+              ),
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

@@ -266,7 +266,9 @@ class _OnboardingPageView extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 320),
             child: Text(
               page.body,
-              style: AppTypography.bodyMuted,
+              style: AppTypography.bodyMuted.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
               textAlign: TextAlign.center,
             ),
           )

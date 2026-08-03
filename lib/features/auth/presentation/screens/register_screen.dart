@@ -194,7 +194,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         const SizedBox(height: AppSpacing.sm),
         Text(
           'Join thousands of creators posing smarter.',
-          style: AppTypography.bodyMuted,
+          style: AppTypography.bodyMuted.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
         ),
       ],
     );
@@ -207,7 +209,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     );
     return Text.rich(
       TextSpan(
-        style: AppTypography.caption,
+        style: AppTypography.caption.copyWith(
+          color: Theme.of(context).colorScheme.outline,
+        ),
         children: <InlineSpan>[
           const TextSpan(text: 'By continuing you agree to our '),
           TextSpan(
@@ -231,7 +235,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   Widget _buildFooter() {
     return Text.rich(
       TextSpan(
-        style: AppTypography.bodyMuted,
+        style: AppTypography.bodyMuted.copyWith(
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ),
         children: <InlineSpan>[
           const TextSpan(text: 'Already have an account?  '),
           TextSpan(

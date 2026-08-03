@@ -159,7 +159,7 @@ class _PoselyTextFieldState extends State<PoselyTextField> {
                     ? Icons.visibility_off_outlined
                     : Icons.visibility_outlined,
                 size: 20,
-                color: AppColors.textSecondary,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
           ),
@@ -273,7 +273,7 @@ class _PoselyTextFieldState extends State<PoselyTextField> {
             child: Text(
               widget.label!,
               style: AppTypography.caption.copyWith(
-                color: AppColors.textSecondary,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
           ),

@@ -61,7 +61,7 @@ class ScorePill extends StatelessWidget {
               Text(
                 label,
                 style: AppTypography.caption.copyWith(
-                  color: AppColors.textSecondary,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(width: AppSpacing.sm),

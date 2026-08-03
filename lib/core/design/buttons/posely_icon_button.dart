@@ -73,7 +73,9 @@ class PoselyIconButton extends StatelessWidget {
         child: Icon(
           icon,
           size: iconSize,
-          color: active ? AppColors.primary : AppColors.textSecondary,
+          color: active
+              ? AppColors.primary
+              : Theme.of(context).colorScheme.onSurfaceVariant,
         ),
       ),
     );

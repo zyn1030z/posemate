@@ -235,7 +235,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               Expanded(
                 child: Text(
                   'Search any pose or vibe…',
-                  style: AppTypography.bodyMuted,
+                  style: AppTypography.bodyMuted.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -279,7 +281,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       const SizedBox(height: AppSpacing.xs),
                       Text(
                         'Overlay any pose in the camera and match it live.',
-                        style: AppTypography.caption,
+                        style: AppTypography.caption.copyWith(
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
                       ),
                     ],
                   ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:posely_ai/core/theme/theme_extensions.dart';
-import 'package:posely_ai/core/theme/tokens/app_colors.dart';
 import 'package:posely_ai/core/theme/tokens/app_typography.dart';
 import 'package:posely_ai/features/auth/domain/entities/social_provider.dart';
 
@@ -34,12 +33,12 @@ class SocialAuthButton extends StatelessWidget {
   static const double _size = 52;
 
   /// Monochrome letterform style for the Google and Facebook glyphs.
-  static const TextStyle _glyphStyle = TextStyle(
+  static TextStyle _glyphStyle(BuildContext context) => TextStyle(
     fontFamily: AppTypography.fontFamily,
     fontSize: 24,
     fontWeight: FontWeight.w700,
     height: 1,
-    color: AppColors.textPrimary,
+    color: Theme.of(context).colorScheme.onSurface,
   );
 
   void _handleTap() {
@@ -47,22 +46,23 @@ class SocialAuthButton extends StatelessWidget {
     onPressed();
   }
 
-  Widget _buildGlyph() {
+  Widget _buildGlyph(BuildContext context) {
+    final onSurface = Theme.of(context).colorScheme.onSurface;
     if (loading) {
-      return const SizedBox(
+      return SizedBox(
         width: 18,
         height: 18,
         child: CircularProgressIndicator(
           strokeWidth: 2,
-          valueColor: AlwaysStoppedAnimation<Color>(AppColors.textPrimary),
+          valueColor: AlwaysStoppedAnimation<Color>(onSurface),
         ),
       );
     }
     return switch (provider) {
-      SocialProvider.google => const Text('g', style: _glyphStyle),
+      SocialProvider.google => Text('g', style: _glyphStyle(context)),
       SocialProvider.apple =>
-        const Icon(Icons.apple, size: 26, color: AppColors.textPrimary),
-      SocialProvider.facebook => const Text('f', style: _glyphStyle),
+        Icon(Icons.apple, size: 26, color: onSurface),
+      SocialProvider.facebook => Text('f', style: _glyphStyle(context)),
     };
   }
 
@@ -88,7 +88,7 @@ class SocialAuthButton extends StatelessWidget {
             child: InkWell(
               onTap: loading ? null : _handleTap,
               customBorder: const CircleBorder(),
-              child: Center(child: _buildGlyph()),
+              child: Center(child: _buildGlyph(context)),
             ),
           ),
         ),

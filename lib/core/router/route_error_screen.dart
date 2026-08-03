@@ -33,7 +33,6 @@ class RouteErrorScreen extends StatelessWidget {
                 Text(
                   'Lost in the frame',
                   style: context.textTheme.headlineSmall?.copyWith(
-                    color: AppColors.textPrimary,
                     fontWeight: FontWeight.w700,
                   ),
                   textAlign: TextAlign.center,

@@ -147,7 +147,7 @@ class _PoseSearchScreenState extends ConsumerState<PoseSearchScreen> {
                     decoration: InputDecoration(
                       hintText: 'Search poses...',
                       hintStyle: AppTypography.body.copyWith(
-                        color: AppColors.textSecondary,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                       border: InputBorder.none,
                       contentPadding: const EdgeInsets.symmetric(
@@ -156,7 +156,7 @@ class _PoseSearchScreenState extends ConsumerState<PoseSearchScreen> {
                       suffixIcon: _textController.text.isNotEmpty
                           ? IconButton(
                               icon: const Icon(Icons.close_rounded, size: 20),
-                              color: AppColors.textSecondary,
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
                               onPressed: _onClear,
                             )
                           : null,
@@ -272,7 +272,6 @@ class _RecentSearchTile extends StatelessWidget {
             const Icon(
               Icons.history_rounded,
               size: 18,
-              color: AppColors.textSecondary,
             ),
             const SizedBox(width: AppSpacing.md),
             Expanded(
@@ -281,7 +280,6 @@ class _RecentSearchTile extends StatelessWidget {
             const Icon(
               Icons.north_west_rounded,
               size: 16,
-              color: AppColors.textSecondary,
             ),
           ],
         ),

@@ -89,7 +89,7 @@ class _CollectionPickerBodyState
               child: Text(
                 'No collections yet',
                 style: AppTypography.body.copyWith(
-                  color: AppColors.textSecondary,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
             ),
@@ -205,8 +205,9 @@ class _CollectionTile extends StatelessWidget {
                 isSelected
                     ? Icons.check_circle_rounded
                     : Icons.circle_outlined,
-                color:
-                    isSelected ? AppColors.primary : AppColors.textSecondary,
+                color: isSelected
+                    ? AppColors.primary
+                    : Theme.of(context).colorScheme.onSurfaceVariant,
                 size: 24,
               ),
               const SizedBox(width: AppSpacing.md),
@@ -225,7 +226,7 @@ class _CollectionTile extends StatelessWidget {
                     Text(
                       '${collection.poseIds.length} poses',
                       style: AppTypography.caption.copyWith(
-                        color: AppColors.textSecondary,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
