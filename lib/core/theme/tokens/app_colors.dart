@@ -56,22 +56,22 @@ abstract final class AppColors {
   /// Emerald 600 — pressed green variant.
   static const Color emerald600 = Color(0xFF059669);
 
-  // --- Light neutrals (flagship) --------------------------------------------
+  // --- Light neutrals (flagship) — dim light mode ---------------------------
 
-  /// App background in light mode — off-white.
-  static const Color background = Color(0xFFF5F5F7);
+  /// App background — warm gray, noticeably darker than stock iOS.
+  static const Color background = Color(0xFFE4E4E9);
 
-  /// Base surface for cards and bars — pure white.
-  static const Color surface = Color(0xFFFFFFFF);
+  /// Base surface for cards and bars — light gray for pop against bg.
+  static const Color surface = Color(0xFFF2F2F7);
 
   /// Elevated surface for dialogs, inputs, and raised cards.
-  static const Color surfaceElevated = Color(0xFFFFFFFF);
+  static const Color surfaceElevated = Color(0xFFF8F8FD);
 
   /// Highest surface tier for tracks, handles, and pressed fills.
-  static const Color surfaceHighest = Color(0xFFD1D1D6);
+  static const Color surfaceHighest = Color(0xFFC7C7CC);
 
   /// Hairline outline color on light surfaces — iOS separator gray.
-  static const Color outline = Color(0xFFC7C7CC);
+  static const Color outline = Color(0xFFBBBBC1);
 
   // --- Dark neutrals (secondary theme) --------------------------------------
 

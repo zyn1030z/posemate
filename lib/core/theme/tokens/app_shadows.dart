@@ -9,14 +9,14 @@ abstract final class AppShadows {
   /// Soft ambient shadow for resting cards and tiles.
   static const List<BoxShadow> soft = <BoxShadow>[
     BoxShadow(
-      color: Color(0x0A000000),
-      blurRadius: 12,
-      offset: Offset(0, 2),
+      color: Color(0x14000000),
+      blurRadius: 16,
+      offset: Offset(0, 3),
       spreadRadius: 0,
     ),
     BoxShadow(
-      color: Color(0x05000000),
-      blurRadius: 4,
+      color: Color(0x0A000000),
+      blurRadius: 6,
       offset: Offset(0, 1),
       spreadRadius: 0,
     ),

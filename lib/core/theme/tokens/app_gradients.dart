@@ -47,11 +47,11 @@ abstract final class AppGradients {
     transform: GradientRotation(-math.pi / 2),
   );
 
-  /// Faint radial blue tint floated over the light background to
-  /// create a visible ambient glow behind hero content.
+  /// Faint radial blue tint floated over the dim background to
+  /// add subtle ambient depth without washing out the surface.
   static const RadialGradient backgroundAurora = RadialGradient(
     center: Alignment(0, -0.6),
     radius: 1.2,
-    colors: <Color>[Color(0x24007AFF), Color(0x00007AFF)],
+    colors: <Color>[Color(0x14007AFF), Color(0x00007AFF)],
   );
 }
