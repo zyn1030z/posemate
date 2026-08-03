@@ -68,10 +68,10 @@ abstract final class AppColors {
   static const Color surfaceElevated = Color(0xFFFFFFFF);
 
   /// Highest surface tier for tracks, handles, and pressed fills.
-  static const Color surfaceHighest = Color(0xFFE5E5EA);
+  static const Color surfaceHighest = Color(0xFFD1D1D6);
 
-  /// Hairline outline color on light surfaces.
-  static const Color outline = Color(0xFFD1D1D6);
+  /// Hairline outline color on light surfaces — iOS separator gray.
+  static const Color outline = Color(0xFFC7C7CC);
 
   // --- Dark neutrals (secondary theme) --------------------------------------
 
@@ -95,11 +95,11 @@ abstract final class AppColors {
   /// Primary text on light surfaces — near black.
   static const Color textPrimary = Color(0xFF1C1C1E);
 
-  /// Secondary, supporting text on light surfaces.
-  static const Color textSecondary = Color(0xFF8E8E93);
+  /// Secondary, supporting text on light surfaces — iOS systemGray2.
+  static const Color textSecondary = Color(0xFF636366);
 
-  /// Tertiary, hint-level text on light surfaces.
-  static const Color textTertiary = Color(0xFFAEAEB2);
+  /// Tertiary, hint-level text on light surfaces — iOS systemGray.
+  static const Color textTertiary = Color(0xFF8E8E93);
 
   /// White text and icons placed on blue fills.
   static const Color textOnPrimary = Color(0xFFFFFFFF);
@@ -131,14 +131,14 @@ abstract final class AppColors {
 
   // --- Glass overlays -------------------------------------------------------
 
-  /// Frosted glass fill — black at roughly 3 percent for light mode.
-  static const Color glassWhite = Color(0x08000000);
+  /// Frosted glass fill — black at roughly 5 percent for light mode.
+  static const Color glassWhite = Color(0x0D000000);
 
-  /// Glass border stroke — black at roughly 6 percent for light mode.
-  static const Color glassStroke = Color(0x0F000000);
+  /// Glass border stroke — black at roughly 10 percent for light mode.
+  static const Color glassStroke = Color(0x1A000000);
 
-  /// Stronger glass fill — black at roughly 8 percent for light mode.
-  static const Color glassStrong = Color(0x14000000);
+  /// Stronger glass fill — black at roughly 12 percent for light mode.
+  static const Color glassStrong = Color(0x1F000000);
 
   /// Frosted glass fill for dark mode — white at roughly 8 percent.
   static const Color glassDark = Color(0x14FFFFFF);

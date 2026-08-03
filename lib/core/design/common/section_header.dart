@@ -10,7 +10,7 @@ import 'package:posely_ai/core/theme/tokens/app_typography.dart';
 /// Header row for a content section within a screen.
 ///
 /// A section title on the left and an optional trailing action in the
-/// 'See all' pattern: an emerald label with a small chevron, a 44-pixel
+/// 'See all' pattern: a blue label with a small chevron, a 44-pixel
 /// minimum tap target, and a selection haptic on tap.
 class SectionHeader extends StatelessWidget {
   /// Creates a section header with the given title.
