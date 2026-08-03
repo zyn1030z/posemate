@@ -152,4 +152,4 @@ flutter:
           weight: 800
 
 dependency_overrides:
-  objective_c: 8.0.0
+  objective_c: 9.1.0
