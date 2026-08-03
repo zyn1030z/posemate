@@ -13,7 +13,7 @@ import 'package:posely_ai/core/theme/tokens/app_typography.dart';
 
 /// Semantic flavor of a Posely toast.
 enum PoselyToastKind {
-  /// Positive confirmation — emerald check icon, light haptic.
+  /// Positive confirmation — success check icon, light haptic.
   success,
 
   /// Failure notice — danger icon, medium haptic.

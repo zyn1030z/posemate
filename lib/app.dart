@@ -34,7 +34,7 @@ class PoselyApp extends ConsumerWidget {
         return Banner(
           message: config.flavor.label.toUpperCase(),
           location: BannerLocation.topEnd,
-          color: const Color(0xCC10B981),
+          color: const Color(0xCC007AFF),
           child: child,
         );
       },

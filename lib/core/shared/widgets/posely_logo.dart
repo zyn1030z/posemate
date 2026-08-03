@@ -5,7 +5,7 @@ import 'package:posely_ai/core/theme/tokens/app_colors.dart';
 import 'package:posely_ai/core/theme/tokens/app_gradients.dart';
 
 /// The Posely AI brand mark: a six-blade camera aperture stroked with the
-/// emerald hero gradient over a soft glow, with an emerald center dot.
+/// blue hero gradient over a soft glow, with a blue center dot.
 ///
 /// Painted at runtime with a custom painter so it stays crisp at any size
 /// and needs no bundled assets. Optionally renders the wordmark beneath
@@ -26,9 +26,9 @@ class PoselyLogo extends StatelessWidget {
       child: CustomPaint(
         size: Size.square(size),
         painter: _AperturePainter(
-          gradient: AppGradients.emeraldHero,
+          gradient: AppGradients.blueHero,
           glowColor: AppColors.primary.withValues(alpha: 0.38),
-          dotColor: AppColors.emerald400,
+          dotColor: AppColors.primary,
         ),
       ),
     );
@@ -45,7 +45,7 @@ class PoselyLogo extends StatelessWidget {
 }
 
 /// The Posely AI wordmark: 'Posely' in the primary text color followed by
-/// 'AI' in emerald, set bold with tight letter-spacing.
+/// 'AI' in blue, set bold with tight letter-spacing.
 ///
 /// Exposed separately so screens (e.g. the splash) can animate the mark
 /// and the wordmark independently.
@@ -73,7 +73,7 @@ class PoselyWordmark extends StatelessWidget {
           ),
           TextSpan(
             text: 'AI',
-            style: TextStyle(color: AppColors.emerald400),
+            style: TextStyle(color: AppColors.primary),
           ),
         ],
       ),
@@ -116,7 +116,7 @@ class _AperturePainter extends CustomPainter {
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, side * 0.05);
     canvas.drawPath(blades, glowPaint);
 
-    // Blade pass: crisp stroke shaded with the emerald hero gradient.
+    // Blade pass: crisp stroke shaded with the blue hero gradient.
     final bladePaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth

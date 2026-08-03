@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 
 /// Spacing tokens for Posely AI, built on a 4-point grid.
 ///
+/// Generous, breathable spacing for a clean modern layout.
 /// Use these constants for paddings, gaps, and margins so the whole app
 /// shares one consistent rhythm.
 abstract final class AppSpacing {
@@ -35,12 +36,12 @@ abstract final class AppSpacing {
   /// Massive spacing — 56 logical pixels.
   static const double massive = 56;
 
-  /// Vertical rhythm between major screen sections — 28 logical pixels.
-  static const double sectionGap = 28;
+  /// Vertical rhythm between major screen sections — 32 logical pixels.
+  static const double sectionGap = 32;
 
-  /// Default horizontal padding applied to screen content.
-  static const EdgeInsets screenPadding = EdgeInsets.symmetric(horizontal: xl);
+  /// Default horizontal padding applied to screen content — generous 24px.
+  static const EdgeInsets screenPadding = EdgeInsets.symmetric(horizontal: xxl);
 
-  /// Default inner padding for cards and glass panels.
-  static const EdgeInsets cardPadding = EdgeInsets.all(lg);
+  /// Default inner padding for cards and panels — roomy 20px.
+  static const EdgeInsets cardPadding = EdgeInsets.all(xl);
 }

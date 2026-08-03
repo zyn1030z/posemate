@@ -2,62 +2,71 @@ import 'package:flutter/painting.dart';
 
 /// Shadow tokens for Posely AI.
 ///
-/// Tuned for the dark flagship theme: low alpha and large blur so
-/// elevation reads as soft ambient depth rather than harsh drop
-/// shadows. The emerald glow is reserved for hero moments.
+/// Tuned for the light flagship theme: very low alpha and large blur
+/// so elevation reads as soft, natural depth on off-white backgrounds.
+/// The blue glow is reserved for hero moments.
 abstract final class AppShadows {
   /// Soft ambient shadow for resting cards and tiles.
   static const List<BoxShadow> soft = <BoxShadow>[
     BoxShadow(
-      color: Color(0x29000000),
-      blurRadius: 18,
-      offset: Offset(0, 6),
-      spreadRadius: -4,
+      color: Color(0x0A000000),
+      blurRadius: 12,
+      offset: Offset(0, 2),
+      spreadRadius: 0,
+    ),
+    BoxShadow(
+      color: Color(0x05000000),
+      blurRadius: 4,
+      offset: Offset(0, 1),
+      spreadRadius: 0,
     ),
   ];
 
   /// Medium shadow for raised surfaces such as popovers and menus.
   static const List<BoxShadow> medium = <BoxShadow>[
     BoxShadow(
-      color: Color(0x1F000000),
+      color: Color(0x0A000000),
       blurRadius: 8,
       offset: Offset(0, 2),
     ),
     BoxShadow(
-      color: Color(0x33000000),
-      blurRadius: 28,
-      offset: Offset(0, 10),
-      spreadRadius: -6,
+      color: Color(0x14000000),
+      blurRadius: 24,
+      offset: Offset(0, 8),
+      spreadRadius: -4,
     ),
   ];
 
   /// High shadow for floating elements such as dialogs and sheets.
   static const List<BoxShadow> high = <BoxShadow>[
     BoxShadow(
-      color: Color(0x29000000),
-      blurRadius: 16,
-      offset: Offset(0, 6),
+      color: Color(0x0F000000),
+      blurRadius: 12,
+      offset: Offset(0, 4),
     ),
     BoxShadow(
-      color: Color(0x40000000),
-      blurRadius: 48,
-      offset: Offset(0, 20),
+      color: Color(0x1F000000),
+      blurRadius: 40,
+      offset: Offset(0, 16),
       spreadRadius: -8,
     ),
   ];
 
-  /// Emerald-tinted glow for hero buttons and score highlights.
-  static const List<BoxShadow> emeraldGlow = <BoxShadow>[
+  /// Blue-tinted glow for hero buttons and score highlights.
+  static const List<BoxShadow> blueGlow = <BoxShadow>[
     BoxShadow(
-      color: Color(0x5210B981),
-      blurRadius: 28,
+      color: Color(0x33007AFF),
+      blurRadius: 24,
       offset: Offset(0, 6),
       spreadRadius: -4,
     ),
     BoxShadow(
-      color: Color(0x2410B981),
-      blurRadius: 48,
+      color: Color(0x1A007AFF),
+      blurRadius: 40,
       offset: Offset(0, 12),
     ),
   ];
+
+  /// Legacy alias — maps to blueGlow for backward compatibility.
+  static const List<BoxShadow> emeraldGlow = blueGlow;
 }

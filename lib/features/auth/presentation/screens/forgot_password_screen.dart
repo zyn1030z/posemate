@@ -132,7 +132,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
       child: const Icon(
         Icons.lock_reset_rounded,
         size: 32,
-        color: AppColors.emerald300,
+        color: AppColors.blue300,
       ),
     );
   }

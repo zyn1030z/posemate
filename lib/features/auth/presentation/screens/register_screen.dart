@@ -202,7 +202,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
   Widget _buildTermsLine() {
     final linkStyle = AppTypography.caption.copyWith(
-      color: AppColors.emerald400,
+      color: AppColors.primary,
       fontWeight: FontWeight.w600,
     );
     return Text.rich(
@@ -237,7 +237,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           TextSpan(
             text: 'Sign in',
             style: AppTypography.body.copyWith(
-              color: AppColors.emerald400,
+              color: AppColors.primary,
               fontWeight: FontWeight.w600,
             ),
             recognizer: _signInRecognizer,

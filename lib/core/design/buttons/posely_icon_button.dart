@@ -12,7 +12,7 @@ const double _minTapTarget = 44;
 /// A circular frosted-glass icon button.
 ///
 /// Renders the icon on a glass disc with a hairline stroke. The active
-/// state tints the disc emerald, colors the icon with the brand
+/// state tints the disc blue, colors the icon with the brand
 /// primary, and adds a faint glow. The tappable area never shrinks
 /// below 44 by 44 logical pixels, even for smaller disc sizes.
 class PoselyIconButton extends StatelessWidget {
@@ -39,7 +39,7 @@ class PoselyIconButton extends StatelessWidget {
   /// Size of the icon in logical pixels.
   final double iconSize;
 
-  /// Whether the button renders in its emerald active state.
+  /// Whether the button renders in its blue active state.
   final bool active;
 
   /// Accessibility label, also shown as a long-press tooltip.

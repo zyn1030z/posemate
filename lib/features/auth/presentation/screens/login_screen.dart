@@ -277,7 +277,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               TextSpan(
                 text: 'Create account',
                 style: AppTypography.bodyMuted.copyWith(
-                  color: AppColors.emerald400,
+                  color: AppColors.primary,
                   fontWeight: FontWeight.w600,
                 ),
                 recognizer: _registerRecognizer,
@@ -327,7 +327,7 @@ class _HairlineGradient extends StatelessWidget {
   /// Whether the hairline fades out to the right instead of the left.
   final bool reversed;
 
-  static const Color _edge = Color(0x00FFFFFF);
+  static const Color _edge = Color(0x00000000);
 
   @override
   Widget build(BuildContext context) {

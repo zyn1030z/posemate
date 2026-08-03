@@ -15,13 +15,13 @@ const double _minTapTarget = 44;
 
 /// Visual style of a [PoselyButton].
 enum PoselyButtonVariant {
-  /// Emerald hero gradient fill with a soft glow shadow.
+  /// Blue hero gradient fill with a soft glow shadow.
   primary,
 
   /// Frosted glass fill with a hairline glass stroke.
   glass,
 
-  /// Transparent fill with secondary text, turning emerald on press.
+  /// Transparent fill with secondary text, turning blue on press.
   ghost,
 
   /// Destructive style with a translucent rose fill and rose stroke.
@@ -120,9 +120,9 @@ class _PoselyButtonState extends State<PoselyButton> {
   BoxDecoration _decoration(PoselyColors colors) {
     return switch (widget.variant) {
       PoselyButtonVariant.primary => BoxDecoration(
-          gradient: AppGradients.emeraldHero,
+          gradient: AppGradients.blueHero,
           borderRadius: AppRadius.brPill,
-          boxShadow: widget.onPressed != null ? AppShadows.emeraldGlow : null,
+          boxShadow: widget.onPressed != null ? AppShadows.blueGlow : null,
         ),
       PoselyButtonVariant.glass => BoxDecoration(
           color: colors.glassSurface,

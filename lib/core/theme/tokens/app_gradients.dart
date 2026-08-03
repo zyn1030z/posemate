@@ -6,30 +6,33 @@ import 'package:posely_ai/core/theme/tokens/app_colors.dart';
 
 /// Gradient tokens for Posely AI.
 ///
-/// Signature surfaces: the emerald hero fill, photographic veils, glass
-/// sheens, the tricolor score ring, and the ambient aurora that gives
-/// the dark background its depth.
+/// Clean, modern gradients: the blue hero fill for primary actions,
+/// soft veils for photo overlays, subtle sheens for elevated cards,
+/// the tricolor score ring, and a faint blue aurora for depth.
 abstract final class AppGradients {
-  /// Diagonal emerald gradient for hero buttons and highlight cards.
-  static const LinearGradient emeraldHero = LinearGradient(
+  /// Diagonal blue gradient for hero buttons and highlight cards.
+  static const LinearGradient blueHero = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[AppColors.emerald400, AppColors.emerald600],
+    colors: <Color>[AppColors.blue400, AppColors.blue600],
   );
 
-  /// Vertical veil from transparent to deep black, laid over photos so
+  /// Legacy alias — maps to blueHero for backward compatibility.
+  static const LinearGradient emeraldHero = blueHero;
+
+  /// Vertical veil from transparent to soft black, laid over photos so
   /// overlaid text stays legible.
   static const LinearGradient darkVeil = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: <Color>[Color(0x00000000), Color(0xBF000000)],
+    colors: <Color>[Color(0x00000000), Color(0x99000000)],
   );
 
-  /// Subtle white sheen that gives glass panels their catch of light.
+  /// Subtle gray sheen that gives elevated cards their catch of light.
   static const LinearGradient glassSheen = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[Color(0x1AFFFFFF), Color(0x05FFFFFF)],
+    colors: <Color>[Color(0x0D000000), Color(0x03000000)],
   );
 
   /// Sweep gradient for circular score dials, running from rose through
@@ -44,11 +47,11 @@ abstract final class AppGradients {
     transform: GradientRotation(-math.pi / 2),
   );
 
-  /// Faint radial emerald tint floated over the dark background to
-  /// create an ambient aurora behind content.
+  /// Faint radial blue tint floated over the light background to
+  /// create a subtle ambient glow behind hero content.
   static const RadialGradient backgroundAurora = RadialGradient(
     center: Alignment(0, -0.6),
     radius: 1.2,
-    colors: <Color>[Color(0x2E10B981), Color(0x0010B981)],
+    colors: <Color>[Color(0x14007AFF), Color(0x00007AFF)],
   );
 }

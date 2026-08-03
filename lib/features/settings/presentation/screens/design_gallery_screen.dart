@@ -75,13 +75,13 @@ class DesignGalleryScreen extends StatelessWidget {
         _gap,
         const Center(child: PoselyLogo(size: 72, showWordmark: true)),
         _sectionGap,
-        Text('Emerald scale', style: AppTypography.cardTitle),
+        Text('Blue scale', style: AppTypography.cardTitle),
         _smallGap,
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              for (final entry in _emeraldScale.entries) ...[
+              for (final entry in _blueScale.entries) ...[
                 _ColorSwatch(name: entry.key, color: entry.value),
                 const SizedBox(width: AppSpacing.sm),
               ],
@@ -117,17 +117,17 @@ class DesignGalleryScreen extends StatelessWidget {
     );
   }
 
-  static const Map<String, Color> _emeraldScale = <String, Color>{
-    '50': AppColors.emerald50,
-    '100': AppColors.emerald100,
-    '200': AppColors.emerald200,
-    '300': AppColors.emerald300,
+  static const Map<String, Color> _blueScale = <String, Color>{
+    '50': AppColors.blue50,
+    '100': AppColors.blue100,
+    '200': AppColors.blue200,
+    '300': AppColors.blue300,
     '400': AppColors.emerald400,
     '500': AppColors.emerald500,
     '600': AppColors.emerald600,
-    '700': AppColors.emerald700,
-    '800': AppColors.emerald800,
-    '900': AppColors.emerald900,
+    '700': AppColors.blue700,
+    '800': AppColors.blue800,
+    '900': AppColors.blue900,
   };
 
   // --- Typography -----------------------------------------------------------

@@ -157,7 +157,7 @@ class _PoseImageFallback extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[AppColors.emerald900, AppColors.background],
+          colors: <Color>[AppColors.blue900, AppColors.background],
         ),
       ),
       child: Center(

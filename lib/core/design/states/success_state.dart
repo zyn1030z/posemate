@@ -199,7 +199,7 @@ class _CheckPainter extends CustomPainter {
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..color = AppColors.emerald300;
+      ..color = AppColors.blue300;
     canvas.drawPath(visible, strokePaint);
   }
 

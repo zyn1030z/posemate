@@ -66,6 +66,7 @@ class PoseDetailScreen extends ConsumerWidget {
     final async = ref.watch(poseDetailProvider(poseId));
     final pose = async.value;
     return Scaffold(
+      backgroundColor: AppColors.background,
       body: async.when(
         loading: () => const AppLoadingView(),
         error: (Object error, StackTrace stackTrace) => AppErrorView(
@@ -373,7 +374,7 @@ class _StatRow extends StatelessWidget {
         Expanded(
           child: _StatCard(
             icon: Icons.download_rounded,
-            iconColor: AppColors.emerald400,
+            iconColor: AppColors.primary,
             value: _formatCompact(pose.downloads),
             label: 'Downloads',
           ),

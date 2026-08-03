@@ -102,7 +102,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Subtle emerald aurora rising behind the mark.
+          // Subtle blue aurora rising behind the mark.
           DecoratedBox(
             decoration: BoxDecoration(
               gradient: RadialGradient(

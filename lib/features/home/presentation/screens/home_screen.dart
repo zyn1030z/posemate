@@ -61,6 +61,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     };
 
     return Scaffold(
+      backgroundColor: AppColors.background,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -228,7 +229,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               const Icon(
                 Icons.search_rounded,
                 size: 20,
-                color: AppColors.textSecondary,
+                color: AppColors.primary,
               ),
               const SizedBox(width: AppSpacing.sm),
               Expanded(
@@ -258,8 +259,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: <Color>[
-                AppColors.emerald400.withValues(alpha: 0.24),
-                AppColors.emerald600.withValues(alpha: 0.08),
+                AppColors.blue400.withValues(alpha: 0.16),
+                AppColors.blue600.withValues(alpha: 0.06),
               ],
             ),
           ),
@@ -289,9 +290,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   height: 48,
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(
-                    gradient: AppGradients.emeraldHero,
+                    gradient: AppGradients.blueHero,
                     shape: BoxShape.circle,
-                    boxShadow: AppShadows.emeraldGlow,
+                    boxShadow: AppShadows.blueGlow,
                   ),
                   child: const Icon(
                     Icons.photo_camera_rounded,

@@ -176,6 +176,7 @@ class _PoseLibraryScreenState extends ConsumerState<PoseLibraryScreen> {
     );
 
     return Scaffold(
+      backgroundColor: AppColors.background,
       body: SafeArea(
         bottom: false,
         child: RefreshIndicator.adaptive(
@@ -399,7 +400,7 @@ class _PoseLibraryScreenState extends ConsumerState<PoseLibraryScreen> {
 
 /// Glass dropdown-style chip opening a bottom-sheet picker.
 ///
-/// Turns emerald-tinted while its filter is active and shows the
+/// Turns blue-tinted while its filter is active and shows the
 /// selected value as its label.
 class _FilterPickerChip extends StatelessWidget {
   const _FilterPickerChip({
@@ -531,7 +532,7 @@ class _OptionTile extends StatelessWidget {
   }
 }
 
-/// Three emerald dots pulsing in sequence while the next page loads.
+/// Three blue dots pulsing in sequence while the next page loads.
 class _PulseDotsLoader extends StatefulWidget {
   const _PulseDotsLoader();
 

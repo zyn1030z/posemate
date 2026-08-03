@@ -22,12 +22,12 @@ class PoselyColors extends ThemeExtension<PoselyColors> {
     required this.info,
   });
 
-  /// Flagship dark values — white glass over deep slate.
-  const PoselyColors.dark()
+  /// Flagship light values — subtle gray glass over white surfaces.
+  const PoselyColors.light()
       : glassSurface = AppColors.glassWhite,
         glassStroke = AppColors.glassStroke,
-        glow = const Color(0x5910B981),
-        scrim = AppColors.scrim,
+        glow = const Color(0x33007AFF),
+        scrim = AppColors.scrimLight,
         textMuted = AppColors.textTertiary,
         cardSurface = AppColors.surface,
         success = AppColors.success,
@@ -35,15 +35,14 @@ class PoselyColors extends ThemeExtension<PoselyColors> {
         danger = AppColors.error,
         info = AppColors.info;
 
-  /// Light values — slate glass over near-white surfaces, with
-  /// semantic colors darkened for contrast.
-  const PoselyColors.light()
+  /// Dark values — white glass over deep slate surfaces.
+  const PoselyColors.dark()
       : glassSurface = AppColors.glassDark,
         glassStroke = AppColors.glassDarkStroke,
-        glow = const Color(0x3310B981),
-        scrim = AppColors.scrimLight,
-        textMuted = AppColors.textTertiaryLight,
-        cardSurface = AppColors.surfaceLight,
+        glow = const Color(0x59007AFF),
+        scrim = AppColors.scrim,
+        textMuted = AppColors.textTertiaryDark,
+        cardSurface = AppColors.surfaceDark,
         success = AppColors.emerald600,
         warning = const Color(0xFFD97706),
         danger = const Color(0xFFE11D48),
@@ -55,7 +54,7 @@ class PoselyColors extends ThemeExtension<PoselyColors> {
   /// Hairline stroke drawn on glass panel edges.
   final Color glassStroke;
 
-  /// Emerald glow tint for hero elements and score highlights.
+  /// Blue glow tint for hero elements and score highlights.
   final Color glow;
 
   /// Scrim behind modal sheets and dialogs.

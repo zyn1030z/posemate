@@ -11,7 +11,7 @@ import 'package:posely_ai/core/theme/tokens/app_typography.dart';
 /// The Posely text input field.
 ///
 /// A filled field on an elevated surface with no stroke at rest. Focus
-/// animates in a 1.5 pixel emerald stroke and a soft glow; an error
+/// animates in a 1.5 pixel blue stroke and a soft glow; an error
 /// swaps the stroke to the danger color and reveals the error message
 /// below. When obscuring text, a trailing eye toggle reveals and hides
 /// the value, replacing any custom suffix.

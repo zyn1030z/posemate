@@ -4,10 +4,11 @@ import 'package:posely_ai/core/theme/tokens/app_colors.dart';
 
 /// Typography tokens for Posely AI.
 ///
-/// Apple-like type: tight negative tracking on large sizes, confident
-/// w600 to w700 headings, and relaxed line heights for body copy. The
-/// Material text theme is built per brightness, while the semantic
-/// aliases carry dark-first colors for direct use across the app.
+/// Clean geometric type: tight negative tracking on large sizes,
+/// confident w600 to w800 headings, and relaxed line heights for body
+/// copy. Includes an airportCode style for extra-large bold identifiers.
+/// The Material text theme is built per brightness, while the semantic
+/// aliases carry light-first colors for direct use across the app.
 abstract final class AppTypography {
   /// Text font family bundled with the app (weights 400–700).
   static const String fontFamily = 'Inter';
@@ -215,6 +216,17 @@ abstract final class AppTypography {
         height: 1.2,
         letterSpacing: 0.1,
         color: AppColors.textPrimary,
+      );
+
+  /// Extra-large bold style for category codes and pose identifiers,
+  /// inspired by airport code typography (JFK, LAX style).
+  static TextStyle get airportCode => _style(
+        size: 32,
+        weight: FontWeight.w800,
+        height: 1.1,
+        letterSpacing: -1.5,
+        color: AppColors.textPrimary,
+        family: displayFamily,
       );
 
   /// Large numeric style for AI scores, using tabular figures so

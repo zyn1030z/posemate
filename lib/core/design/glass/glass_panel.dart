@@ -18,7 +18,7 @@ class GlassPanel extends StatelessWidget {
     required this.child,
     this.padding,
     this.borderRadius,
-    this.blurSigma = AppBlur.glass,
+    this.blurSigma = 8,
     this.tint,
     this.showSheen = true,
   });

@@ -10,7 +10,7 @@ import 'package:posely_ai/core/theme/tokens/app_typography.dart';
 
 /// A selectable pill chip for filters and pose categories.
 ///
-/// Animates between a frosted glass resting state and an emerald-tinted
+/// Animates between a frosted glass resting state and a blue-tinted
 /// selected state. The visible pill is 36 logical pixels tall, and
 /// built-in vertical padding extends the tappable area to 44 logical
 /// pixels. Fires a selection-click haptic on tap.
@@ -27,7 +27,7 @@ class PoselyChip extends StatelessWidget {
   /// Text shown inside the chip.
   final String label;
 
-  /// Whether the chip renders in its emerald selected state.
+  /// Whether the chip renders in its blue selected state.
   final bool selected;
 
   /// Called on tap. When null the chip is static.

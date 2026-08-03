@@ -2,111 +2,122 @@ import 'package:flutter/material.dart';
 
 /// Brand color tokens for Posely AI.
 ///
-/// A dark-first palette built around deep slate surfaces and emerald
-/// accents. Every token is a compile-time constant so it can be used in
-/// const widget trees. Theme-dependent values are resolved through
-/// PoselyColors in the theme extension layer.
+/// A light-first palette built around off-white surfaces and vibrant
+/// blue accents. Every token is a compile-time constant so it can be
+/// used in const widget trees. Theme-dependent values are resolved
+/// through PoselyColors in the theme extension layer.
 abstract final class AppColors {
-  // --- Emerald brand scale --------------------------------------------------
+  // --- Blue brand scale (primary) -------------------------------------------
 
-  /// Emerald 50 — faint mint wash for tinted fills on light surfaces.
-  static const Color emerald50 = Color(0xFFECFDF5);
+  /// Blue 50 — faint sky wash for tinted fills on light surfaces.
+  static const Color blue50 = Color(0xFFEFF6FF);
 
-  /// Emerald 100 — soft mint for subtle highlights and badges.
-  static const Color emerald100 = Color(0xFFD1FAE5);
+  /// Blue 100 — soft sky for subtle highlights and badges.
+  static const Color blue100 = Color(0xFFDBEAFE);
 
-  /// Emerald 200 — light tint for hover states on light surfaces.
-  static const Color emerald200 = Color(0xFFA7F3D0);
+  /// Blue 200 — light tint for hover states on light surfaces.
+  static const Color blue200 = Color(0xFFBFDBFE);
 
-  /// Emerald 300 — bright tint for glow edges and gradients.
-  static const Color emerald300 = Color(0xFF6EE7B7);
+  /// Blue 300 — bright tint for glow edges and gradients.
+  static const Color blue300 = Color(0xFF93C5FD);
 
-  /// Emerald 400 — vivid accent used in gradients and selected icons.
+  /// Blue 400 — vivid accent used in gradients and selected icons.
+  static const Color blue400 = Color(0xFF60A5FA);
+
+  /// Blue 500 — the core brand blue.
+  static const Color blue500 = Color(0xFF007AFF);
+
+  /// Blue 600 — pressed and dark-mode variant.
+  static const Color blue600 = Color(0xFF0055D4);
+
+  /// Blue 700 — deep blue for gradient ends.
+  static const Color blue700 = Color(0xFF1D4ED8);
+
+  /// Blue 800 — very deep blue for containers.
+  static const Color blue800 = Color(0xFF1E40AF);
+
+  /// Blue 900 — deepest blue, near-navy container tone.
+  static const Color blue900 = Color(0xFF1E3A8A);
+
+  /// Primary brand color, an alias of the core blue.
+  static const Color primary = blue500;
+
+  /// Secondary accent sky blue for gradients and highlights.
+  static const Color accent = Color(0xFF5AC8FA);
+
+  // --- Emerald scale (kept for score/semantic backward compat) ---------------
+
+  /// Emerald 400 — vivid accent for score high states.
   static const Color emerald400 = Color(0xFF34D399);
 
-  /// Emerald 500 — the core brand emerald.
+  /// Emerald 500 — success green, matches legacy primary.
   static const Color emerald500 = Color(0xFF10B981);
 
-  /// Emerald 600 — pressed and light-mode-contrast variant.
+  /// Emerald 600 — pressed green variant.
   static const Color emerald600 = Color(0xFF059669);
 
-  /// Emerald 700 — deep emerald for gradient ends.
-  static const Color emerald700 = Color(0xFF047857);
+  // --- Light neutrals (flagship) --------------------------------------------
 
-  /// Emerald 800 — very deep emerald for containers.
-  static const Color emerald800 = Color(0xFF065F46);
+  /// App background in light mode — off-white.
+  static const Color background = Color(0xFFF5F5F7);
 
-  /// Emerald 900 — deepest emerald, near-forest container tone.
-  static const Color emerald900 = Color(0xFF064E3B);
-
-  /// Primary brand color, an alias of the core emerald.
-  static const Color primary = emerald500;
-
-  /// Secondary accent green for gradients and highlights.
-  static const Color accent = Color(0xFF22C55E);
-
-  // --- Dark neutrals (flagship) ---------------------------------------------
-
-  /// App background in dark mode — deepest slate.
-  static const Color background = Color(0xFF0F172A);
-
-  /// Base surface for cards and bars in dark mode.
-  static const Color surface = Color(0xFF111827);
+  /// Base surface for cards and bars — pure white.
+  static const Color surface = Color(0xFFFFFFFF);
 
   /// Elevated surface for dialogs, inputs, and raised cards.
-  static const Color surfaceElevated = Color(0xFF1E293B);
+  static const Color surfaceElevated = Color(0xFFFFFFFF);
 
   /// Highest surface tier for tracks, handles, and pressed fills.
-  static const Color surfaceHighest = Color(0xFF334155);
-
-  /// Hairline outline color on dark surfaces.
-  static const Color outline = Color(0xFF33415F);
-
-  // --- Light neutrals -------------------------------------------------------
-
-  /// App background in light mode — near-white slate.
-  static const Color backgroundLight = Color(0xFFF8FAFC);
-
-  /// Base surface for cards and bars in light mode.
-  static const Color surfaceLight = Color(0xFFFFFFFF);
-
-  /// Elevated surface for inputs and grouped content in light mode.
-  static const Color surfaceElevatedLight = Color(0xFFF1F5F9);
-
-  /// Highest surface tier for tracks and handles in light mode.
-  static const Color surfaceHighestLight = Color(0xFFE2E8F0);
+  static const Color surfaceHighest = Color(0xFFE5E5EA);
 
   /// Hairline outline color on light surfaces.
-  static const Color outlineLight = Color(0xFFCBD5E1);
+  static const Color outline = Color(0xFFD1D1D6);
+
+  // --- Dark neutrals (secondary theme) --------------------------------------
+
+  /// App background in dark mode — deep slate.
+  static const Color backgroundDark = Color(0xFF0F172A);
+
+  /// Base surface for cards and bars in dark mode.
+  static const Color surfaceDark = Color(0xFF111827);
+
+  /// Elevated surface in dark mode.
+  static const Color surfaceElevatedDark = Color(0xFF1E293B);
+
+  /// Highest surface tier in dark mode.
+  static const Color surfaceHighestDark = Color(0xFF334155);
+
+  /// Hairline outline color on dark surfaces.
+  static const Color outlineDark = Color(0xFF33415F);
+
+  // --- Text (light mode — flagship) -----------------------------------------
+
+  /// Primary text on light surfaces — near black.
+  static const Color textPrimary = Color(0xFF1C1C1E);
+
+  /// Secondary, supporting text on light surfaces.
+  static const Color textSecondary = Color(0xFF8E8E93);
+
+  /// Tertiary, hint-level text on light surfaces.
+  static const Color textTertiary = Color(0xFFAEAEB2);
+
+  /// White text and icons placed on blue fills.
+  static const Color textOnPrimary = Color(0xFFFFFFFF);
 
   // --- Text (dark mode) -----------------------------------------------------
 
   /// Primary text on dark surfaces.
-  static const Color textPrimary = Color(0xFFF8FAFC);
+  static const Color textPrimaryDark = Color(0xFFF8FAFC);
 
   /// Secondary, supporting text on dark surfaces.
-  static const Color textSecondary = Color(0xFF94A3B8);
+  static const Color textSecondaryDark = Color(0xFF94A3B8);
 
   /// Tertiary, hint-level text on dark surfaces.
-  static const Color textTertiary = Color(0xFF64748B);
-
-  /// Deep forest text and icons placed on emerald fills.
-  static const Color textOnPrimary = Color(0xFF052E1F);
-
-  // --- Text (light mode) ----------------------------------------------------
-
-  /// Primary text on light surfaces.
-  static const Color textPrimaryLight = Color(0xFF0F172A);
-
-  /// Secondary, supporting text on light surfaces.
-  static const Color textSecondaryLight = Color(0xFF475569);
-
-  /// Tertiary, hint-level text on light surfaces.
-  static const Color textTertiaryLight = Color(0xFF94A3B8);
+  static const Color textTertiaryDark = Color(0xFF64748B);
 
   // --- Semantic -------------------------------------------------------------
 
-  /// Positive state color, aligned with the brand emerald.
+  /// Positive state color — emerald green.
   static const Color success = emerald500;
 
   /// Warning state color — warm amber.
@@ -120,26 +131,26 @@ abstract final class AppColors {
 
   // --- Glass overlays -------------------------------------------------------
 
-  /// Frosted glass fill — white at roughly 8 percent opacity.
-  static const Color glassWhite = Color(0x14FFFFFF);
+  /// Frosted glass fill — black at roughly 3 percent for light mode.
+  static const Color glassWhite = Color(0x08000000);
 
-  /// Glass border stroke — white at roughly 12 percent opacity.
-  static const Color glassStroke = Color(0x1FFFFFFF);
+  /// Glass border stroke — black at roughly 6 percent for light mode.
+  static const Color glassStroke = Color(0x0F000000);
 
-  /// Stronger glass fill — white at roughly 14 percent opacity.
-  static const Color glassStrong = Color(0x24FFFFFF);
+  /// Stronger glass fill — black at roughly 8 percent for light mode.
+  static const Color glassStrong = Color(0x14000000);
 
-  /// Frosted glass fill for light mode — slate at roughly 5 percent.
-  static const Color glassDark = Color(0x0D0F172A);
+  /// Frosted glass fill for dark mode — white at roughly 8 percent.
+  static const Color glassDark = Color(0x14FFFFFF);
 
-  /// Glass border stroke for light mode — slate at roughly 10 percent.
-  static const Color glassDarkStroke = Color(0x1A0F172A);
+  /// Glass border stroke for dark mode — white at roughly 12 percent.
+  static const Color glassDarkStroke = Color(0x1FFFFFFF);
 
-  /// Modal scrim behind sheets and dialogs — black at 60 percent.
-  static const Color scrim = Color(0x99000000);
+  /// Modal scrim behind sheets and dialogs — black at 40 percent.
+  static const Color scrim = Color(0x66000000);
 
-  /// Lighter scrim for light mode — black at 40 percent.
-  static const Color scrimLight = Color(0x66000000);
+  /// Lighter scrim for light mode — black at 25 percent.
+  static const Color scrimLight = Color(0x40000000);
 
   // --- AI score feedback ----------------------------------------------------
 

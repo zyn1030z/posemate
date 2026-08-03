@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:posely_ai/core/design/glass/glass_panel.dart';
+import 'package:posely_ai/core/theme/tokens/app_colors.dart';
 import 'package:posely_ai/core/theme/tokens/app_radius.dart';
 import 'package:posely_ai/core/theme/tokens/app_shadows.dart';
 import 'package:posely_ai/core/theme/tokens/app_spacing.dart';
 
-/// A [GlassPanel] dressed as a content card.
+/// A card surface with soft elevation and subtle border.
 ///
 /// Applies the shared card padding, floats on a soft resting shadow,
 /// and becomes tappable with radius-aware ink feedback and a light
 /// haptic when an on-tap callback is provided.
 class GlassCard extends StatelessWidget {
-  /// Creates a glass card around the given child.
+  /// Creates a card surface around the given child.
   const GlassCard({
     super.key,
     required this.child,
@@ -35,7 +35,7 @@ class GlassCard extends StatelessWidget {
   /// Called when the card is tapped. When null the card is static.
   final VoidCallback? onTap;
 
-  /// Overrides the frosted glass fill color.
+  /// Overrides the default surface fill color.
   final Color? tint;
 
   void _handleTap() {
@@ -64,12 +64,13 @@ class GlassCard extends StatelessWidget {
 
     return DecoratedBox(
       decoration: BoxDecoration(
+        color: tint ?? AppColors.surface,
         borderRadius: radius,
+        border: Border.all(color: AppColors.outline.withValues(alpha: 0.5)),
         boxShadow: AppShadows.soft,
       ),
-      child: GlassPanel(
+      child: ClipRRect(
         borderRadius: radius,
-        tint: tint,
         child: content,
       ),
     );

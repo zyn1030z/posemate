@@ -287,7 +287,7 @@ class _PoseGridVisual extends StatelessWidget {
   static const LinearGradient _emeraldDeep = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[AppColors.emerald500, AppColors.emerald800],
+    colors: <Color>[AppColors.emerald500, AppColors.blue800],
   );
 
   static const LinearGradient _slate = LinearGradient(
@@ -299,13 +299,13 @@ class _PoseGridVisual extends StatelessWidget {
   static const LinearGradient _forest = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[AppColors.emerald800, AppColors.surfaceElevated],
+    colors: <Color>[AppColors.blue800, AppColors.surfaceElevated],
   );
 
   static const LinearGradient _mist = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[AppColors.surfaceElevated, AppColors.emerald900],
+    colors: <Color>[AppColors.surfaceElevated, AppColors.blue900],
   );
 
   @override
