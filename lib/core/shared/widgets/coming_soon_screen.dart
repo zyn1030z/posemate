@@ -61,23 +61,25 @@ class ComingSoonScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      width: _badgeSize,
-                      height: _badgeSize,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.primary.withValues(alpha: 0.12),
-                        border: Border.all(
-                          color: AppColors.emerald400.withValues(alpha: 0.35),
-                        ),
-                        boxShadow: AppShadows.emeraldGlow,
-                      ),
-                      child: Icon(
-                        icon ?? Icons.auto_awesome_rounded,
-                        size: 40,
-                        color: AppColors.emerald400,
-                      ),
-                    )
+                          width: _badgeSize,
+                          height: _badgeSize,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.primary.withValues(alpha: 0.12),
+                            border: Border.all(
+                              color: AppColors.emerald400.withValues(
+                                alpha: 0.35,
+                              ),
+                            ),
+                            boxShadow: AppShadows.emeraldGlow,
+                          ),
+                          child: Icon(
+                            icon ?? Icons.auto_awesome_rounded,
+                            size: 40,
+                            color: AppColors.emerald400,
+                          ),
+                        )
                         .animate()
                         .scale(
                           begin: const Offset(0.8, 0.8),
@@ -88,10 +90,10 @@ class ComingSoonScreen extends StatelessWidget {
                         .fadeIn(duration: AppDurations.base),
                     const SizedBox(height: AppSpacing.xl),
                     Text(
-                      title,
-                      style: AppTypography.screenTitle,
-                      textAlign: TextAlign.center,
-                    )
+                          title,
+                          style: AppTypography.screenTitle,
+                          textAlign: TextAlign.center,
+                        )
                         .animate()
                         .fadeIn(
                           delay: AppDurations.fast,
@@ -126,9 +128,9 @@ class ComingSoonScreen extends StatelessWidget {
                         ),
                       ),
                     ).animate().fadeIn(
-                          delay: AppDurations.base,
-                          duration: AppDurations.base,
-                        ),
+                      delay: AppDurations.base,
+                      duration: AppDurations.base,
+                    ),
                     const SizedBox(height: AppSpacing.md),
                     Text(
                       'We are crafting this experience right now.',
@@ -137,9 +139,9 @@ class ComingSoonScreen extends StatelessWidget {
                       ),
                       textAlign: TextAlign.center,
                     ).animate().fadeIn(
-                          delay: AppDurations.slow,
-                          duration: AppDurations.base,
-                        ),
+                      delay: AppDurations.slow,
+                      duration: AppDurations.base,
+                    ),
                   ],
                 ),
               ),

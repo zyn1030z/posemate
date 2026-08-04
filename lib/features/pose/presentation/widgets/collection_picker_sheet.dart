@@ -32,8 +32,7 @@ class _CollectionPickerBody extends ConsumerStatefulWidget {
       _CollectionPickerBodyState();
 }
 
-class _CollectionPickerBodyState
-    extends ConsumerState<_CollectionPickerBody> {
+class _CollectionPickerBodyState extends ConsumerState<_CollectionPickerBody> {
   /// Number of add/remove operations performed this session.
   int _changeCount = 0;
 
@@ -105,8 +104,7 @@ class _CollectionPickerBodyState
               itemCount: collections.length,
               itemBuilder: (_, int index) {
                 final collection = collections[index];
-                final contains =
-                    collection.poseIds.contains(widget.poseId);
+                final contains = collection.poseIds.contains(widget.poseId);
                 return _CollectionTile(
                   collection: collection,
                   isSelected: contains,
@@ -202,9 +200,7 @@ class _CollectionTile extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Icon(
-                isSelected
-                    ? Icons.check_circle_rounded
-                    : Icons.circle_outlined,
+                isSelected ? Icons.check_circle_rounded : Icons.circle_outlined,
                 color: isSelected
                     ? AppColors.primary
                     : Theme.of(context).colorScheme.onSurfaceVariant,

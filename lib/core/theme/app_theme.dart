@@ -31,9 +31,7 @@ abstract final class PoselyTheme {
 
   /// Builds the flagship light theme.
   static ThemeData light() {
-    final scheme = ColorScheme.fromSeed(
-      seedColor: AppColors.primary,
-    ).copyWith(
+    final scheme = ColorScheme.fromSeed(seedColor: AppColors.primary).copyWith(
       primary: AppColors.primary,
       onPrimary: AppColors.textOnPrimary,
       primaryContainer: AppColors.blue100,
@@ -143,11 +141,15 @@ abstract final class PoselyTheme {
         ),
         border: OutlineInputBorder(
           borderRadius: AppRadius.brLg,
-          borderSide: BorderSide(color: AppColors.outline.withValues(alpha: 0.5)),
+          borderSide: BorderSide(
+            color: AppColors.outline.withValues(alpha: 0.5),
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: AppRadius.brLg,
-          borderSide: BorderSide(color: AppColors.outline.withValues(alpha: 0.5)),
+          borderSide: BorderSide(
+            color: AppColors.outline.withValues(alpha: 0.5),
+          ),
         ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: AppRadius.brLg,
@@ -221,9 +223,7 @@ abstract final class PoselyTheme {
         backgroundColor: AppColors.surface,
         elevation: 4,
         shape: const RoundedRectangleBorder(borderRadius: AppRadius.brLg),
-        contentTextStyle: AppTypography.body.copyWith(
-          color: scheme.onSurface,
-        ),
+        contentTextStyle: AppTypography.body.copyWith(color: scheme.onSurface),
         actionTextColor: AppColors.primary,
       ),
       navigationBarTheme: NavigationBarThemeData(
@@ -233,24 +233,22 @@ abstract final class PoselyTheme {
         indicatorColor: AppColors.primary.withValues(alpha: 0.12),
         indicatorShape: const StadiumBorder(),
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-        labelTextStyle: WidgetStateProperty.resolveWith(
-          (Set<WidgetState> states) {
-            final selected = states.contains(WidgetState.selected);
-            return AppTypography.caption.copyWith(
-              fontSize: 12,
-              fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-              color: selected ? AppColors.primary : AppColors.textTertiary,
-            );
-          },
-        ),
-        iconTheme: WidgetStateProperty.resolveWith(
-          (Set<WidgetState> states) {
-            final selected = states.contains(WidgetState.selected);
-            return IconThemeData(
-              color: selected ? AppColors.primary : AppColors.textSecondary,
-            );
-          },
-        ),
+        labelTextStyle: WidgetStateProperty.resolveWith((
+          Set<WidgetState> states,
+        ) {
+          final selected = states.contains(WidgetState.selected);
+          return AppTypography.caption.copyWith(
+            fontSize: 12,
+            fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+            color: selected ? AppColors.primary : AppColors.textTertiary,
+          );
+        }),
+        iconTheme: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+          final selected = states.contains(WidgetState.selected);
+          return IconThemeData(
+            color: selected ? AppColors.primary : AppColors.textSecondary,
+          );
+        }),
       ),
       tabBarTheme: TabBarThemeData(
         labelColor: AppColors.textPrimary,
@@ -277,22 +275,19 @@ abstract final class PoselyTheme {
         overlayColor: AppColors.primary.withValues(alpha: 0.12),
       ),
       switchTheme: SwitchThemeData(
-        thumbColor: WidgetStateProperty.resolveWith(
-          (Set<WidgetState> states) {
-            return states.contains(WidgetState.selected)
-                ? AppColors.surface
-                : AppColors.textTertiary;
-          },
+        thumbColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+          return states.contains(WidgetState.selected)
+              ? AppColors.surface
+              : AppColors.textTertiary;
+        }),
+        trackColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+          return states.contains(WidgetState.selected)
+              ? AppColors.primary
+              : AppColors.surfaceHighest;
+        }),
+        trackOutlineColor: const WidgetStatePropertyAll<Color>(
+          Colors.transparent,
         ),
-        trackColor: WidgetStateProperty.resolveWith(
-          (Set<WidgetState> states) {
-            return states.contains(WidgetState.selected)
-                ? AppColors.primary
-                : AppColors.surfaceHighest;
-          },
-        ),
-        trackOutlineColor:
-            const WidgetStatePropertyAll<Color>(Colors.transparent),
       ),
       scrollbarTheme: const ScrollbarThemeData(
         thickness: WidgetStatePropertyAll<double>(3),
@@ -306,31 +301,32 @@ abstract final class PoselyTheme {
 
   /// Builds the dark theme counterpart.
   static ThemeData dark() {
-    final scheme = ColorScheme.fromSeed(
-      seedColor: AppColors.primary,
-      brightness: Brightness.dark,
-    ).copyWith(
-      primary: AppColors.primary,
-      onPrimary: AppColors.textOnPrimary,
-      primaryContainer: AppColors.blue900,
-      onPrimaryContainer: AppColors.blue100,
-      secondary: AppColors.accent,
-      onSecondary: AppColors.textOnPrimary,
-      tertiary: AppColors.info,
-      surface: AppColors.surfaceDark,
-      onSurface: AppColors.textPrimaryDark,
-      surfaceContainerLowest: AppColors.backgroundDark,
-      surfaceContainerLow: AppColors.surfaceDark,
-      surfaceContainer: AppColors.surfaceElevatedDark,
-      surfaceContainerHigh: AppColors.surfaceElevatedDark,
-      surfaceContainerHighest: AppColors.surfaceHighestDark,
-      onSurfaceVariant: AppColors.textSecondaryDark,
-      outline: AppColors.outlineDark,
-      outlineVariant: AppColors.surfaceHighestDark,
-      error: AppColors.error,
-      onError: AppColors.textPrimaryDark,
-      surfaceTint: Colors.transparent,
-    );
+    final scheme =
+        ColorScheme.fromSeed(
+          seedColor: AppColors.primary,
+          brightness: Brightness.dark,
+        ).copyWith(
+          primary: AppColors.primary,
+          onPrimary: AppColors.textOnPrimary,
+          primaryContainer: AppColors.blue900,
+          onPrimaryContainer: AppColors.blue100,
+          secondary: AppColors.accent,
+          onSecondary: AppColors.textOnPrimary,
+          tertiary: AppColors.info,
+          surface: AppColors.surfaceDark,
+          onSurface: AppColors.textPrimaryDark,
+          surfaceContainerLowest: AppColors.backgroundDark,
+          surfaceContainerLow: AppColors.surfaceDark,
+          surfaceContainer: AppColors.surfaceElevatedDark,
+          surfaceContainerHigh: AppColors.surfaceElevatedDark,
+          surfaceContainerHighest: AppColors.surfaceHighestDark,
+          onSurfaceVariant: AppColors.textSecondaryDark,
+          outline: AppColors.outlineDark,
+          outlineVariant: AppColors.surfaceHighestDark,
+          error: AppColors.error,
+          onError: AppColors.textPrimaryDark,
+          surfaceTint: Colors.transparent,
+        );
 
     return ThemeData(
       useMaterial3: true,
@@ -511,26 +507,24 @@ abstract final class PoselyTheme {
         indicatorColor: AppColors.primary.withValues(alpha: 0.18),
         indicatorShape: const StadiumBorder(),
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-        labelTextStyle: WidgetStateProperty.resolveWith(
-          (Set<WidgetState> states) {
-            final selected = states.contains(WidgetState.selected);
-            return AppTypography.caption.copyWith(
-              fontSize: 12,
-              fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-              color: selected
-                  ? AppColors.textPrimaryDark
-                  : AppColors.textTertiaryDark,
-            );
-          },
-        ),
-        iconTheme: WidgetStateProperty.resolveWith(
-          (Set<WidgetState> states) {
-            final selected = states.contains(WidgetState.selected);
-            return IconThemeData(
-              color: selected ? AppColors.blue400 : AppColors.textSecondaryDark,
-            );
-          },
-        ),
+        labelTextStyle: WidgetStateProperty.resolveWith((
+          Set<WidgetState> states,
+        ) {
+          final selected = states.contains(WidgetState.selected);
+          return AppTypography.caption.copyWith(
+            fontSize: 12,
+            fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+            color: selected
+                ? AppColors.textPrimaryDark
+                : AppColors.textTertiaryDark,
+          );
+        }),
+        iconTheme: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+          final selected = states.contains(WidgetState.selected);
+          return IconThemeData(
+            color: selected ? AppColors.blue400 : AppColors.textSecondaryDark,
+          );
+        }),
       ),
       tabBarTheme: TabBarThemeData(
         labelColor: AppColors.textPrimaryDark,
@@ -557,22 +551,19 @@ abstract final class PoselyTheme {
         overlayColor: AppColors.primary.withValues(alpha: 0.12),
       ),
       switchTheme: SwitchThemeData(
-        thumbColor: WidgetStateProperty.resolveWith(
-          (Set<WidgetState> states) {
-            return states.contains(WidgetState.selected)
-                ? AppColors.textPrimaryDark
-                : AppColors.textSecondaryDark;
-          },
+        thumbColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+          return states.contains(WidgetState.selected)
+              ? AppColors.textPrimaryDark
+              : AppColors.textSecondaryDark;
+        }),
+        trackColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+          return states.contains(WidgetState.selected)
+              ? AppColors.primary
+              : AppColors.surfaceHighestDark;
+        }),
+        trackOutlineColor: const WidgetStatePropertyAll<Color>(
+          Colors.transparent,
         ),
-        trackColor: WidgetStateProperty.resolveWith(
-          (Set<WidgetState> states) {
-            return states.contains(WidgetState.selected)
-                ? AppColors.primary
-                : AppColors.surfaceHighestDark;
-          },
-        ),
-        trackOutlineColor:
-            const WidgetStatePropertyAll<Color>(Colors.transparent),
       ),
       scrollbarTheme: const ScrollbarThemeData(
         thickness: WidgetStatePropertyAll<double>(3),

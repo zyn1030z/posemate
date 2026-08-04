@@ -28,8 +28,8 @@ class PoseRepositoryImpl implements PoseRepository {
   PoseRepositoryImpl({
     required PoseRemoteDatasource remoteDatasource,
     required LocalStorage localStorage,
-  })  : _remoteDatasource = remoteDatasource,
-        _localStorage = localStorage {
+  }) : _remoteDatasource = remoteDatasource,
+       _localStorage = localStorage {
     _migrateOldKeys();
   }
 
@@ -44,11 +44,10 @@ class PoseRepositoryImpl implements PoseRepository {
   final LocalStorage _localStorage;
 
   @override
-  Future<ApiResult<List<PoseCategory>>> getCategories() =>
-      guardApi(() async {
-        final models = await _remoteDatasource.getCategories();
-        return models.map((model) => model.toEntity()).toList();
-      });
+  Future<ApiResult<List<PoseCategory>>> getCategories() => guardApi(() async {
+    final models = await _remoteDatasource.getCategories();
+    return models.map((model) => model.toEntity()).toList();
+  });
 
   @override
   Future<ApiResult<Paginated<Pose>>> getPoses({
@@ -135,7 +134,11 @@ class PoseRepositoryImpl implements PoseRepository {
       }
       entries.add(map);
     }
-    await _localStorage.put(StorageBox.poses, StorageKeys.lastUsedPoseIds, entries);
+    await _localStorage.put(
+      StorageBox.poses,
+      StorageKeys.lastUsedPoseIds,
+      entries,
+    );
   }
 
   @override
@@ -153,21 +156,20 @@ class PoseRepositoryImpl implements PoseRepository {
     required String query,
     int page = 1,
     int pageSize = AppConstants.defaultPageSize,
-  }) =>
-      guardApi(() async {
-        final result = await _remoteDatasource.searchPoses(
-          query: query,
-          page: page,
-          pageSize: pageSize,
-        );
-        return Paginated<Pose>(
-          items: result.items.map((model) => model.toEntity()).toList(),
-          page: result.page,
-          pageSize: result.pageSize,
-          totalItems: result.totalItems,
-          hasMore: result.hasMore,
-        );
-      });
+  }) => guardApi(() async {
+    final result = await _remoteDatasource.searchPoses(
+      query: query,
+      page: page,
+      pageSize: pageSize,
+    );
+    return Paginated<Pose>(
+      items: result.items.map((model) => model.toEntity()).toList(),
+      page: result.page,
+      pageSize: result.pageSize,
+      totalItems: result.totalItems,
+      hasMore: result.hasMore,
+    );
+  });
 
   @override
   Future<bool> toggleFavorite(String poseId) async {
@@ -178,13 +180,20 @@ class PoseRepositoryImpl implements PoseRepository {
     } else {
       ids.remove(poseId);
     }
-    await _localStorage.put(StorageBox.poses, StorageKeys.favoritePoseIds, ids.toList());
+    await _localStorage.put(
+      StorageBox.poses,
+      StorageKeys.favoritePoseIds,
+      ids.toList(),
+    );
     return isFavorite;
   }
 
   /// Reads the raw recently-used list, tolerating any stored shape.
   List<dynamic> _readRecentRaw() =>
-      _localStorage.get<List<dynamic>>(StorageBox.poses, StorageKeys.lastUsedPoseIds) ??
+      _localStorage.get<List<dynamic>>(
+        StorageBox.poses,
+        StorageKeys.lastUsedPoseIds,
+      ) ??
       const <dynamic>[];
 
   /// One-time migration from pre-unification storage keys.
@@ -200,11 +209,7 @@ class PoseRepositoryImpl implements PoseRepository {
         _legacyFavoritesKey,
       );
       if (old != null) {
-        _localStorage.put(
-          StorageBox.poses,
-          StorageKeys.favoritePoseIds,
-          old,
-        );
+        _localStorage.put(StorageBox.poses, StorageKeys.favoritePoseIds, old);
       }
       _localStorage.delete(StorageBox.poses, _legacyFavoritesKey);
     }
@@ -214,11 +219,7 @@ class PoseRepositoryImpl implements PoseRepository {
         _legacyRecentKey,
       );
       if (old != null) {
-        _localStorage.put(
-          StorageBox.poses,
-          StorageKeys.lastUsedPoseIds,
-          old,
-        );
+        _localStorage.put(StorageBox.poses, StorageKeys.lastUsedPoseIds, old);
       }
       _localStorage.delete(StorageBox.poses, _legacyRecentKey);
     }

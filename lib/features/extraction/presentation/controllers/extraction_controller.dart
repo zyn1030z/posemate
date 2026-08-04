@@ -28,4 +28,5 @@ class ExtractionController extends AsyncNotifier<Pose?> {
 
 final extractionControllerProvider =
     AsyncNotifierProvider<ExtractionController, Pose?>(
-        ExtractionController.new);
+      ExtractionController.new,
+    );

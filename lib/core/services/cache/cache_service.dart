@@ -32,8 +32,9 @@ class CacheService {
       if (ts == null) {
         return null;
       }
-      final age = DateTime.now()
-          .difference(DateTime.fromMillisecondsSinceEpoch(ts));
+      final age = DateTime.now().difference(
+        DateTime.fromMillisecondsSinceEpoch(ts),
+      );
       if (age > defaultTtl) {
         // Stale — clean up lazily.
         _storage.delete(StorageBox.cache, key);

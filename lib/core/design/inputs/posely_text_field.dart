@@ -108,8 +108,9 @@ class _PoselyTextFieldState extends State<PoselyTextField> {
   void didUpdateWidget(PoselyTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.focusNode != widget.focusNode) {
-      (oldWidget.focusNode ?? _internalFocusNode)
-          ?.removeListener(_handleFocusChange);
+      (oldWidget.focusNode ?? _internalFocusNode)?.removeListener(
+        _handleFocusChange,
+      );
       if (widget.focusNode != null) {
         _internalFocusNode?.dispose();
         _internalFocusNode = null;
@@ -176,8 +177,8 @@ class _PoselyTextFieldState extends State<PoselyTextField> {
     final borderColor = hasError
         ? colors.danger
         : _focused
-            ? AppColors.primary
-            : Colors.transparent;
+        ? AppColors.primary
+        : Colors.transparent;
     final glow = _focused && !hasError
         ? <BoxShadow>[
             BoxShadow(color: colors.glow, blurRadius: 18, spreadRadius: -4),
@@ -220,8 +221,9 @@ class _PoselyTextFieldState extends State<PoselyTextField> {
                 hintText: widget.hint,
                 filled: false,
                 isDense: true,
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: AppSpacing.lg),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: AppSpacing.lg,
+                ),
                 border: InputBorder.none,
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,

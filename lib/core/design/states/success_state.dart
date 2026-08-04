@@ -114,10 +114,7 @@ class _AnimatedCheckState extends State<_AnimatedCheck>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: AppDurations.slow,
-    );
+    _controller = AnimationController(vsync: this, duration: AppDurations.slow);
     _progress = CurvedAnimation(
       parent: _controller,
       curve: AppDurations.easeOutExpo,

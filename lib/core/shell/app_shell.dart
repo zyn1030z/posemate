@@ -72,10 +72,7 @@ class _GlassNavBar extends ConsumerWidget {
             const SizedBox(height: 16),
             const Text(
               'Create Pose',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             ListTile(
@@ -84,7 +81,7 @@ class _GlassNavBar extends ConsumerWidget {
               subtitle: const Text('Realtime coaching (Phase 8)'),
               onTap: () {
                 Navigator.pop(context);
-                context.push(RoutePaths.camera);
+                context.push(RoutePaths.coachSelection);
               },
             ),
             ListTile(
@@ -110,11 +107,7 @@ class _GlassNavBar extends ConsumerWidget {
     return DecoratedBox(
       decoration: const BoxDecoration(
         color: AppColors.surface,
-        border: Border(
-          top: BorderSide(
-            color: AppColors.outline,
-          ),
-        ),
+        border: Border(top: BorderSide(color: AppColors.outline)),
       ),
       child: SafeArea(
         child: SizedBox(
@@ -149,9 +142,9 @@ class _GlassNavBar extends ConsumerWidget {
                     onTap: () => _onItemTap(ref, 2),
                   ),
                   _NavItem(
-                    label: 'Profile',
-                    activeIcon: Icons.person_rounded,
-                    inactiveIcon: Icons.person_outlined,
+                    label: 'Community',
+                    activeIcon: Icons.people_rounded,
+                    inactiveIcon: Icons.people_outline,
                     selected: index == 3,
                     onTap: () => _onItemTap(ref, 3),
                   ),

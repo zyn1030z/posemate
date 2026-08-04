@@ -13,7 +13,10 @@ enum StorageBox {
   cache('posely_cache'),
 
   /// Pose usage data: favorites and recently used pose ids.
-  poses('posely_poses');
+  poses('posely_poses'),
+
+  /// Saved captures and their metadata.
+  gallery('posely_gallery');
 
   const StorageBox(this.boxName);
 
@@ -98,8 +101,7 @@ class HiveLocalStorage implements LocalStorage {
   }
 
   @override
-  bool contains(StorageBox box, String key) =>
-      _boxFor(box).containsKey(key);
+  bool contains(StorageBox box, String key) => _boxFor(box).containsKey(key);
 }
 
 /// Map-backed implementation for widget tests and tooling.

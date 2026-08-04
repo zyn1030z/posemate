@@ -25,17 +25,10 @@ abstract final class PoselySnackbar {
     messenger.showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
-        content: Text(
-          message,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
+        content: Text(message, maxLines: 2, overflow: TextOverflow.ellipsis),
         action: actionLabel == null
             ? null
-            : SnackBarAction(
-                label: actionLabel,
-                onPressed: onAction ?? _noop,
-              ),
+            : SnackBarAction(label: actionLabel, onPressed: onAction ?? _noop),
       ),
     );
   }

@@ -35,19 +35,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   static const List<_OnboardingPage> _pages = <_OnboardingPage>[
     _OnboardingPage(
       headline: 'Find your pose',
-      body: 'Browse a curated library of professional poses for every '
+      body:
+          'Browse a curated library of professional poses for every '
           'scene, mood, and body type.',
       visual: _PoseGridVisual(),
     ),
     _OnboardingPage(
       headline: 'Shoot with a ghost guide',
-      body: 'Line up the perfect shot with a translucent pose guide '
+      body:
+          'Line up the perfect shot with a translucent pose guide '
           'floating over your camera.',
       visual: _GhostGuideVisual(),
     ),
     _OnboardingPage(
       headline: 'Let AI coach you',
-      body: 'Get realtime scores and gentle tips while you shoot, '
+      body:
+          'Get realtime scores and gentle tips while you shoot, '
           'like a coach in your pocket.',
       visual: _CoachVisual(),
     ),
@@ -87,11 +90,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     }
     _completing = true;
     unawaited(ref.read(hapticServiceProvider).medium());
-    await ref.read(localStorageProvider).put(
-          StorageBox.settings,
-          StorageKeys.onboardingComplete,
-          true,
-        );
+    await ref
+        .read(localStorageProvider)
+        .put(StorageBox.settings, StorageKeys.onboardingComplete, true);
     if (!mounted) {
       return;
     }
@@ -113,7 +114,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               width: i == _page ? 24 : 8,
               height: 8,
               decoration: BoxDecoration(
-                color: i == _page ? AppColors.primary : AppColors.surfaceHighest,
+                color: i == _page
+                    ? AppColors.primary
+                    : AppColors.surfaceHighest,
                 borderRadius: AppRadius.brPill,
               ),
             ),
@@ -168,7 +171,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     physics: const BouncingScrollPhysics(),
                     onPageChanged: _handlePageChanged,
                     children: <Widget>[
-                      for (final page in _pages) _OnboardingPageView(page: page),
+                      for (final page in _pages)
+                        _OnboardingPageView(page: page),
                     ],
                   ),
                 ),
@@ -231,27 +235,28 @@ class _OnboardingPageView extends StatelessWidget {
         children: <Widget>[
           Expanded(
             flex: 3,
-            child: Center(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: page.visual,
-              ),
-            )
-                .animate()
-                .fadeIn(duration: AppDurations.slow)
-                .scale(
-                  begin: const Offset(0.94, 0.94),
-                  end: const Offset(1, 1),
-                  duration: AppDurations.slow,
-                  curve: AppDurations.easeOutExpo,
-                ),
+            child:
+                Center(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: page.visual,
+                      ),
+                    )
+                    .animate()
+                    .fadeIn(duration: AppDurations.slow)
+                    .scale(
+                      begin: const Offset(0.94, 0.94),
+                      end: const Offset(1, 1),
+                      duration: AppDurations.slow,
+                      curve: AppDurations.easeOutExpo,
+                    ),
           ),
           const SizedBox(height: AppSpacing.sectionGap),
           Text(
-            page.headline,
-            style: AppTypography.displayHero.copyWith(fontSize: 34),
-            textAlign: TextAlign.center,
-          )
+                page.headline,
+                style: AppTypography.displayHero.copyWith(fontSize: 34),
+                textAlign: TextAlign.center,
+              )
               .animate()
               .fadeIn(delay: AppDurations.fast, duration: AppDurations.base)
               .slideY(
@@ -271,9 +276,10 @@ class _OnboardingPageView extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-          )
-              .animate()
-              .fadeIn(delay: AppDurations.base, duration: AppDurations.slow),
+          ).animate().fadeIn(
+            delay: AppDurations.base,
+            duration: AppDurations.slow,
+          ),
           const SizedBox(height: AppSpacing.xl),
         ],
       ),
@@ -375,16 +381,16 @@ class _PoseTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
-      decoration: BoxDecoration(
-        gradient: gradient,
-        borderRadius: AppRadius.brLg,
-        border: Border.all(color: AppColors.glassStroke),
-      ),
-      child: const Center(
-        child: Opacity(opacity: 0.35, child: PoselyLogo(size: 36)),
-      ),
-    )
+          height: height,
+          decoration: BoxDecoration(
+            gradient: gradient,
+            borderRadius: AppRadius.brLg,
+            border: Border.all(color: AppColors.glassStroke),
+          ),
+          child: const Center(
+            child: Opacity(opacity: 0.35, child: PoselyLogo(size: 36)),
+          ),
+        )
         .animate()
         .fadeIn(delay: delay, duration: AppDurations.slow)
         .slideY(
@@ -452,10 +458,7 @@ class _GhostGuidePainter extends CustomPainter {
     // Ghost silhouette: head circle plus shoulders-to-hip blob.
     final silhouette = Path()
       ..addOval(
-        Rect.fromCircle(
-          center: Offset(w * 0.5, h * 0.33),
-          radius: w * 0.11,
-        ),
+        Rect.fromCircle(center: Offset(w * 0.5, h * 0.33), radius: w * 0.11),
       )
       ..moveTo(w * 0.32, h * 0.80)
       ..quadraticBezierTo(w * 0.33, h * 0.55, w * 0.40, h * 0.49)

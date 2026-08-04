@@ -112,10 +112,7 @@ class CollectionRepository {
   /// Removes a pose id from the collection. No-op if not present.
   ///
   /// Returns the updated collection, or null if the collection was not found.
-  Future<PoseCollection?> removePose(
-    String collectionId,
-    String poseId,
-  ) async {
+  Future<PoseCollection?> removePose(String collectionId, String poseId) async {
     final current = getAll();
     final index = current.indexWhere((c) => c.id == collectionId);
     if (index == -1) {

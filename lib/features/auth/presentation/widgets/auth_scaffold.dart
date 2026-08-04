@@ -81,29 +81,29 @@ class AuthScaffold extends StatelessWidget {
                   child: LayoutBuilder(
                     builder:
                         (BuildContext context, BoxConstraints constraints) {
-                      final minHeight = math.max(
-                        0.0,
-                        constraints.maxHeight - _verticalPadding * 2,
-                      );
-                      return SingleChildScrollView(
-                        padding: AppSpacing.screenPadding.add(
-                          const EdgeInsets.symmetric(
-                            vertical: _verticalPadding,
-                          ),
-                        ),
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(minHeight: minHeight),
-                          child: Center(
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                maxWidth: _maxContentWidth,
+                          final minHeight = math.max(
+                            0.0,
+                            constraints.maxHeight - _verticalPadding * 2,
+                          );
+                          return SingleChildScrollView(
+                            padding: AppSpacing.screenPadding.add(
+                              const EdgeInsets.symmetric(
+                                vertical: _verticalPadding,
                               ),
-                              child: child,
                             ),
-                          ),
-                        ),
-                      );
-                    },
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(minHeight: minHeight),
+                              child: Center(
+                                child: ConstrainedBox(
+                                  constraints: const BoxConstraints(
+                                    maxWidth: _maxContentWidth,
+                                  ),
+                                  child: child,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                   ),
                 ),
                 if (footer != null)

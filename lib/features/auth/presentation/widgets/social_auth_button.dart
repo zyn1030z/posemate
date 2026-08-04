@@ -60,8 +60,7 @@ class SocialAuthButton extends StatelessWidget {
     }
     return switch (provider) {
       SocialProvider.google => Text('g', style: _glyphStyle(context)),
-      SocialProvider.apple =>
-        Icon(Icons.apple, size: 26, color: onSurface),
+      SocialProvider.apple => Icon(Icons.apple, size: 26, color: onSurface),
       SocialProvider.facebook => Text('f', style: _glyphStyle(context)),
     };
   }

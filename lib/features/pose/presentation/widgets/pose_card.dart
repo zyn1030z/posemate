@@ -73,9 +73,7 @@ class PoseCard extends ConsumerWidget {
         child: Stack(
           fit: StackFit.expand,
           children: <Widget>[
-            RepaintBoundary(
-              child: PosePreviewImage(imageUrl: pose.previewUrl),
-            ),
+            RepaintBoundary(child: PosePreviewImage(imageUrl: pose.previewUrl)),
             Positioned(
               left: 0,
               right: 0,
@@ -243,9 +241,7 @@ class _DifficultyMicroChip extends StatelessWidget {
       decoration: const BoxDecoration(
         color: AppColors.glassStrong,
         borderRadius: AppRadius.brPill,
-        border: Border.fromBorderSide(
-          BorderSide(color: AppColors.glassStroke),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: AppColors.glassStroke)),
       ),
       child: Text(
         difficulty.label,
@@ -274,9 +270,7 @@ class _PremiumBadge extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.warning.withValues(alpha: 0.28),
           shape: BoxShape.circle,
-          border: Border.all(
-            color: AppColors.warning.withValues(alpha: 0.5),
-          ),
+          border: Border.all(color: AppColors.warning.withValues(alpha: 0.5)),
         ),
         child: const Icon(
           Icons.workspace_premium_rounded,
@@ -356,9 +350,7 @@ class _FavoriteHeartButtonState extends State<_FavoriteHeartButton> {
                         ? Icons.favorite_rounded
                         : Icons.favorite_border_rounded,
                     size: 18,
-                    color: widget.isFavorite
-                        ? AppColors.primary
-                        : Colors.white,
+                    color: widget.isFavorite ? AppColors.primary : Colors.white,
                   ),
                 ),
               ),

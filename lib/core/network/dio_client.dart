@@ -25,9 +25,7 @@ final dioProvider = Provider<Dio>((ref) {
       baseUrl: config.apiBaseUrl,
       connectTimeout: AppConstants.apiConnectTimeout,
       receiveTimeout: AppConstants.apiReceiveTimeout,
-      headers: <String, dynamic>{
-        Headers.acceptHeader: 'application/json',
-      },
+      headers: <String, dynamic>{Headers.acceptHeader: 'application/json'},
       contentType: Headers.jsonContentType,
       // Explicit even though it matches the dio default: the API contract
       // is JSON and must not drift with package defaults.

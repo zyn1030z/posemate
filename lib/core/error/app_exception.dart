@@ -12,11 +12,7 @@ import 'package:dio/dio.dart';
 sealed class AppException implements Exception {
   /// Creates an exception with a developer-facing message and optional
   /// original cause and stack trace for diagnostics.
-  const AppException({
-    required this.message,
-    this.cause,
-    this.stackTrace,
-  });
+  const AppException({required this.message, this.cause, this.stackTrace});
 
   /// Factory for API timeouts with an optional custom message.
   const factory AppException.apiTimeout({
@@ -72,25 +68,33 @@ sealed class AppException implements Exception {
     NetworkException() || ApiTimeoutException() =>
       'Please check your internet connection and try again.',
     AppCameraException() => message,
-    UnauthorizedException() => 'Your session has expired. '
-        'Please sign in again.',
+    UnauthorizedException() =>
+      'Your session has expired. '
+          'Please sign in again.',
     ForbiddenException() => 'You do not have access to this content.',
     NotFoundException() => 'We could not find what you were looking for.',
-    ConflictException() => 'That change could not be saved because something '
-        'was updated elsewhere. Please try again.',
-    RateLimitException() => 'You are going a little too fast. '
-        'Please wait a moment and try again.',
-    ServerException() => 'Something went wrong on our side. '
-        'Please try again shortly.',
-    ValidationException() => 'Some of the information looks incorrect. '
-        'Please review it and try again.',
-    CacheException() => 'We could not load your saved data. '
-        'Please try again.',
+    ConflictException() =>
+      'That change could not be saved because something '
+          'was updated elsewhere. Please try again.',
+    RateLimitException() =>
+      'You are going a little too fast. '
+          'Please wait a moment and try again.',
+    ServerException() =>
+      'Something went wrong on our side. '
+          'Please try again shortly.',
+    ValidationException() =>
+      'Some of the information looks incorrect. '
+          'Please review it and try again.',
+    CacheException() =>
+      'We could not load your saved data. '
+          'Please try again.',
     CancelledException() => 'The request was cancelled.',
-    UnknownException() => 'Something unexpected went wrong. '
-        'Please try again.',
-    NoPoseDetectedException() => 'We could not detect a person in this photo. '
-        'Please try another photo.',
+    UnknownException() =>
+      'Something unexpected went wrong. '
+          'Please try again.',
+    NoPoseDetectedException() =>
+      'We could not detect a person in this photo. '
+          'Please try another photo.',
   };
 
   /// Maps an HTTP error response onto a status-specific subtype.
@@ -120,10 +124,7 @@ sealed class AppException implements Exception {
     final data = e.response?.data;
     if (data is Map<dynamic, dynamic>) {
       if (data['code'] == 'no_pose_detected') {
-        return NoPoseDetectedException(
-          cause: e,
-          stackTrace: e.stackTrace,
-        );
+        return NoPoseDetectedException(cause: e, stackTrace: e.stackTrace);
       }
     }
     return ValidationException(
@@ -339,6 +340,7 @@ final class AppCameraException extends AppException {
   });
 
   @override
-  String toString() => 'AppCameraException: $message'
+  String toString() =>
+      'AppCameraException: $message'
       '${cause != null ? ' (cause: $cause)' : ''}';
 }

@@ -3,12 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'ai_job.freezed.dart';
 
 /// The status of an asynchronous AI job.
-enum AiJobStatus {
-  queued,
-  running,
-  succeeded,
-  failed,
-}
+enum AiJobStatus { queued, running, succeeded, failed }
 
 /// A generic envelope for polling async backend jobs (e.g. pose generation).
 @Freezed(genericArgumentFactories: true)

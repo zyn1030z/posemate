@@ -54,11 +54,7 @@ class GlassCard extends StatelessWidget {
     if (onTap != null) {
       content = Material(
         type: MaterialType.transparency,
-        child: InkWell(
-          onTap: _handleTap,
-          borderRadius: radius,
-          child: content,
-        ),
+        child: InkWell(onTap: _handleTap, borderRadius: radius, child: content),
       );
     }
 
@@ -69,10 +65,7 @@ class GlassCard extends StatelessWidget {
         border: Border.all(color: AppColors.outline),
         boxShadow: AppShadows.soft,
       ),
-      child: ClipRRect(
-        borderRadius: radius,
-        child: content,
-      ),
+      child: ClipRRect(borderRadius: radius, child: content),
     );
   }
 }

@@ -24,29 +24,29 @@ class PoselyColors extends ThemeExtension<PoselyColors> {
 
   /// Flagship light values — subtle gray glass over white surfaces.
   const PoselyColors.light()
-      : glassSurface = AppColors.glassWhite,
-        glassStroke = AppColors.glassStroke,
-        glow = const Color(0x33007AFF),
-        scrim = AppColors.scrimLight,
-        textMuted = AppColors.textTertiary,
-        cardSurface = AppColors.surface,
-        success = AppColors.success,
-        warning = AppColors.warning,
-        danger = AppColors.error,
-        info = AppColors.info;
+    : glassSurface = AppColors.glassWhite,
+      glassStroke = AppColors.glassStroke,
+      glow = const Color(0x33007AFF),
+      scrim = AppColors.scrimLight,
+      textMuted = AppColors.textTertiary,
+      cardSurface = AppColors.surface,
+      success = AppColors.success,
+      warning = AppColors.warning,
+      danger = AppColors.error,
+      info = AppColors.info;
 
   /// Dark values — white glass over deep slate surfaces.
   const PoselyColors.dark()
-      : glassSurface = AppColors.glassDark,
-        glassStroke = AppColors.glassDarkStroke,
-        glow = const Color(0x59007AFF),
-        scrim = AppColors.scrim,
-        textMuted = AppColors.textTertiaryDark,
-        cardSurface = AppColors.surfaceDark,
-        success = AppColors.emerald600,
-        warning = const Color(0xFFD97706),
-        danger = const Color(0xFFE11D48),
-        info = const Color(0xFF0284C7);
+    : glassSurface = AppColors.glassDark,
+      glassStroke = AppColors.glassDarkStroke,
+      glow = const Color(0x59007AFF),
+      scrim = AppColors.scrim,
+      textMuted = AppColors.textTertiaryDark,
+      cardSurface = AppColors.surfaceDark,
+      success = AppColors.emerald600,
+      warning = const Color(0xFFD97706),
+      danger = const Color(0xFFE11D48),
+      info = const Color(0xFF0284C7);
 
   /// Frosted glass fill behind blurred panels.
   final Color glassSurface;

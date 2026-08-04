@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:google_mlkit_pose_detection/google_mlkit_pose_detection.dart' as mlkit;
+import 'package:google_mlkit_pose_detection/google_mlkit_pose_detection.dart'
+    as mlkit;
 import 'package:posely_ai/core/error/app_exception.dart';
 import 'package:posely_ai/features/pose/data/models/pose_model.dart';
 import 'package:uuid/uuid.dart';
@@ -16,12 +17,10 @@ final class ExtractionLocalDatasourceImpl implements ExtractionLocalDatasource {
   @override
   Future<PoseModel> extractPose(File image) async {
     final inputImage = mlkit.InputImage.fromFile(image);
-    
+
     // We use the base pose detector for fast local extraction.
     final poseDetector = mlkit.PoseDetector(
-      options: mlkit.PoseDetectorOptions(
-        mode: mlkit.PoseDetectionMode.single,
-      ),
+      options: mlkit.PoseDetectorOptions(mode: mlkit.PoseDetectionMode.single),
     );
 
     try {
@@ -38,7 +37,8 @@ final class ExtractionLocalDatasourceImpl implements ExtractionLocalDatasource {
         id: 'local_${const Uuid().v4()}',
         name: 'Extracted Pose',
         previewUrl: 'file://${image.path}',
-        overlayUrl: 'file://${image.path}', // Would require local drawing to be a real overlay
+        overlayUrl:
+            'file://${image.path}', // Would require local drawing to be a real overlay
         categoryId: 'extracted',
         tags: ['local', 'extracted'],
       );

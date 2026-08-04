@@ -118,14 +118,17 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       _passwordError = passwordError;
       _confirmError = confirmError;
     });
-    final invalid = nameError != null ||
+    final invalid =
+        nameError != null ||
         emailError != null ||
         passwordError != null ||
         confirmError != null;
     if (invalid) return;
 
     setState(() => _submitting = true);
-    final failure = await ref.read(authControllerProvider.notifier).register(
+    final failure = await ref
+        .read(authControllerProvider.notifier)
+        .register(
           displayName: _nameController.text.trim(),
           email: _emailController.text.trim(),
           password: _passwordController.text,
@@ -155,7 +158,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     final nameMessages = failure.fieldErrors['display_name'];
     final emailMessages = failure.fieldErrors['email'];
     final passwordMessages = failure.fieldErrors['password'];
-    final hasAny = (nameMessages?.isNotEmpty ?? false) ||
+    final hasAny =
+        (nameMessages?.isNotEmpty ?? false) ||
         (emailMessages?.isNotEmpty ?? false) ||
         (passwordMessages?.isNotEmpty ?? false);
     if (!hasAny) return false;

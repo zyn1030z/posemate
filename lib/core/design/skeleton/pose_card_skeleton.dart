@@ -22,9 +22,7 @@ class PoseCardSkeleton extends StatelessWidget {
       aspectRatio: aspectRatio,
       child: const Stack(
         children: <Widget>[
-          Positioned.fill(
-            child: ShimmerBox(borderRadius: AppRadius.brXl),
-          ),
+          Positioned.fill(child: ShimmerBox(borderRadius: AppRadius.brXl)),
           // Darkened veil so the text-line shimmer reads against the
           // base panel, mirroring the real card's photo overlay.
           Positioned(

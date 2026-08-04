@@ -32,13 +32,11 @@ class HomeHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authControllerProvider).value;
-    final name =
-        user == null || user.isGuest ? 'Creator' : user.displayName;
+    final name = user == null || user.isGuest ? 'Creator' : user.displayName;
     final colors = context.posely;
-    final titleStyle = Theme.of(context)
-        .textTheme
-        .titleLarge
-        ?.copyWith(fontWeight: FontWeight.w700);
+    final titleStyle = Theme.of(
+      context,
+    ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700);
 
     return Row(
       children: <Widget>[

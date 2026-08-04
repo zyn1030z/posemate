@@ -41,8 +41,14 @@ abstract final class RoutePaths {
   /// Realtime AI coaching camera.
   static const String camera = '/camera';
 
+  /// AI Coach selection screen before entering camera.
+  static const String coachSelection = '/coach-selection';
+
   /// Captured photos gallery.
-  static const String gallery = '/gallery';
+  static const gallery = '/gallery';
+
+  /// Specific capture in the gallery.
+  static const captureDetail = '/gallery/:id';
 
   /// Gallery photo detail pattern with a `photoId` parameter; use the
   /// galleryPhotoFor helper to build a concrete location.
@@ -88,7 +94,12 @@ abstract final class RoutePaths {
   static String galleryPhotoFor(String id) => '/gallery/$id';
 
   /// Helper to build a concrete camera location with a target pose queue.
-  static String cameraFor(List<String> poseIds) => '/camera?poseIds=${poseIds.join(',')}';
+  static String cameraFor(List<String> poseIds) =>
+      '/camera?poseIds=${poseIds.join(',')}';
+
+  /// Helper to build a concrete coach selection location with a target pose queue.
+  static String coachSelectionFor(List<String> poseIds) =>
+      '/coach-selection?poseIds=${poseIds.join(',')}';
 }
 
 /// Named-route identifiers mirroring the paths in RoutePaths.
@@ -132,8 +143,12 @@ abstract final class RouteNames {
   /// Name of the AI camera route.
   static const String camera = 'camera';
 
+  /// Name of the AI coach selection route.
+  static const String coachSelection = 'coachSelection';
+
   /// Name of the gallery route.
-  static const String gallery = 'gallery';
+  static const gallery = 'gallery';
+  static const captureDetail = 'captureDetail';
 
   /// Name of the gallery photo detail route.
   static const String galleryPhoto = 'galleryPhoto';

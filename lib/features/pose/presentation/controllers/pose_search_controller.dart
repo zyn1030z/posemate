@@ -54,15 +54,14 @@ class PoseSearchState {
     bool? hasMore,
     int? currentPage,
     Object? error = _noChange,
-  }) =>
-      PoseSearchState(
-        query: query ?? this.query,
-        poses: poses ?? this.poses,
-        isLoading: isLoading ?? this.isLoading,
-        hasMore: hasMore ?? this.hasMore,
-        currentPage: currentPage ?? this.currentPage,
-        error: identical(error, _noChange) ? this.error : error,
-      );
+  }) => PoseSearchState(
+    query: query ?? this.query,
+    poses: poses ?? this.poses,
+    isLoading: isLoading ?? this.isLoading,
+    hasMore: hasMore ?? this.hasMore,
+    currentPage: currentPage ?? this.currentPage,
+    error: identical(error, _noChange) ? this.error : error,
+  );
 }
 
 const Object _noChange = Object();
@@ -140,10 +139,7 @@ class PoseSearchController extends Notifier<PoseSearchState> {
           unawaited(_saveRecentSearch(state.query));
         }
       case ApiFailure<Paginated<Pose>>(:final exception):
-        state = state.copyWith(
-          isLoading: false,
-          error: exception,
-        );
+        state = state.copyWith(isLoading: false, error: exception);
     }
   }
 
@@ -167,7 +163,10 @@ class PoseSearchController extends Notifier<PoseSearchState> {
 
   /// Clears all saved recent searches.
   Future<void> clearRecentSearches() async {
-    await _localStorage.delete(StorageBox.poses, StorageKeys.recentSearchQueries);
+    await _localStorage.delete(
+      StorageBox.poses,
+      StorageKeys.recentSearchQueries,
+    );
   }
 
   Future<void> _saveRecentSearch(String query) async {
@@ -175,7 +174,11 @@ class PoseSearchController extends Notifier<PoseSearchState> {
       ..remove(query)
       ..insert(0, query);
     final capped = searches.take(_maxRecentSearches).toList();
-    await _localStorage.put(StorageBox.poses, StorageKeys.recentSearchQueries, capped);
+    await _localStorage.put(
+      StorageBox.poses,
+      StorageKeys.recentSearchQueries,
+      capped,
+    );
   }
 }
 
@@ -185,6 +188,6 @@ Duration? _noRetry(int retryCount, Object error) => null;
 /// Provides the search controller and its state.
 final poseSearchControllerProvider =
     NotifierProvider<PoseSearchController, PoseSearchState>(
-  PoseSearchController.new,
-  retry: _noRetry,
-);
+      PoseSearchController.new,
+      retry: _noRetry,
+    );

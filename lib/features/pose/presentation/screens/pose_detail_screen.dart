@@ -51,14 +51,19 @@ class PoseDetailScreen extends ConsumerWidget {
   /// Id of the pose to load and display.
   final String poseId;
 
-  void _useThisPose(BuildContext context, WidgetRef ref, Pose pose, Set<String> queue) {
+  void _useThisPose(
+    BuildContext context,
+    WidgetRef ref,
+    Pose pose,
+    Set<String> queue,
+  ) {
     // PoselyButton already fires the light tap haptic on press.
     unawaited(ref.read(poseRepositoryProvider).markUsed(pose));
-    
+
     // Final queue includes the current pose if not already there, plus the user's photoshoot queue
     final finalQueue = {pose.id, ...queue}.toList();
 
-    unawaited(context.push<Object?>(RoutePaths.cameraFor(finalQueue)));
+    unawaited(context.push<Object?>(RoutePaths.coachSelectionFor(finalQueue)));
   }
 
   @override
@@ -70,8 +75,9 @@ class PoseDetailScreen extends ConsumerWidget {
       body: async.when(
         loading: () => const AppLoadingView(),
         error: (Object error, StackTrace stackTrace) => AppErrorView(
-          message:
-              error is AppException ? error.userMessage : _genericErrorMessage,
+          message: error is AppException
+              ? error.userMessage
+              : _genericErrorMessage,
           onRetry: () => ref.invalidate(poseDetailProvider(poseId)),
         ),
         data: (Pose pose) => _PoseDetailBody(pose: pose),
@@ -100,7 +106,8 @@ class PoseDetailScreen extends ConsumerWidget {
                           label: 'Try this pose ($totalCount)',
                           icon: Icons.photo_camera_rounded,
                           expand: true,
-                          onPressed: () => _useThisPose(context, ref, pose, queue),
+                          onPressed: () =>
+                              _useThisPose(context, ref, pose, queue),
                         ),
                       ),
                       const SizedBox(width: AppSpacing.sm),
@@ -108,11 +115,17 @@ class PoseDetailScreen extends ConsumerWidget {
                         flex: 2,
                         child: PoselyButton(
                           label: isInQueue ? 'Remove' : 'Add to Queue',
-                          icon: isInQueue ? Icons.playlist_remove_rounded : Icons.playlist_add_rounded,
-                          variant: isInQueue ? PoselyButtonVariant.glass : PoselyButtonVariant.ghost,
+                          icon: isInQueue
+                              ? Icons.playlist_remove_rounded
+                              : Icons.playlist_add_rounded,
+                          variant: isInQueue
+                              ? PoselyButtonVariant.glass
+                              : PoselyButtonVariant.ghost,
                           expand: true,
                           onPressed: () {
-                            ref.read(photoshootQueueProvider.notifier).toggle(pose.id);
+                            ref
+                                .read(photoshootQueueProvider.notifier)
+                                .toggle(pose.id);
                           },
                         ),
                       ),
@@ -187,12 +200,16 @@ class _PoseDetailBody extends StatelessWidget {
                         label: Text('Try this Pose ($totalCount)'),
                         onPressed: () {
                           // Manually call markUsed here since we bypass _useThisPose
-                          unawaited(ref.read(poseRepositoryProvider).markUsed(pose));
+                          unawaited(
+                            ref.read(poseRepositoryProvider).markUsed(pose),
+                          );
                           final finalQueue = {pose.id, ...queue}.toList();
-                          context.push(RoutePaths.cameraFor(finalQueue));
+                          context.push(RoutePaths.coachSelectionFor(finalQueue));
                         },
                         style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: AppSpacing.md,
+                          ),
                           backgroundColor: AppColors.primary,
                           foregroundColor: Colors.white,
                         ),
@@ -229,9 +246,7 @@ class _PoseHero extends ConsumerWidget {
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          RepaintBoundary(
-            child: PosePreviewImage(imageUrl: pose.previewUrl),
-          ),
+          RepaintBoundary(child: PosePreviewImage(imageUrl: pose.previewUrl)),
           const Positioned(
             left: 0,
             right: 0,
@@ -260,10 +275,7 @@ class _PoseHero extends ConsumerWidget {
                 PoselyIconButton(
                   icon: Icons.bookmark_add_outlined,
                   onPressed: () => unawaited(
-                    showCollectionPicker(
-                      context: context,
-                      poseId: pose.id,
-                    ),
+                    showCollectionPicker(context: context, poseId: pose.id),
                   ),
                   semanticLabel: 'Save to collection',
                 ),
@@ -274,9 +286,7 @@ class _PoseHero extends ConsumerWidget {
                       : Icons.favorite_border_rounded,
                   active: isFavorite,
                   onPressed: () => unawaited(
-                    ref
-                        .read(favoritePoseIdsProvider.notifier)
-                        .toggle(pose.id),
+                    ref.read(favoritePoseIdsProvider.notifier).toggle(pose.id),
                   ),
                   semanticLabel: isFavorite
                       ? 'Remove from favorites'
@@ -302,9 +312,7 @@ class _NameRow extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(
-          child: Text(pose.name, style: AppTypography.screenTitle),
-        ),
+        Expanded(child: Text(pose.name, style: AppTypography.screenTitle)),
         if (pose.isPremium) ...<Widget>[
           const SizedBox(width: AppSpacing.md),
           const _PremiumPill(),

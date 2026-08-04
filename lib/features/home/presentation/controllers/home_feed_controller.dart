@@ -81,10 +81,8 @@ class HomeFeedController extends AsyncNotifier<HomeFeed> {
     );
   }
 
-  static List<Pose> _posesOrEmpty(ApiResult<List<Pose>> result) => result.fold(
-        onSuccess: (data) => data,
-        onFailure: (_) => const <Pose>[],
-      );
+  static List<Pose> _posesOrEmpty(ApiResult<List<Pose>> result) =>
+      result.fold(onSuccess: (data) => data, onFailure: (_) => const <Pose>[]);
 
   static Future<List<Pose>> _recentlyUsedOrEmpty(
     PoseRepository repository,
@@ -105,6 +103,6 @@ Duration? _noRetry(int retryCount, Object error) => null;
 /// both backbone sections fail.
 final homeFeedControllerProvider =
     AsyncNotifierProvider<HomeFeedController, HomeFeed>(
-  HomeFeedController.new,
-  retry: _noRetry,
-);
+      HomeFeedController.new,
+      retry: _noRetry,
+    );

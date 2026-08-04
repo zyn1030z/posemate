@@ -110,15 +110,13 @@ class CachedPoseRepository implements PoseRepository {
   // ── Pass-through methods (no caching) ──────────────────────────────
 
   @override
-  Future<ApiResult<Pose>> getPoseById(String id) =>
-      _delegate.getPoseById(id);
+  Future<ApiResult<Pose>> getPoseById(String id) => _delegate.getPoseById(id);
 
   @override
   Future<ApiResult<List<Pose>>> getTrending() => _delegate.getTrending();
 
   @override
-  Future<ApiResult<List<Pose>>> getRecommended() =>
-      _delegate.getRecommended();
+  Future<ApiResult<List<Pose>>> getRecommended() => _delegate.getRecommended();
 
   @override
   Future<List<Pose>> getRecentlyUsed() => _delegate.getRecentlyUsed();
@@ -138,10 +136,5 @@ class CachedPoseRepository implements PoseRepository {
     required String query,
     int page = 1,
     int pageSize = AppConstants.defaultPageSize,
-  }) =>
-      _delegate.searchPoses(
-        query: query,
-        page: page,
-        pageSize: pageSize,
-      );
+  }) => _delegate.searchPoses(query: query, page: page, pageSize: pageSize);
 }

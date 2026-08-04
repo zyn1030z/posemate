@@ -46,10 +46,7 @@ class CategoryQuickRow extends StatelessWidget {
             ),
             const SizedBox(width: AppSpacing.sm),
           ],
-          PoselyChip(
-            label: 'All →',
-            onTap: () => _openLibrary(context),
-          ),
+          PoselyChip(label: 'All →', onTap: () => _openLibrary(context)),
         ],
       ),
     );

@@ -19,9 +19,8 @@ class AuthMockDatasource implements AuthRemoteDatasource {
   /// A custom `latency` source can be injected for tests (for example
   /// returning `Duration.zero`); by default each call waits a random
   /// 350–700 ms to imitate a network round trip.
-  AuthMockDatasource({
-    Duration Function()? latency,
-  }) : _latency = latency ?? _randomLatency;
+  AuthMockDatasource({Duration Function()? latency})
+    : _latency = latency ?? _randomLatency;
 
   /// Email of the seeded demo account.
   static const String demoEmail = 'demo@posely.app';
@@ -55,9 +54,7 @@ class AuthMockDatasource implements AuthRemoteDatasource {
     await _delay();
     final account = _accounts[_normalize(email)];
     if (account == null || account.password != password) {
-      throw const UnauthorizedException(
-        message: 'Invalid email or password.',
-      );
+      throw const UnauthorizedException(message: 'Invalid email or password.');
     }
     return _sessionFor(account);
   }

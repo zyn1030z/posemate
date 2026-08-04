@@ -40,7 +40,9 @@ class FavoritePoseIdsController extends AsyncNotifier<Set<String>> {
 
   void _logToggleFailure(String poseId, Object error, StackTrace stackTrace) {
     try {
-      ref.read(talkerProvider).warning(
+      ref
+          .read(talkerProvider)
+          .warning(
             'Failed to toggle favorite for pose $poseId',
             error,
             stackTrace,
@@ -58,6 +60,6 @@ Duration? _noRetry(int retryCount, Object error) => null;
 /// The user's favorite pose ids, shared by every heart in the app.
 final favoritePoseIdsProvider =
     AsyncNotifierProvider<FavoritePoseIdsController, Set<String>>(
-  FavoritePoseIdsController.new,
-  retry: _noRetry,
-);
+      FavoritePoseIdsController.new,
+      retry: _noRetry,
+    );

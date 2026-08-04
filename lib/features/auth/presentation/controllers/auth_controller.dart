@@ -27,11 +27,14 @@ class AuthController extends AsyncNotifier<AuthUser?> {
     if (user == null) {
       return null;
     }
-    final lockEnabled = ref.read(localStorageProvider).get<bool>(
-          StorageBox.settings,
-          StorageKeys.biometricLock,
-          defaultValue: false,
-        ) ??
+    final lockEnabled =
+        ref
+            .read(localStorageProvider)
+            .get<bool>(
+              StorageBox.settings,
+              StorageKeys.biometricLock,
+              defaultValue: false,
+            ) ??
         false;
     if (!lockEnabled) {
       return user;

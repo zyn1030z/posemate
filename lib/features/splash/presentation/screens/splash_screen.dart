@@ -56,11 +56,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     await minHold;
     if (!mounted) return;
 
-    final onboardingComplete = ref.read(localStorageProvider).get<bool>(
-          StorageBox.settings,
-          StorageKeys.onboardingComplete,
-          defaultValue: false,
-        ) ??
+    final onboardingComplete =
+        ref
+            .read(localStorageProvider)
+            .get<bool>(
+              StorageBox.settings,
+              StorageKeys.onboardingComplete,
+              defaultValue: false,
+            ) ??
         false;
     talker.debug(
       'Splash resolved (onboardingComplete=$onboardingComplete, '
@@ -120,18 +123,18 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
               children: [
                 const Spacer(flex: 2),
                 DecoratedBox(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.primary.withValues(alpha: 0.25),
-                        blurRadius: 64,
-                        spreadRadius: 8,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.primary.withValues(alpha: 0.25),
+                            blurRadius: 64,
+                            spreadRadius: 8,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: const PoselyLogo(size: 132),
-                )
+                      child: const PoselyLogo(size: 132),
+                    )
                     .animate()
                     .scale(
                       begin: const Offset(0.7, 0.7),
@@ -162,9 +165,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                     letterSpacing: 0.4,
                   ),
                 ).animate().fadeIn(
-                      delay: AppDurations.base,
-                      duration: AppDurations.slow,
-                    ),
+                  delay: AppDurations.base,
+                  duration: AppDurations.slow,
+                ),
                 const SizedBox(height: AppSpacing.lg),
               ],
             ),

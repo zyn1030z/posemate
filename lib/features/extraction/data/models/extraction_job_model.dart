@@ -32,12 +32,12 @@ abstract class ExtractionJobModel with _$ExtractionJobModel {
 
   /// Maps this wire model onto the domain entity [ExtractionJob].
   ExtractionJob toEntity() => ExtractionJob(
-        id: id,
-        status: status,
-        result: result?.toEntity(),
-        errorMessage: errorMessage,
-        progress: progress,
-        createdAt: createdAt,
-        updatedAt: updatedAt,
-      );
+    id: id,
+    status: status,
+    result: result?.toEntity(),
+    errorMessage: errorMessage,
+    progress: progress,
+    createdAt: createdAt,
+    updatedAt: updatedAt,
+  );
 }

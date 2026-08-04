@@ -24,9 +24,9 @@ class ScoreRing extends StatefulWidget {
     this.label,
     this.animate = true,
   }) : assert(
-          score >= 0.0 && score <= 1.0,
-          'score must be between 0.0 and 1.0',
-        );
+         score >= 0.0 && score <= 1.0,
+         'score must be between 0.0 and 1.0',
+       );
 
   /// Normalized score between 0.0 and 1.0.
   final double score;
@@ -54,10 +54,7 @@ class _ScoreRingState extends State<ScoreRing>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: AppDurations.slow,
-    );
+    _controller = AnimationController(vsync: this, duration: AppDurations.slow);
     _progress = AlwaysStoppedAnimation<double>(widget.score);
   }
 
@@ -149,7 +146,9 @@ class _ScoreRingState extends State<ScoreRing>
                               fontSize: widget.size * 0.14,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0,
-                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
                             ),
                           ),
                         ],
@@ -158,7 +157,9 @@ class _ScoreRingState extends State<ScoreRing>
                         Text(
                           widget.label!,
                           style: AppTypography.caption.copyWith(
-                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
                           ),
                           textAlign: TextAlign.center,
                         ),

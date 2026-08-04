@@ -25,8 +25,7 @@ abstract class AiJobModel<T> with _$AiJobModel<T> {
   factory AiJobModel.fromJson(
     Map<String, dynamic> json,
     T Function(Object?) fromJsonT,
-  ) =>
-      _$AiJobModelFromJson(json, fromJsonT);
+  ) => _$AiJobModelFromJson(json, fromJsonT);
 
   /// Converts the wire model to a domain entity.
   AiJob<E> toEntity<E>(E Function(T) resultMapper) {

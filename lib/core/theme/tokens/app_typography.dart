@@ -136,103 +136,100 @@ abstract final class AppTypography {
 
   /// Hero display style for splash, onboarding, and result reveals.
   static TextStyle get displayHero => _style(
-        size: 44,
-        weight: FontWeight.w700,
-        height: 1.1,
-        letterSpacing: -1.2,
-        family: displayFamily,
-      );
+    size: 44,
+    weight: FontWeight.w700,
+    height: 1.1,
+    letterSpacing: -1.2,
+    family: displayFamily,
+  );
 
   /// Large title at the top of a screen.
   static TextStyle get screenTitle => _style(
-        size: 28,
-        weight: FontWeight.w700,
-        height: 1.2,
-        letterSpacing: -0.5,
-        family: displayFamily,
-      );
+    size: 28,
+    weight: FontWeight.w700,
+    height: 1.2,
+    letterSpacing: -0.5,
+    family: displayFamily,
+  );
 
   /// Heading for a content section within a screen.
   static TextStyle get sectionTitle => _style(
-        size: 20,
-        weight: FontWeight.w600,
-        height: 1.25,
-        letterSpacing: -0.3,
-      );
+    size: 20,
+    weight: FontWeight.w600,
+    height: 1.25,
+    letterSpacing: -0.3,
+  );
 
   /// Title inside a card or list tile.
   static TextStyle get cardTitle => _style(
-        size: 17,
-        weight: FontWeight.w600,
-        height: 1.3,
-        letterSpacing: -0.2,
-      );
+    size: 17,
+    weight: FontWeight.w600,
+    height: 1.3,
+    letterSpacing: -0.2,
+  );
 
   /// Default body copy.
   static TextStyle get body => _style(
-        size: 15,
-        weight: FontWeight.w400,
-        height: 1.5,
-        letterSpacing: -0.1,
-      );
+    size: 15,
+    weight: FontWeight.w400,
+    height: 1.5,
+    letterSpacing: -0.1,
+  );
 
   /// Muted body copy for supporting paragraphs.
   ///
   /// Does not carry a color — apply `Theme.of(context).colorScheme
   /// .onSurfaceVariant` at the call site for brightness-aware muting.
   static TextStyle get bodyMuted => _style(
-        size: 15,
-        weight: FontWeight.w400,
-        height: 1.5,
-        letterSpacing: -0.1,
-      );
+    size: 15,
+    weight: FontWeight.w400,
+    height: 1.5,
+    letterSpacing: -0.1,
+  );
 
   /// Small caption text under images and controls.
   ///
   /// Does not carry a color — apply `Theme.of(context).colorScheme
   /// .onSurfaceVariant` at the call site for brightness-aware muting.
-  static TextStyle get caption => _style(
-        size: 13,
-        weight: FontWeight.w400,
-        height: 1.4,
-      );
+  static TextStyle get caption =>
+      _style(size: 13, weight: FontWeight.w400, height: 1.4);
 
   /// Tiny uppercase-style eyebrow label with wide tracking.
   static TextStyle get overline => _style(
-        size: 11,
-        weight: FontWeight.w600,
-        height: 1.3,
-        letterSpacing: 1.2,
-      );
+    size: 11,
+    weight: FontWeight.w600,
+    height: 1.3,
+    letterSpacing: 1.2,
+  );
 
   /// Button label style.
   static TextStyle get button => _style(
-        size: 16,
-        weight: FontWeight.w600,
-        height: 1.2,
-        letterSpacing: 0.1,
-      );
+    size: 16,
+    weight: FontWeight.w600,
+    height: 1.2,
+    letterSpacing: 0.1,
+  );
 
   /// Extra-large bold style for category codes and pose identifiers,
   /// inspired by airport code typography (JFK, LAX style).
   static TextStyle get airportCode => _style(
-        size: 32,
-        weight: FontWeight.w800,
-        height: 1.1,
-        letterSpacing: -1.5,
-        family: displayFamily,
-      );
+    size: 32,
+    weight: FontWeight.w800,
+    height: 1.1,
+    letterSpacing: -1.5,
+    family: displayFamily,
+  );
 
   /// Large numeric style for AI scores, using tabular figures so
   /// animated digits do not shift horizontally.
   static TextStyle get scoreDigits => _style(
-        size: 56,
-        weight: FontWeight.w700,
-        height: 1.0,
-        letterSpacing: -1.5,
-        family: displayFamily,
-        features: const <FontFeature>[FontFeature.tabularFigures()],
-      );
+    size: 56,
+    weight: FontWeight.w700,
+    height: 1.0,
+    letterSpacing: -1.5,
+    family: displayFamily,
+    features: const <FontFeature>[FontFeature.tabularFigures()],
+  );
 
   static TextStyle _style({
     required double size,

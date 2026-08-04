@@ -124,9 +124,7 @@ class _PoseSearchScreenState extends ConsumerState<PoseSearchScreen> {
             decoration: BoxDecoration(
               color: AppColors.surface.withValues(alpha: 0.95),
               border: const Border(
-                bottom: BorderSide(
-                  color: AppColors.surfaceElevated,
-                ),
+                bottom: BorderSide(color: AppColors.surfaceElevated),
               ),
             ),
             child: Row(
@@ -156,7 +154,9 @@ class _PoseSearchScreenState extends ConsumerState<PoseSearchScreen> {
                       suffixIcon: _textController.text.isNotEmpty
                           ? IconButton(
                               icon: const Icon(Icons.close_rounded, size: 20),
-                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
                               onPressed: _onClear,
                             )
                           : null,
@@ -196,8 +196,9 @@ class _IdleBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final recentSearches =
-        ref.read(poseSearchControllerProvider.notifier).getRecentSearches();
+    final recentSearches = ref
+        .read(poseSearchControllerProvider.notifier)
+        .getRecentSearches();
 
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.xl),
@@ -237,10 +238,7 @@ class _IdleBody extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.md),
           for (final query in recentSearches)
-            _RecentSearchTile(
-              query: query,
-              onTap: () => onRecentTapped(query),
-            ),
+            _RecentSearchTile(query: query, onTap: () => onRecentTapped(query)),
         ],
       ],
     );
@@ -249,10 +247,7 @@ class _IdleBody extends ConsumerWidget {
 
 /// A single recent search entry.
 class _RecentSearchTile extends StatelessWidget {
-  const _RecentSearchTile({
-    required this.query,
-    required this.onTap,
-  });
+  const _RecentSearchTile({required this.query, required this.onTap});
 
   final String query;
   final VoidCallback onTap;
@@ -269,18 +264,10 @@ class _RecentSearchTile extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-            const Icon(
-              Icons.history_rounded,
-              size: 18,
-            ),
+            const Icon(Icons.history_rounded, size: 18),
             const SizedBox(width: AppSpacing.md),
-            Expanded(
-              child: Text(query, style: AppTypography.body),
-            ),
-            const Icon(
-              Icons.north_west_rounded,
-              size: 16,
-            ),
+            Expanded(child: Text(query, style: AppTypography.body)),
+            const Icon(Icons.north_west_rounded, size: 16),
           ],
         ),
       ),
@@ -303,8 +290,9 @@ class _SearchResults extends StatelessWidget {
     final error = searchState.error;
     if (error != null && searchState.poses.isEmpty) {
       return AppErrorView(
-        message:
-            error is AppException ? error.userMessage : _genericErrorMessage,
+        message: error is AppException
+            ? error.userMessage
+            : _genericErrorMessage,
       );
     }
 

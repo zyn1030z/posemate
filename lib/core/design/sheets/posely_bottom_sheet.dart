@@ -49,10 +49,7 @@ Future<T?> showPoselyBottomSheet<T>({
     barrierColor: colors.scrim,
     showDragHandle: false,
     builder: (BuildContext sheetContext) {
-      return _PoselyBottomSheetContainer(
-        title: title,
-        builder: builder,
-      );
+      return _PoselyBottomSheetContainer(title: title, builder: builder);
     },
   );
 }
@@ -87,9 +84,7 @@ class _PoselyBottomSheetContainer extends StatelessWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: theme.colorScheme.surface.withValues(alpha: 0.96),
-              border: Border(
-                top: BorderSide(color: colors.glassStroke),
-              ),
+              border: Border(top: BorderSide(color: colors.glassStroke)),
             ),
             child: ConstrainedBox(
               constraints: BoxConstraints(maxHeight: maxHeight),
@@ -133,10 +128,7 @@ class _SheetDragHandle extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<PoselyColors>()!;
     return Padding(
-      padding: const EdgeInsets.only(
-        top: AppSpacing.md,
-        bottom: AppSpacing.sm,
-      ),
+      padding: const EdgeInsets.only(top: AppSpacing.md, bottom: AppSpacing.sm),
       child: Container(
         key: const ValueKey<String>('posely_bottom_sheet_drag_handle'),
         width: 36,

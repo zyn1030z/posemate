@@ -37,5 +37,5 @@ class PhotoshootQueueNotifier extends Notifier<Set<String>> {
 /// Provider for the global photoshoot queue.
 final photoshootQueueProvider =
     NotifierProvider<PhotoshootQueueNotifier, Set<String>>(
-  PhotoshootQueueNotifier.new,
-);
+      PhotoshootQueueNotifier.new,
+    );

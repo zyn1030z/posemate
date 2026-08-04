@@ -36,10 +36,7 @@ class SecureTokenStorage {
   }) async {
     await _storage.write(key: StorageKeys.accessToken, value: accessToken);
     if (refreshToken != null) {
-      await _storage.write(
-        key: StorageKeys.refreshToken,
-        value: refreshToken,
-      );
+      await _storage.write(key: StorageKeys.refreshToken, value: refreshToken);
     }
   }
 

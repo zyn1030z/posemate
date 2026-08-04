@@ -35,9 +35,10 @@ class _AppLoadingViewState extends State<AppLoadingView>
       vsync: this,
       duration: AppDurations.shimmer,
     );
-    _scale = Tween<double>(begin: 1, end: 1.04).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _scale = Tween<double>(
+      begin: 1,
+      end: 1.04,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override

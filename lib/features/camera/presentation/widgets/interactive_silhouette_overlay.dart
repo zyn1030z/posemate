@@ -21,10 +21,12 @@ class InteractiveSilhouetteOverlay extends StatefulWidget {
   });
 
   @override
-  State<InteractiveSilhouetteOverlay> createState() => _InteractiveSilhouetteOverlayState();
+  State<InteractiveSilhouetteOverlay> createState() =>
+      _InteractiveSilhouetteOverlayState();
 }
 
-class _InteractiveSilhouetteOverlayState extends State<InteractiveSilhouetteOverlay> {
+class _InteractiveSilhouetteOverlayState
+    extends State<InteractiveSilhouetteOverlay> {
   Offset _offset = Offset.zero;
   double _scale = 1.0;
   double _rotation = 0.0;
@@ -68,7 +70,9 @@ class _InteractiveSilhouetteOverlayState extends State<InteractiveSilhouetteOver
     if (widget.isFlipped) {
       silhouette = Transform(
         alignment: Alignment.center,
-        transform: Matrix4.rotationY(math.pi), // Needs import 'dart:math' as math;
+        transform: Matrix4.rotationY(
+          math.pi,
+        ), // Needs import 'dart:math' as math;
         child: silhouette,
       );
     }
@@ -93,10 +97,7 @@ class _InteractiveSilhouetteOverlayState extends State<InteractiveSilhouetteOver
           ),
           // Main image (White line-art contour)
           ColorFiltered(
-            colorFilter: const ColorFilter.mode(
-              Colors.white,
-              BlendMode.srcIn,
-            ),
+            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
             child: silhouette,
           ),
         ],
@@ -108,17 +109,12 @@ class _InteractiveSilhouetteOverlayState extends State<InteractiveSilhouetteOver
       offset: _offset,
       child: Transform.scale(
         scale: _scale,
-        child: Transform.rotate(
-          angle: _rotation,
-          child: silhouette,
-        ),
+        child: Transform.rotate(angle: _rotation, child: silhouette),
       ),
     );
 
     if (widget.isLocked) {
-      return IgnorePointer(
-        child: silhouette,
-      );
+      return IgnorePointer(child: silhouette);
     }
 
     return GestureDetector(

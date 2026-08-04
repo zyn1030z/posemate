@@ -73,39 +73,41 @@ Future<T?> showPoselyDialog<T>({
     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     barrierColor: colors.scrim,
     transitionDuration: AppDurations.base,
-    pageBuilder: (
-      BuildContext dialogContext,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-    ) {
-      return _PoselyDialogCard(
-        title: title,
-        message: message,
-        icon: icon,
-        actions: actions,
-      );
-    },
-    transitionBuilder: (
-      BuildContext dialogContext,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child,
-    ) {
-      final curved = CurvedAnimation(
-        parent: animation,
-        curve: AppDurations.easeOutExpo,
-      );
-      return BackdropFilter(
-        filter: AppBlur.glassFilter(AppBlur.soft * curved.value),
-        child: FadeTransition(
-          opacity: curved,
-          child: ScaleTransition(
-            scale: Tween<double>(begin: 0.94, end: 1).animate(curved),
-            child: child,
-          ),
-        ),
-      );
-    },
+    pageBuilder:
+        (
+          BuildContext dialogContext,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation,
+        ) {
+          return _PoselyDialogCard(
+            title: title,
+            message: message,
+            icon: icon,
+            actions: actions,
+          );
+        },
+    transitionBuilder:
+        (
+          BuildContext dialogContext,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation,
+          Widget child,
+        ) {
+          final curved = CurvedAnimation(
+            parent: animation,
+            curve: AppDurations.easeOutExpo,
+          );
+          return BackdropFilter(
+            filter: AppBlur.glassFilter(AppBlur.soft * curved.value),
+            child: FadeTransition(
+              opacity: curved,
+              child: ScaleTransition(
+                scale: Tween<double>(begin: 0.94, end: 1).animate(curved),
+                child: child,
+              ),
+            ),
+          );
+        },
   );
 }
 

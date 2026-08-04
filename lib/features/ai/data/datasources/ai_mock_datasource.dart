@@ -20,7 +20,7 @@ class AiMockDatasource implements AiRemoteDatasource {
   @override
   Future<AiJobModel<Map<String, dynamic>>> getJobStatus(String jobId) async {
     await Future<void>.delayed(const Duration(milliseconds: 400));
-    
+
     final polls = _jobPollCounts[jobId] ?? 0;
     _jobPollCounts[jobId] = polls + 1;
 
@@ -48,8 +48,10 @@ class AiMockDatasource implements AiRemoteDatasource {
             {
               'id': 'gen_${_random.nextInt(1000)}',
               'name': 'Generated Pose 1',
-              'preview_url': 'https://storage.googleapis.com/posely-assets/mock/generated_1.jpg',
-              'overlay_url': 'https://storage.googleapis.com/posely-assets/mock/generated_1_overlay.png',
+              'preview_url':
+                  'https://storage.googleapis.com/posely-assets/mock/generated_1.jpg',
+              'overlay_url':
+                  'https://storage.googleapis.com/posely-assets/mock/generated_1_overlay.png',
               'tags': ['generated', 'ai'],
               'difficulty': 'beginner',
               'gender': 'unisex',
@@ -61,8 +63,10 @@ class AiMockDatasource implements AiRemoteDatasource {
             {
               'id': 'gen_${_random.nextInt(1000)}',
               'name': 'Generated Pose 2',
-              'preview_url': 'https://storage.googleapis.com/posely-assets/mock/generated_2.jpg',
-              'overlay_url': 'https://storage.googleapis.com/posely-assets/mock/generated_2_overlay.png',
+              'preview_url':
+                  'https://storage.googleapis.com/posely-assets/mock/generated_2.jpg',
+              'overlay_url':
+                  'https://storage.googleapis.com/posely-assets/mock/generated_2_overlay.png',
               'tags': ['generated', 'ai'],
               'difficulty': 'intermediate',
               'gender': 'unisex',
@@ -70,8 +74,8 @@ class AiMockDatasource implements AiRemoteDatasource {
               'downloads': 0,
               'is_premium': false,
               'category_id': 'generated',
-            }
-          ]
+            },
+          ],
         },
       );
     }

@@ -145,9 +145,7 @@ class PoseMockDatasource implements PoseRemoteDatasource {
         .where(
           (pose) =>
               pose.name.toLowerCase().contains(lowerQuery) ||
-              pose.tags.any(
-                (tag) => tag.toLowerCase().contains(lowerQuery),
-              ) ||
+              pose.tags.any((tag) => tag.toLowerCase().contains(lowerQuery)) ||
               pose.categoryId.toLowerCase().contains(lowerQuery),
         )
         .toList();

@@ -125,7 +125,8 @@ class _PoseLibraryScreenState extends ConsumerState<PoseLibraryScreen> {
         ],
         labelOf: (option) => option.label,
         selected: _filters.gender,
-        onSelected: (option) => _applyFilters(_filters.copyWith(gender: option)),
+        onSelected: (option) =>
+            _applyFilters(_filters.copyWith(gender: option)),
       ),
     );
   }
@@ -251,9 +252,8 @@ class _PoseLibraryScreenState extends ConsumerState<PoseLibraryScreen> {
                 PoselyChip(
                   label: '${category.emoji} ${category.name}',
                   selected: _filters.categoryId == category.id,
-                  onTap: () => _applyFilters(
-                    _filters.copyWith(categoryId: category.id),
-                  ),
+                  onTap: () =>
+                      _applyFilters(_filters.copyWith(categoryId: category.id)),
                 ),
               ],
             ],
@@ -278,8 +278,7 @@ class _PoseLibraryScreenState extends ConsumerState<PoseLibraryScreen> {
         ),
         // A failed category fetch hides the row silently; the library
         // stays fully browsable through 'All'.
-        error: (Object error, StackTrace stackTrace) =>
-            const SizedBox.shrink(),
+        error: (Object error, StackTrace stackTrace) => const SizedBox.shrink(),
       ),
     );
   }
@@ -329,8 +328,9 @@ class _PoseLibraryScreenState extends ConsumerState<PoseLibraryScreen> {
         SliverFillRemaining(
           hasScrollBody: false,
           child: AppErrorView(
-            message:
-                error is AppException ? error.userMessage : _genericErrorMessage,
+            message: error is AppException
+                ? error.userMessage
+                : _genericErrorMessage,
             onRetry: () => unawaited(
               ref.read(poseLibraryControllerProvider.notifier).refresh(),
             ),
@@ -360,18 +360,18 @@ class _PoseLibraryScreenState extends ConsumerState<PoseLibraryScreen> {
             crossAxisSpacing: AppSpacing.md,
             childAspectRatio: 3 / 4,
           ),
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              final pose = value.poses[index];
-              return PoseCard(
-                pose: pose,
-                onTap: () => unawaited(
-                  context.push<Object?>(RoutePaths.poseDetailFor(pose.id)),
-                ),
-              );
-            },
-            childCount: value.poses.length,
-          ),
+          delegate: SliverChildBuilderDelegate((
+            BuildContext context,
+            int index,
+          ) {
+            final pose = value.poses[index];
+            return PoseCard(
+              pose: pose,
+              onTap: () => unawaited(
+                context.push<Object?>(RoutePaths.poseDetailFor(pose.id)),
+              ),
+            );
+          }, childCount: value.poses.length),
         ),
       ),
       SliverToBoxAdapter(child: _buildFooter(value)),
@@ -425,8 +425,9 @@ class _FilterPickerChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final posely = context.posely;
-    final foreground =
-        active ? AppColors.primary : Theme.of(context).colorScheme.onSurfaceVariant;
+    final foreground = active
+        ? AppColors.primary
+        : Theme.of(context).colorScheme.onSurfaceVariant;
     return Semantics(
       button: true,
       selected: active,
@@ -517,8 +518,7 @@ class _OptionTile extends StatelessWidget {
                       color: selected
                           ? AppColors.primary
                           : Theme.of(context).colorScheme.onSurface,
-                      fontWeight:
-                          selected ? FontWeight.w600 : FontWeight.w400,
+                      fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
                     ),
                   ),
                 ),

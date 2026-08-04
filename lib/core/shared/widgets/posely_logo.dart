@@ -69,9 +69,7 @@ class PoselyWordmark extends StatelessWidget {
         children: [
           TextSpan(
             text: 'Posely',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
           ),
           const TextSpan(
             text: 'AI',
@@ -155,11 +153,12 @@ class _AperturePainter extends CustomPainter {
     const arcSweep = 38 * _degToRad;
     final controlAngle = startAngle + 72 * _degToRad;
     final tipAngle = startAngle + 100 * _degToRad;
-    final control = center +
+    final control =
+        center +
         Offset(math.cos(controlAngle), math.sin(controlAngle)) *
             (outerRadius * 0.84);
-    final tip = center +
-        Offset(math.cos(tipAngle), math.sin(tipAngle)) * innerRadius;
+    final tip =
+        center + Offset(math.cos(tipAngle), math.sin(tipAngle)) * innerRadius;
     return Path()
       ..addArc(
         Rect.fromCircle(center: center, radius: outerRadius),

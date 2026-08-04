@@ -49,5 +49,5 @@ class CollectionController extends Notifier<List<PoseCollection>> {
 /// Provides the collection controller and its state.
 final collectionControllerProvider =
     NotifierProvider<CollectionController, List<PoseCollection>>(
-  CollectionController.new,
-);
+      CollectionController.new,
+    );

@@ -11,12 +11,7 @@ import 'package:shimmer/shimmer.dart';
 /// swept by a soft white highlight on the shared shimmer cadence.
 class ShimmerBox extends StatelessWidget {
   /// Creates a shimmer placeholder, optionally sized and rounded.
-  const ShimmerBox({
-    super.key,
-    this.width,
-    this.height,
-    this.borderRadius,
-  });
+  const ShimmerBox({super.key, this.width, this.height, this.borderRadius});
 
   /// Fixed width; when null the box sizes to its parent constraints.
   final double? width;

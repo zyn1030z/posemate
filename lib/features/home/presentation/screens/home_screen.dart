@@ -179,9 +179,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ),
       ),
-      const SliverToBoxAdapter(
-        child: SizedBox(height: _bottomBarClearance),
-      ),
+      const SliverToBoxAdapter(child: SizedBox(height: _bottomBarClearance)),
     ];
   }
 
@@ -195,9 +193,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: _RailSkeleton(),
           ),
         ),
-      const SliverToBoxAdapter(
-        child: SizedBox(height: _bottomBarClearance),
-      ),
+      const SliverToBoxAdapter(child: SizedBox(height: _bottomBarClearance)),
     ];
   }
 
@@ -254,7 +250,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       padding: AppSpacing.screenPadding,
       child: GlassCard(
         padding: EdgeInsets.zero,
-        onTap: () => context.push(RoutePaths.camera),
+        onTap: () => context.push(RoutePaths.coachSelection),
         child: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -346,10 +342,7 @@ class _RailSkeleton extends StatelessWidget {
             children: <Widget>[
               for (var i = 0; i < _cardCount; i++) ...<Widget>[
                 if (i > 0) const SizedBox(width: AppSpacing.md),
-                const SizedBox(
-                  width: _cardWidth,
-                  child: PoseCardSkeleton(),
-                ),
+                const SizedBox(width: _cardWidth, child: PoseCardSkeleton()),
               ],
             ],
           ),

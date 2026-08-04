@@ -20,28 +20,17 @@ class GenerateJobState {
 
   factory GenerateJobState.idle() => const GenerateJobState();
 
-  factory GenerateJobState.submitting() => const GenerateJobState(
-        isIdle: false,
-        isSubmitting: true,
-      );
+  factory GenerateJobState.submitting() =>
+      const GenerateJobState(isIdle: false, isSubmitting: true);
 
-  factory GenerateJobState.polling(AiJob<List<Pose>> job) => GenerateJobState(
-        isIdle: false,
-        isPolling: true,
-        job: job,
-      );
+  factory GenerateJobState.polling(AiJob<List<Pose>> job) =>
+      GenerateJobState(isIdle: false, isPolling: true, job: job);
 
-  factory GenerateJobState.success(AiJob<List<Pose>> job) => GenerateJobState(
-        isIdle: false,
-        job: job,
-      );
+  factory GenerateJobState.success(AiJob<List<Pose>> job) =>
+      GenerateJobState(isIdle: false, job: job);
 
   factory GenerateJobState.error(String message, {AiJob<List<Pose>>? job}) =>
-      GenerateJobState(
-        isIdle: false,
-        error: message,
-        job: job,
-      );
+      GenerateJobState(isIdle: false, error: message, job: job);
 
   final bool isIdle;
   final bool isSubmitting;
@@ -112,10 +101,7 @@ class GenerateJobController extends Notifier<GenerateJobState> {
         },
         onFailure: (exception) {
           timer.cancel();
-          state = GenerateJobState.error(
-            exception.message,
-            job: state.job,
-          );
+          state = GenerateJobState.error(exception.message, job: state.job);
         },
       );
     });
@@ -130,5 +116,5 @@ class GenerateJobController extends Notifier<GenerateJobState> {
 
 final generateJobControllerProvider =
     NotifierProvider<GenerateJobController, GenerateJobState>(
-  GenerateJobController.new,
-);
+      GenerateJobController.new,
+    );

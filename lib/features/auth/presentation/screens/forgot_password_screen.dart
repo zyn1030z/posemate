@@ -139,43 +139,43 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
   Widget _buildFormPhase() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Center(child: _buildGlyph()),
-        const SizedBox(height: AppSpacing.xl),
-        Text(
-          'Reset your password',
-          style: AppTypography.screenTitle,
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: AppSpacing.sm),
-        Text(
-          'Enter your account email and we will send a reset link.',
-          style: AppTypography.bodyMuted.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: AppSpacing.sectionGap),
-        PoselyTextField(
-          controller: _emailController,
-          label: 'Email',
-          hint: 'you@example.com',
-          errorText: _emailError,
-          keyboardType: TextInputType.emailAddress,
-          textInputAction: TextInputAction.done,
-          autofillHints: const <String>[AutofillHints.email],
-          onSubmitted: (_) => unawaited(_submit()),
-        ),
-        const SizedBox(height: AppSpacing.xl),
-        PoselyButton(
-          label: 'Send reset link',
-          expand: true,
-          loading: _submitting,
-          onPressed: () => unawaited(_submit()),
-        ),
-      ],
-    )
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Center(child: _buildGlyph()),
+            const SizedBox(height: AppSpacing.xl),
+            Text(
+              'Reset your password',
+              style: AppTypography.screenTitle,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            Text(
+              'Enter your account email and we will send a reset link.',
+              style: AppTypography.bodyMuted.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: AppSpacing.sectionGap),
+            PoselyTextField(
+              controller: _emailController,
+              label: 'Email',
+              hint: 'you@example.com',
+              errorText: _emailError,
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.done,
+              autofillHints: const <String>[AutofillHints.email],
+              onSubmitted: (_) => unawaited(_submit()),
+            ),
+            const SizedBox(height: AppSpacing.xl),
+            PoselyButton(
+              label: 'Send reset link',
+              expand: true,
+              loading: _submitting,
+              onPressed: () => unawaited(_submit()),
+            ),
+          ],
+        )
         .animate()
         .fadeIn(duration: AppDurations.slow, curve: AppDurations.easeOutExpo)
         .slideY(
@@ -220,7 +220,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
       children: <Widget>[
         SuccessState(
           title: 'Check your inbox',
-          message: 'If an account exists for $_sentEmail, '
+          message:
+              'If an account exists for $_sentEmail, '
               'a reset link is on its way.',
           action: PoselyButton(
             label: 'Back to sign in',

@@ -49,7 +49,8 @@ class SdkSocialAuthService implements SocialAuthService {
       final idToken = account.authentication.idToken;
       if (idToken == null || idToken.isEmpty) {
         throw const UnknownException(
-          message: 'Google Sign-In returned no ID token. Google console '
+          message:
+              'Google Sign-In returned no ID token. Google console '
               'setup is required — see docs/FIREBASE_SETUP.md.',
         );
       }
@@ -63,14 +64,16 @@ class SdkSocialAuthService implements SocialAuthService {
         );
       }
       throw UnknownException(
-        message: 'Google Sign-In failed (${error.code.name}). Google console '
+        message:
+            'Google Sign-In failed (${error.code.name}). Google console '
             'setup is required — see docs/FIREBASE_SETUP.md.',
         cause: error,
         stackTrace: stackTrace,
       );
     } on PlatformException catch (error, stackTrace) {
       throw UnknownException(
-        message: 'Google Sign-In is not configured for this platform. '
+        message:
+            'Google Sign-In is not configured for this platform. '
             'Google console setup is required — see docs/FIREBASE_SETUP.md.',
         cause: error,
         stackTrace: stackTrace,
@@ -89,7 +92,8 @@ class SdkSocialAuthService implements SocialAuthService {
       final identityToken = credential.identityToken;
       if (identityToken == null || identityToken.isEmpty) {
         throw const UnknownException(
-          message: 'Sign in with Apple returned no identity token. Apple '
+          message:
+              'Sign in with Apple returned no identity token. Apple '
               'console setup is required — see docs/FIREBASE_SETUP.md.',
         );
       }
@@ -103,21 +107,24 @@ class SdkSocialAuthService implements SocialAuthService {
         );
       }
       throw UnknownException(
-        message: 'Sign in with Apple failed (${error.code.name}). Apple '
+        message:
+            'Sign in with Apple failed (${error.code.name}). Apple '
             'console setup is required — see docs/FIREBASE_SETUP.md.',
         cause: error,
         stackTrace: stackTrace,
       );
     } on SignInWithAppleException catch (error, stackTrace) {
       throw UnknownException(
-        message: 'Sign in with Apple is unavailable on this device. Apple '
+        message:
+            'Sign in with Apple is unavailable on this device. Apple '
             'console setup is required — see docs/FIREBASE_SETUP.md.',
         cause: error,
         stackTrace: stackTrace,
       );
     } on PlatformException catch (error, stackTrace) {
       throw UnknownException(
-        message: 'Sign in with Apple is not configured for this platform. '
+        message:
+            'Sign in with Apple is not configured for this platform. '
             'Apple console setup is required — see docs/FIREBASE_SETUP.md.',
         cause: error,
         stackTrace: stackTrace,
@@ -131,7 +138,8 @@ class SdkSocialAuthService implements SocialAuthService {
       result = await FacebookAuth.instance.login();
     } on PlatformException catch (error, stackTrace) {
       throw UnknownException(
-        message: 'Facebook Login is not configured for this platform. '
+        message:
+            'Facebook Login is not configured for this platform. '
             'Facebook console setup is required — see docs/FIREBASE_SETUP.md.',
         cause: error,
         stackTrace: stackTrace,
@@ -142,7 +150,8 @@ class SdkSocialAuthService implements SocialAuthService {
         final token = result.accessToken?.tokenString;
         if (token == null || token.isEmpty) {
           throw const UnknownException(
-            message: 'Facebook Login returned no access token. Facebook '
+            message:
+                'Facebook Login returned no access token. Facebook '
                 'console setup is required — see docs/FIREBASE_SETUP.md.',
           );
         }
@@ -154,7 +163,8 @@ class SdkSocialAuthService implements SocialAuthService {
       case LoginStatus.operationInProgress:
       case LoginStatus.failed:
         throw UnknownException(
-          message: 'Facebook Login failed'
+          message:
+              'Facebook Login failed'
               '${result.message == null ? '' : ' (${result.message})'}. '
               'Facebook console setup is required — '
               'see docs/FIREBASE_SETUP.md.',

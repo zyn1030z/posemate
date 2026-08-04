@@ -30,11 +30,11 @@ class AuthRepositoryImpl implements AuthRepository {
     required SecureTokenStorage tokenStorage,
     required LocalStorage localStorage,
     required Talker talker,
-  })  : _remoteDatasource = remoteDatasource,
-        _socialAuthService = socialAuthService,
-        _tokenStorage = tokenStorage,
-        _localStorage = localStorage,
-        _talker = talker;
+  }) : _remoteDatasource = remoteDatasource,
+       _socialAuthService = socialAuthService,
+       _tokenStorage = tokenStorage,
+       _localStorage = localStorage,
+       _talker = talker;
 
   final AuthRemoteDatasource _remoteDatasource;
   final SocialAuthService _socialAuthService;
@@ -87,11 +87,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<AuthUser> signInAsGuest() async {
-    await _localStorage.put(
-      StorageBox.settings,
-      StorageKeys.authIsGuest,
-      true,
-    );
+    await _localStorage.put(StorageBox.settings, StorageKeys.authIsGuest, true);
     return AuthUser.guest();
   }
 
@@ -111,10 +107,7 @@ class AuthRepositoryImpl implements AuthRepository {
         StorageBox.settings,
         StorageKeys.authUserProfile,
       );
-      await _localStorage.delete(
-        StorageBox.settings,
-        StorageKeys.authIsGuest,
-      );
+      await _localStorage.delete(StorageBox.settings, StorageKeys.authIsGuest);
     } catch (error, stackTrace) {
       _talker.warning(
         'AuthRepository: failed to clear local session on sign-out',
@@ -188,10 +181,7 @@ class AuthRepositoryImpl implements AuthRepository {
       StorageKeys.authUserProfile,
       response.user.toJson(),
     );
-    await _localStorage.delete(
-      StorageBox.settings,
-      StorageKeys.authIsGuest,
-    );
+    await _localStorage.delete(StorageBox.settings, StorageKeys.authIsGuest);
     return response.user.toEntity();
   }
 

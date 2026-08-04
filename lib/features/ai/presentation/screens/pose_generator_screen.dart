@@ -35,18 +35,20 @@ class _PoseGeneratorScreenState extends ConsumerState<PoseGeneratorScreen> {
   void _submit() {
     final prompt = _promptController.text.trim();
     if (prompt.isEmpty) return;
-    
+
     // Close keyboard
     _focusNode.unfocus();
 
-    ref.read(generateJobControllerProvider.notifier).submit(
-      GeneratePrompt(
-        prompt: prompt,
-        count: 4,
-        style: _selectedStyle,
-        peopleCount: _selectedCount,
-      ),
-    );
+    ref
+        .read(generateJobControllerProvider.notifier)
+        .submit(
+          GeneratePrompt(
+            prompt: prompt,
+            count: 4,
+            style: _selectedStyle,
+            peopleCount: _selectedCount,
+          ),
+        );
   }
 
   @override
@@ -103,11 +105,8 @@ class _PoseGeneratorScreenState extends ConsumerState<PoseGeneratorScreen> {
             onSubmitted: (_) => _submit(),
           ),
           const SizedBox(height: AppSpacing.lg),
-          
-          Text(
-            'Style',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+
+          Text('Style', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: AppSpacing.sm),
           Wrap(
             spacing: AppSpacing.sm,
@@ -124,10 +123,7 @@ class _PoseGeneratorScreenState extends ConsumerState<PoseGeneratorScreen> {
           ),
           const SizedBox(height: AppSpacing.lg),
 
-          Text(
-            'Subjects',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Subjects', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: AppSpacing.sm),
           Wrap(
             spacing: AppSpacing.sm,
@@ -142,7 +138,7 @@ class _PoseGeneratorScreenState extends ConsumerState<PoseGeneratorScreen> {
               );
             }).toList(),
           ),
-          
+
           const SizedBox(height: AppSpacing.xl),
           FilledButton.icon(
             onPressed: _submit,
@@ -172,17 +168,15 @@ class _PoseGeneratorScreenState extends ConsumerState<PoseGeneratorScreen> {
           if (state.job?.progress != null)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
-              child: LinearProgressIndicator(
-                value: state.job!.progress / 100,
-              ),
+              child: LinearProgressIndicator(value: state.job!.progress / 100),
             ),
           if (state.job?.estimatedSeconds != null) ...[
             const SizedBox(height: AppSpacing.sm),
             Text(
               'Estimated time: ${state.job!.estimatedSeconds}s',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
           ],
         ],
@@ -192,7 +186,7 @@ class _PoseGeneratorScreenState extends ConsumerState<PoseGeneratorScreen> {
 
   Widget _buildResults(GenerateJobState state) {
     final poses = state.job?.result ?? [];
-    
+
     if (poses.isEmpty) {
       return const Center(child: Text('No poses generated.'));
     }

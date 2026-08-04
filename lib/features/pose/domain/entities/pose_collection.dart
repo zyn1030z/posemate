@@ -62,7 +62,8 @@ class PoseCollection {
       return PoseCollection(
         id: json['id'] as String,
         name: json['name'] as String,
-        poseIds: (json['pose_ids'] as List<dynamic>?)
+        poseIds:
+            (json['pose_ids'] as List<dynamic>?)
                 ?.whereType<String>()
                 .toList() ??
             const <String>[],

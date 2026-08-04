@@ -98,10 +98,7 @@ class PoseApiDatasource implements PoseRemoteDatasource {
         if (bodyDirection != null) 'body_direction': bodyDirection,
       },
     );
-    return Paginated<PoseModel>.fromJson(
-      _requireBody(response),
-      _poseFromJson,
-    );
+    return Paginated<PoseModel>.fromJson(_requireBody(response), _poseFromJson);
   }
 
   @override
@@ -158,7 +155,8 @@ class PoseApiDatasource implements PoseRemoteDatasource {
     final data = response.data;
     if (data == null) {
       throw UnknownException(
-        message: 'Empty pose response body from '
+        message:
+            'Empty pose response body from '
             '${response.requestOptions.path}.',
       );
     }

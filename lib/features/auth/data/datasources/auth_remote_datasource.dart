@@ -51,10 +51,7 @@ class AuthApiDatasource implements AuthRemoteDatasource {
   }) async {
     final response = await _dio.post<Map<String, dynamic>>(
       ApiEndpoints.login,
-      data: <String, dynamic>{
-        'email': email,
-        'password': password,
-      },
+      data: <String, dynamic>{'email': email, 'password': password},
       options: _publicEndpoint(),
     );
     return _parseAuthResponse(response);
@@ -115,7 +112,8 @@ class AuthApiDatasource implements AuthRemoteDatasource {
     final data = response.data;
     if (data == null) {
       throw UnknownException(
-        message: 'Empty auth response body from '
+        message:
+            'Empty auth response body from '
             '${response.requestOptions.path}.',
       );
     }

@@ -90,29 +90,31 @@ class _PoselyButtonState extends State<PoselyButton> {
   bool get _enabled => widget.onPressed != null && !widget.loading;
 
   double get _height => switch (widget.size) {
-        PoselyButtonSize.large => 52,
-        PoselyButtonSize.medium => 44,
-        PoselyButtonSize.small => 36,
-      };
+    PoselyButtonSize.large => 52,
+    PoselyButtonSize.medium => 44,
+    PoselyButtonSize.small => 36,
+  };
 
   double get _horizontalPadding => switch (widget.size) {
-        PoselyButtonSize.large => AppSpacing.xl,
-        PoselyButtonSize.medium => AppSpacing.lg,
-        PoselyButtonSize.small => AppSpacing.md,
-      };
+    PoselyButtonSize.large => AppSpacing.xl,
+    PoselyButtonSize.medium => AppSpacing.lg,
+    PoselyButtonSize.small => AppSpacing.md,
+  };
 
   double get _fontSize => switch (widget.size) {
-        PoselyButtonSize.large => 16,
-        PoselyButtonSize.medium => 15,
-        PoselyButtonSize.small => 14,
-      };
+    PoselyButtonSize.large => 16,
+    PoselyButtonSize.medium => 15,
+    PoselyButtonSize.small => 14,
+  };
 
   Color _foreground(BuildContext context, PoselyColors colors) {
     return switch (widget.variant) {
       PoselyButtonVariant.primary => AppColors.textOnPrimary,
       PoselyButtonVariant.glass => Theme.of(context).colorScheme.onSurface,
       PoselyButtonVariant.ghost =>
-        _pressed ? AppColors.primary : Theme.of(context).colorScheme.onSurfaceVariant,
+        _pressed
+            ? AppColors.primary
+            : Theme.of(context).colorScheme.onSurfaceVariant,
       PoselyButtonVariant.danger => colors.danger,
     };
   }
@@ -120,23 +122,23 @@ class _PoselyButtonState extends State<PoselyButton> {
   BoxDecoration _decoration(PoselyColors colors) {
     return switch (widget.variant) {
       PoselyButtonVariant.primary => BoxDecoration(
-          gradient: AppGradients.blueHero,
-          borderRadius: AppRadius.brPill,
-          boxShadow: widget.onPressed != null ? AppShadows.blueGlow : null,
-        ),
+        gradient: AppGradients.blueHero,
+        borderRadius: AppRadius.brPill,
+        boxShadow: widget.onPressed != null ? AppShadows.blueGlow : null,
+      ),
       PoselyButtonVariant.glass => BoxDecoration(
-          color: colors.glassSurface,
-          borderRadius: AppRadius.brPill,
-          border: Border.all(color: colors.glassStroke),
-        ),
+        color: colors.glassSurface,
+        borderRadius: AppRadius.brPill,
+        border: Border.all(color: colors.glassStroke),
+      ),
       PoselyButtonVariant.ghost => const BoxDecoration(
-          borderRadius: AppRadius.brPill,
-        ),
+        borderRadius: AppRadius.brPill,
+      ),
       PoselyButtonVariant.danger => BoxDecoration(
-          color: colors.danger.withValues(alpha: 0.12),
-          borderRadius: AppRadius.brPill,
-          border: Border.all(color: colors.danger),
-        ),
+        color: colors.danger.withValues(alpha: 0.12),
+        borderRadius: AppRadius.brPill,
+        border: Border.all(color: colors.danger),
+      ),
     };
   }
 
@@ -233,8 +235,9 @@ class _PoselyButtonState extends State<PoselyButton> {
       pill = Opacity(opacity: 0.4, child: pill);
     }
 
-    final verticalHitPadding =
-        _height >= _minTapTarget ? 0.0 : (_minTapTarget - _height) / 2;
+    final verticalHitPadding = _height >= _minTapTarget
+        ? 0.0
+        : (_minTapTarget - _height) / 2;
 
     return Semantics(
       button: true,

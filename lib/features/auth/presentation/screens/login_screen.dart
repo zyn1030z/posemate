@@ -82,11 +82,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       return;
     }
     setState(() => _submitting = true);
-    final failure =
-        await ref.read(authControllerProvider.notifier).signInWithEmail(
-              email: _emailController.text.trim(),
-              password: _passwordController.text,
-            );
+    final failure = await ref
+        .read(authControllerProvider.notifier)
+        .signInWithEmail(
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+        );
     if (!mounted) {
       return;
     }
@@ -99,10 +100,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       return;
     }
     setState(() => _socialLoading = provider);
-    final failure =
-        await ref.read(authControllerProvider.notifier).signInWithSocial(
-              provider,
-            );
+    final failure = await ref
+        .read(authControllerProvider.notifier)
+        .signInWithSocial(provider);
     if (!mounted) {
       return;
     }
@@ -115,8 +115,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       return;
     }
     setState(() => _guestLoading = true);
-    final failure =
-        await ref.read(authControllerProvider.notifier).continueAsGuest();
+    final failure = await ref
+        .read(authControllerProvider.notifier)
+        .continueAsGuest();
     if (!mounted) {
       return;
     }
@@ -138,24 +139,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Widget _buildLockup() {
     return Column(
-      children: <Widget>[
-        const PoselyLogo(size: 72),
-        const SizedBox(height: AppSpacing.xl),
-        Text(
-          'Welcome back',
-          style: AppTypography.screenTitle,
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: AppSpacing.sm),
-        Text(
-          'Sign in to continue creating.',
-          style: AppTypography.bodyMuted.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    )
+          children: <Widget>[
+            const PoselyLogo(size: 72),
+            const SizedBox(height: AppSpacing.xl),
+            Text(
+              'Welcome back',
+              style: AppTypography.screenTitle,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            Text(
+              'Sign in to continue creating.',
+              style: AppTypography.bodyMuted.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        )
         .animate()
         .fadeIn(duration: AppDurations.base)
         .slideY(
@@ -168,52 +169,52 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Widget _buildForm() {
     return AutofillGroup(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          PoselyTextField(
-            controller: _emailController,
-            focusNode: _emailFocus,
-            label: 'Email',
-            hint: 'you@example.com',
-            errorText: _emailError,
-            keyboardType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.next,
-            autofillHints: const <String>[AutofillHints.email],
-            onSubmitted: (_) => _passwordFocus.requestFocus(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              PoselyTextField(
+                controller: _emailController,
+                focusNode: _emailFocus,
+                label: 'Email',
+                hint: 'you@example.com',
+                errorText: _emailError,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                autofillHints: const <String>[AutofillHints.email],
+                onSubmitted: (_) => _passwordFocus.requestFocus(),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              PoselyTextField(
+                controller: _passwordController,
+                focusNode: _passwordFocus,
+                label: 'Password',
+                hint: 'Your password',
+                errorText: _passwordError,
+                obscureText: true,
+                textInputAction: TextInputAction.done,
+                autofillHints: const <String>[AutofillHints.password],
+                onSubmitted: (_) => _submit(),
+              ),
+              const SizedBox(height: AppSpacing.sm),
+              Align(
+                alignment: Alignment.centerRight,
+                child: PoselyButton(
+                  label: 'Forgot password?',
+                  variant: PoselyButtonVariant.ghost,
+                  size: PoselyButtonSize.small,
+                  onPressed: () => context.push(RoutePaths.forgotPassword),
+                ),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              PoselyButton(
+                label: 'Sign in',
+                expand: true,
+                loading: _submitting,
+                onPressed: _submit,
+              ),
+            ],
           ),
-          const SizedBox(height: AppSpacing.lg),
-          PoselyTextField(
-            controller: _passwordController,
-            focusNode: _passwordFocus,
-            label: 'Password',
-            hint: 'Your password',
-            errorText: _passwordError,
-            obscureText: true,
-            textInputAction: TextInputAction.done,
-            autofillHints: const <String>[AutofillHints.password],
-            onSubmitted: (_) => _submit(),
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          Align(
-            alignment: Alignment.centerRight,
-            child: PoselyButton(
-              label: 'Forgot password?',
-              variant: PoselyButtonVariant.ghost,
-              size: PoselyButtonSize.small,
-              onPressed: () => context.push(RoutePaths.forgotPassword),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.md),
-          PoselyButton(
-            label: 'Sign in',
-            expand: true,
-            loading: _submitting,
-            onPressed: _submit,
-          ),
-        ],
-      ),
-    )
+        )
         .animate()
         .fadeIn(delay: _stagger, duration: AppDurations.base)
         .slideY(
@@ -240,22 +241,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Widget _buildSocialSection() {
     return Column(
-      children: <Widget>[
-        _buildDivider(),
-        const SizedBox(height: AppSpacing.xl),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            for (final provider in SocialProvider.values)
-              SocialAuthButton(
-                provider: provider,
-                loading: _socialLoading == provider,
-                onPressed: () => _signInWithSocial(provider),
-              ),
+            _buildDivider(),
+            const SizedBox(height: AppSpacing.xl),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                for (final provider in SocialProvider.values)
+                  SocialAuthButton(
+                    provider: provider,
+                    loading: _socialLoading == provider,
+                    onPressed: () => _signInWithSocial(provider),
+                  ),
+              ],
+            ),
           ],
-        ),
-      ],
-    )
+        )
         .animate()
         .fadeIn(delay: _stagger * 2, duration: AppDurations.base)
         .slideY(
@@ -341,9 +342,7 @@ class _HairlineGradient extends StatelessWidget {
     return SizedBox(
       height: 1,
       child: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(colors: colors),
-        ),
+        decoration: BoxDecoration(gradient: LinearGradient(colors: colors)),
       ),
     );
   }

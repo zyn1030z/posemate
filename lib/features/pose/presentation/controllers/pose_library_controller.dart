@@ -57,7 +57,9 @@ class PoseLibraryFilters {
       difficulty: identical(difficulty, _sentinel)
           ? this.difficulty
           : difficulty as PoseDifficulty?,
-      gender: identical(gender, _sentinel) ? this.gender : gender as PoseGender?,
+      gender: identical(gender, _sentinel)
+          ? this.gender
+          : gender as PoseGender?,
       peopleCount: identical(peopleCount, _sentinel)
           ? this.peopleCount
           : peopleCount as PeopleCount?,
@@ -200,9 +202,10 @@ class PoseLibraryController extends AsyncNotifier<PoseLibraryState> {
       onSuccess: (pageData) {
         state = AsyncData<PoseLibraryState>(
           latest.copyWith(
-            poses: List<Pose>.unmodifiable(
-              <Pose>[...latest.poses, ...pageData.items],
-            ),
+            poses: List<Pose>.unmodifiable(<Pose>[
+              ...latest.poses,
+              ...pageData.items,
+            ]),
             page: pageData.page,
             hasMore: pageData.hasMore,
             isLoadingMore: false,
@@ -306,9 +309,9 @@ Duration? _noRetry(int retryCount, Object error) => null;
 /// then accumulated pages as data.
 final poseLibraryControllerProvider =
     AsyncNotifierProvider<PoseLibraryController, PoseLibraryState>(
-  PoseLibraryController.new,
-  retry: _noRetry,
-);
+      PoseLibraryController.new,
+      retry: _noRetry,
+    );
 
 /// All pose categories for the filter chip row.
 ///

@@ -58,11 +58,7 @@ abstract final class AppShadows {
       offset: Offset(0, 6),
       spreadRadius: -4,
     ),
-    BoxShadow(
-      color: Color(0x1A007AFF),
-      blurRadius: 40,
-      offset: Offset(0, 12),
-    ),
+    BoxShadow(color: Color(0x1A007AFF), blurRadius: 40, offset: Offset(0, 12)),
   ];
 
   /// Legacy alias — maps to blueGlow for backward compatibility.

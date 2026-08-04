@@ -13,14 +13,8 @@ import 'package:posely_ai/core/theme/tokens/app_typography.dart';
 /// panel rows.
 class ScorePill extends StatelessWidget {
   /// Creates a score pill for a normalized score.
-  const ScorePill({
-    super.key,
-    required this.label,
-    required this.score,
-  }) : assert(
-          score >= 0.0 && score <= 1.0,
-          'score must be between 0.0 and 1.0',
-        );
+  const ScorePill({super.key, required this.label, required this.score})
+    : assert(score >= 0.0 && score <= 1.0, 'score must be between 0.0 and 1.0');
 
   /// Short name of the scored aspect, such as 'Framing'.
   final String label;
@@ -51,10 +45,7 @@ class ScorePill extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               DecoratedBox(
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
                 child: const SizedBox(width: 8, height: 8),
               ),
               const SizedBox(width: AppSpacing.sm),

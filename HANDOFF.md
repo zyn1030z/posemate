@@ -328,7 +328,7 @@ datasources until it exists.
 - Free-tier quota counter + premium gating hooks (real gating lands in Phase 12).
 - Tests: polling controller, timeout/failure paths.
 
-### Phase 7 — Upload Photo → Pose Extraction
+### Phase 7 — Upload Photo → Pose Extraction ✅
 - Pick + crop (`image_picker`, `image`), size guard `AppConstants.maxUploadImageBytes`.
 - Multipart `POST /ai/extract-pose` with an `Idempotency-Key` header.
 - Preview: skeleton overlay on the source photo; save as a reusable template ("My Poses").

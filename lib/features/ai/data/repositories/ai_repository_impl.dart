@@ -11,7 +11,7 @@ import 'package:posely_ai/features/pose/domain/entities/pose.dart';
 
 class AiRepositoryImpl implements AiRepository {
   const AiRepositoryImpl({required AiRemoteDatasource remoteDatasource})
-      : _remoteDatasource = remoteDatasource;
+    : _remoteDatasource = remoteDatasource;
 
   final AiRemoteDatasource _remoteDatasource;
 

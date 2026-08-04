@@ -13,7 +13,11 @@ import 'package:posely_ai/features/auth/presentation/screens/forgot_password_scr
 import 'package:posely_ai/features/auth/presentation/screens/login_screen.dart';
 import 'package:posely_ai/features/auth/presentation/screens/onboarding_screen.dart';
 import 'package:posely_ai/features/auth/presentation/screens/register_screen.dart';
+import 'package:posely_ai/features/gallery/presentation/screens/gallery_screen.dart';
+import 'package:posely_ai/features/community/presentation/screens/community_screen.dart';
+import 'package:posely_ai/features/gallery/presentation/screens/capture_detail_screen.dart';
 import 'package:posely_ai/features/camera/presentation/screens/camera_screen.dart';
+import 'package:posely_ai/features/camera/presentation/screens/coach_selection_screen.dart';
 import 'package:posely_ai/features/extraction/presentation/screens/upload_pose_screen.dart';
 import 'package:posely_ai/features/home/presentation/screens/home_screen.dart';
 import 'package:posely_ai/features/pose/presentation/screens/pose_detail_screen.dart';
@@ -31,6 +35,8 @@ const Set<String> _authFlowPaths = {
   RoutePaths.register,
   RoutePaths.forgotPassword,
 };
+
+final _galleryTabNavigatorKey = GlobalKey<NavigatorState>();
 
 /// Ticks whenever the auth session changes so GoRouter re-runs its redirect.
 ///
@@ -156,22 +162,32 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ],
           ),
           StatefulShellBranch(
+            navigatorKey: _galleryTabNavigatorKey,
             routes: [
-              // PHASE-10: replaced by the real captured-photos gallery.
               GoRoute(
                 path: RoutePaths.gallery,
                 name: RouteNames.gallery,
-                builder: (context, state) => const ComingSoonScreen(
-                  title: 'Your Gallery',
-                  phase: 'Phase 10',
-                  icon: Icons.photo_library_rounded,
-                ),
+                builder: (context, state) => const GalleryScreen(),
+                routes: [
+                  GoRoute(
+                    path: ':id',
+                    name: RouteNames.captureDetail,
+                    builder: (context, state) {
+                      final id = state.pathParameters['id']!;
+                      return CaptureDetailScreen(id: id);
+                    },
+                  ),
+                ],
               ),
             ],
           ),
           StatefulShellBranch(
             routes: [
-              // PHASE-12: replaced by the real profile screen.
+              GoRoute(
+                path: RoutePaths.community,
+                builder: (context, state) => const CommunityScreen(),
+              ),
+              // PHASE-10: replaced by the real profile screen.
               GoRoute(
                 path: RoutePaths.profile,
                 name: RouteNames.profile,
@@ -190,16 +206,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RoutePaths.poseDetail,
         name: RouteNames.poseDetail,
-        builder: (context, state) => PoseDetailScreen(
-          poseId: state.pathParameters['poseId']!,
-        ),
+        builder: (context, state) =>
+            PoseDetailScreen(poseId: state.pathParameters['poseId']!),
       ),
       GoRoute(
         path: RoutePaths.search,
         name: RouteNames.search,
-        builder: (context, state) => PoseSearchScreen(
-          initialQuery: state.uri.queryParameters['q'],
-        ),
+        builder: (context, state) =>
+            PoseSearchScreen(initialQuery: state.uri.queryParameters['q']),
       ),
       GoRoute(
         path: RoutePaths.poseGenerator,
@@ -211,14 +225,31 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: RouteNames.uploadPose,
         builder: (context, state) => const UploadPoseScreen(),
       ),
+      // PHASE-9: Coach Selection.
+      GoRoute(
+        path: RoutePaths.coachSelection,
+        name: RouteNames.coachSelection,
+        builder: (context, state) {
+          final idsParam = state.uri.queryParameters['poseIds'];
+          final poseIds = idsParam
+              ?.split(',')
+              .where((e) => e.isNotEmpty)
+              .toList();
+          return CoachSelectionScreen(poseIds: poseIds);
+        },
+      ),
       // PHASE-8: Real camera experience.
       GoRoute(
         path: RoutePaths.camera,
         name: RouteNames.camera,
         builder: (context, state) {
           final idsParam = state.uri.queryParameters['poseIds'];
-          final poseIds = idsParam?.split(',').where((e) => e.isNotEmpty).toList();
-          return CameraScreen(poseIds: poseIds);
+          final poseIds = idsParam
+              ?.split(',')
+              .where((e) => e.isNotEmpty)
+              .toList();
+          final coachId = state.uri.queryParameters['coachId'];
+          return CameraScreen(poseIds: poseIds, coachId: coachId);
         },
       ),
       // Dev-only design-system showcase; reached via

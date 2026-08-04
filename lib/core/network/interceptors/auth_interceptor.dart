@@ -47,10 +47,10 @@ class AuthInterceptor extends Interceptor {
     Dio? retryDio,
     this.onSessionExpired,
     Dio Function(BaseOptions options)? refreshDioFactory,
-  })  : _tokenStorage = tokenStorage,
-        _talker = talker,
-        _retryDio = retryDio,
-        _refreshDioFactory = refreshDioFactory ?? Dio.new;
+  }) : _tokenStorage = tokenStorage,
+       _talker = talker,
+       _retryDio = retryDio,
+       _refreshDioFactory = refreshDioFactory ?? Dio.new;
 
   /// Invoked once per failed refresh after tokens are cleared, so the app
   /// can route to the sign-in screen. Settable after construction because

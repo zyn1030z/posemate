@@ -19,7 +19,8 @@ abstract interface class ExtractionRemoteDatasource {
   Future<Pose> extractPose(File image);
 }
 
-final class ExtractionRemoteDatasourceImpl implements ExtractionRemoteDatasource {
+final class ExtractionRemoteDatasourceImpl
+    implements ExtractionRemoteDatasource {
   const ExtractionRemoteDatasourceImpl(this._dio);
 
   final Dio _dio;
@@ -29,10 +30,7 @@ final class ExtractionRemoteDatasourceImpl implements ExtractionRemoteDatasource
     final fileName = image.path.split('/').last;
 
     final formData = FormData.fromMap({
-      'image': await MultipartFile.fromFile(
-        image.path,
-        filename: fileName,
-      ),
+      'image': await MultipartFile.fromFile(image.path, filename: fileName),
     });
 
     final idempotencyKey = const Uuid().v4();
@@ -40,11 +38,7 @@ final class ExtractionRemoteDatasourceImpl implements ExtractionRemoteDatasource
     final response = await _dio.post<Map<String, dynamic>>(
       ApiEndpoints.extractPose,
       data: formData,
-      options: Options(
-        headers: {
-          'Idempotency-Key': idempotencyKey,
-        },
-      ),
+      options: Options(headers: {'Idempotency-Key': idempotencyKey}),
     );
 
     return ExtractionJobModel.fromJson(response.data!);
@@ -64,10 +58,7 @@ final class ExtractionRemoteDatasourceImpl implements ExtractionRemoteDatasource
     final fileName = image.path.split('/').last;
 
     final formData = FormData.fromMap({
-      'image': await MultipartFile.fromFile(
-        image.path,
-        filename: fileName,
-      ),
+      'image': await MultipartFile.fromFile(image.path, filename: fileName),
     });
 
     final idempotencyKey = const Uuid().v4();
@@ -75,11 +66,7 @@ final class ExtractionRemoteDatasourceImpl implements ExtractionRemoteDatasource
     final response = await _dio.post<Map<String, dynamic>>(
       ApiEndpoints.extractPose,
       data: formData,
-      options: Options(
-        headers: {
-          'Idempotency-Key': idempotencyKey,
-        },
-      ),
+      options: Options(headers: {'Idempotency-Key': idempotencyKey}),
     );
 
     final jobModel = ExtractionJobModel.fromJson(response.data!);

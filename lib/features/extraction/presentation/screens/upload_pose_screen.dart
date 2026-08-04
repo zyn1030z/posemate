@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:posely_ai/core/error/app_exception.dart';
+import 'package:posely_ai/core/theme/tokens/app_colors.dart';
 import 'package:posely_ai/features/extraction/presentation/controllers/extraction_controller.dart';
 import 'package:posely_ai/features/pose/domain/entities/pose.dart';
 
@@ -30,16 +31,18 @@ class _UploadPoseScreenState extends ConsumerState<UploadPoseScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to pick image.')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Failed to pick image.')));
       }
     }
   }
 
   void _extractPose() {
     if (_selectedImage != null) {
-      ref.read(extractionControllerProvider.notifier).extractPose(_selectedImage!);
+      ref
+          .read(extractionControllerProvider.notifier)
+          .extractPose(_selectedImage!);
     }
   }
 
@@ -47,22 +50,23 @@ class _UploadPoseScreenState extends ConsumerState<UploadPoseScreen> {
   Widget build(BuildContext context) {
     final extractionState = ref.watch(extractionControllerProvider);
 
-    ref.listen<AsyncValue<Pose?>>(extractionControllerProvider, (previous, next) {
+    ref.listen<AsyncValue<Pose?>>(extractionControllerProvider, (
+      previous,
+      next,
+    ) {
       if (next.hasError) {
         final error = next.error;
         final message = error is AppException
             ? error.userMessage
             : 'Failed to extract pose.';
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(message)),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(message)));
       }
     });
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Extract Pose'),
-      ),
+      appBar: AppBar(title: const Text('Extract Pose')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -86,7 +90,7 @@ class _UploadPoseScreenState extends ConsumerState<UploadPoseScreen> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.green,
+                    color: AppColors.success,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -116,7 +120,7 @@ class _UploadPoseScreenState extends ConsumerState<UploadPoseScreen> {
               const Icon(
                 Icons.image_search,
                 size: 80,
-                color: Colors.grey,
+                color: AppColors.textSecondary,
               ),
               const SizedBox(height: 16),
               const Text(
@@ -125,6 +129,7 @@ class _UploadPoseScreenState extends ConsumerState<UploadPoseScreen> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
+                  color: AppColors.textPrimary,
                 ),
               ),
               const SizedBox(height: 48),
@@ -146,7 +151,9 @@ class _UploadPoseScreenState extends ConsumerState<UploadPoseScreen> {
                 ),
               ),
             ],
-            if (_selectedImage != null && !extractionState.isLoading && extractionState.value == null) ...[
+            if (_selectedImage != null &&
+                !extractionState.isLoading &&
+                extractionState.value == null) ...[
               const SizedBox(height: 16),
               TextButton(
                 onPressed: () {

@@ -17,13 +17,10 @@ class RetryInterceptor extends Interceptor {
   /// Creates the interceptor bound to the Dio instance that owns it.
   ///
   /// A custom random source can be injected for deterministic tests.
-  RetryInterceptor({
-    required Dio dio,
-    required Talker talker,
-    Random? random,
-  })  : _dio = dio,
-        _talker = talker,
-        _random = random ?? Random();
+  RetryInterceptor({required Dio dio, required Talker talker, Random? random})
+    : _dio = dio,
+      _talker = talker,
+      _random = random ?? Random();
 
   /// Maximum number of retries after the initial attempt.
   static const int _maxRetries = 2;

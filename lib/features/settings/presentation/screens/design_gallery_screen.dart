@@ -170,10 +170,8 @@ class DesignGalleryScreen extends StatelessWidget {
         SectionHeader(
           title: 'Buttons',
           actionLabel: 'Docs',
-          onAction: () => PoselyToast.show(
-            context,
-            message: 'See docs/DESIGN_SYSTEM.md',
-          ),
+          onAction: () =>
+              PoselyToast.show(context, message: 'See docs/DESIGN_SYSTEM.md'),
         ),
         _gap,
         Wrap(
@@ -197,11 +195,7 @@ class DesignGalleryScreen extends StatelessWidget {
           runSpacing: AppSpacing.md,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            PoselyButton(
-              label: 'Loading',
-              onPressed: () {},
-              loading: true,
-            ),
+            PoselyButton(label: 'Loading', onPressed: () {}, loading: true),
             const PoselyButton(label: 'Disabled'),
             PoselyButton(
               label: 'Generate',
@@ -211,11 +205,7 @@ class DesignGalleryScreen extends StatelessWidget {
           ],
         ),
         _gap,
-        PoselyButton(
-          label: 'Continue',
-          onPressed: () {},
-          expand: true,
-        ),
+        PoselyButton(label: 'Continue', onPressed: () {}, expand: true),
         _gap,
         Row(
           children: [
@@ -312,10 +302,7 @@ class DesignGalleryScreen extends StatelessWidget {
             onTap: () => PoselyToast.show(context, message: 'Glass card tap'),
             child: Row(
               children: [
-                const Icon(
-                  Icons.blur_on_rounded,
-                  color: AppColors.textPrimary,
-                ),
+                const Icon(Icons.blur_on_rounded, color: AppColors.textPrimary),
                 const SizedBox(width: AppSpacing.md),
                 Expanded(
                   child: Column(
@@ -339,10 +326,7 @@ class DesignGalleryScreen extends StatelessWidget {
           padding: AppSpacing.cardPadding,
           child: Row(
             children: [
-              const Icon(
-                Icons.layers_rounded,
-                color: AppColors.emerald400,
-              ),
+              const Icon(Icons.layers_rounded, color: AppColors.emerald400),
               const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Text(
@@ -410,10 +394,8 @@ class DesignGalleryScreen extends StatelessWidget {
             ),
             PoselyButton(
               label: 'Toast info',
-              onPressed: () => PoselyToast.show(
-                context,
-                message: 'AI coach is warming up',
-              ),
+              onPressed: () =>
+                  PoselyToast.show(context, message: 'AI coach is warming up'),
               variant: PoselyButtonVariant.ghost,
               size: PoselyButtonSize.small,
             ),
@@ -464,7 +446,8 @@ class DesignGalleryScreen extends StatelessWidget {
     return showPoselyDialog<void>(
       context: context,
       title: 'Delete photo?',
-      message: 'This removes the capture from your gallery. '
+      message:
+          'This removes the capture from your gallery. '
           'You cannot undo this.',
       icon: Icons.delete_outline_rounded,
       actions: [
@@ -541,10 +524,8 @@ class DesignGalleryScreen extends StatelessWidget {
                 height: 320,
                 child: AppErrorView(
                   message: 'Could not load poses.',
-                  onRetry: () => PoselyToast.show(
-                    context,
-                    message: 'Retrying…',
-                  ),
+                  onRetry: () =>
+                      PoselyToast.show(context, message: 'Retrying…'),
                 ),
               ),
             ),
@@ -573,11 +554,7 @@ class DesignGalleryScreen extends StatelessWidget {
         _gap,
         Row(
           children: [
-            ShimmerBox(
-              width: 56,
-              height: 56,
-              borderRadius: AppRadius.brPill,
-            ),
+            ShimmerBox(width: 56, height: 56, borderRadius: AppRadius.brPill),
             SizedBox(width: AppSpacing.md),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
