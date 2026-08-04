@@ -28,11 +28,12 @@ abstract final class AppGradients {
     colors: <Color>[Color(0x00000000), Color(0x99000000)],
   );
 
-  /// Subtle gray sheen that gives elevated cards their catch of light.
+  /// Subtle white sheen that gives elevated cards their catch of light
+  /// on dark backgrounds.
   static const LinearGradient glassSheen = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[Color(0x0D000000), Color(0x03000000)],
+    colors: <Color>[Color(0x0AFFFFFF), Color(0x00FFFFFF)],
   );
 
   /// Sweep gradient for circular score dials, running from rose through

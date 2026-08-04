@@ -9,28 +9,26 @@ abstract final class AppShadows {
   /// Soft ambient shadow for resting cards and tiles.
   static const List<BoxShadow> soft = <BoxShadow>[
     BoxShadow(
-      color: Color(0x14000000),
+      color: Color(0x4D000000), // 30% black
       blurRadius: 16,
       offset: Offset(0, 3),
-      spreadRadius: 0,
     ),
     BoxShadow(
-      color: Color(0x0A000000),
+      color: Color(0x33000000), // 20% black
       blurRadius: 6,
       offset: Offset(0, 1),
-      spreadRadius: 0,
     ),
   ];
 
   /// Medium shadow for raised surfaces such as popovers and menus.
   static const List<BoxShadow> medium = <BoxShadow>[
     BoxShadow(
-      color: Color(0x0A000000),
+      color: Color(0x33000000), // 20% black
       blurRadius: 8,
       offset: Offset(0, 2),
     ),
     BoxShadow(
-      color: Color(0x14000000),
+      color: Color(0x66000000), // 40% black
       blurRadius: 24,
       offset: Offset(0, 8),
       spreadRadius: -4,
@@ -40,12 +38,12 @@ abstract final class AppShadows {
   /// High shadow for floating elements such as dialogs and sheets.
   static const List<BoxShadow> high = <BoxShadow>[
     BoxShadow(
-      color: Color(0x0F000000),
+      color: Color(0x4D000000), // 30% black
       blurRadius: 12,
       offset: Offset(0, 4),
     ),
     BoxShadow(
-      color: Color(0x1F000000),
+      color: Color(0x80000000), // 50% black
       blurRadius: 40,
       offset: Offset(0, 16),
       spreadRadius: -8,

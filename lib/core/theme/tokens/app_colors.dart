@@ -58,27 +58,27 @@ abstract final class AppColors {
 
   // --- Light neutrals (flagship) — dim light mode ---------------------------
 
-  /// App background — warm gray, noticeably darker than stock iOS.
-  static const Color background = Color(0xFFE4E4E9);
+  /// App background — dark slate, premium dark aesthetic even in light mode.
+  static const Color background = Color(0xFF1C1C1E);
 
-  /// Base surface for cards and bars — light gray for pop against bg.
-  static const Color surface = Color(0xFFF2F2F7);
+  /// Base surface for cards and bars.
+  static const Color surface = Color(0xFF2C2C2E);
 
   /// Elevated surface for dialogs, inputs, and raised cards.
-  static const Color surfaceElevated = Color(0xFFF8F8FD);
+  static const Color surfaceElevated = Color(0xFF3A3A3C);
 
   /// Highest surface tier for tracks, handles, and pressed fills.
-  static const Color surfaceHighest = Color(0xFFC7C7CC);
+  static const Color surfaceHighest = Color(0xFF48484A);
 
-  /// Hairline outline color on light surfaces — iOS separator gray.
-  static const Color outline = Color(0xFFBBBBC1);
+  /// Hairline outline color on surfaces.
+  static const Color outline = Color(0xFF3A3A3C);
 
   // --- Dark neutrals (secondary theme) --------------------------------------
 
-  /// App background in dark mode — deep slate.
-  static const Color backgroundDark = Color(0xFF0F172A);
+  /// App background in dark mode — OLED black.
+  static const Color backgroundDark = Color(0xFF000000);
 
-  /// Base surface for cards and bars in dark mode.
+  /// Base surface for cards and bars in dark mode — deep slate.
   static const Color surfaceDark = Color(0xFF111827);
 
   /// Elevated surface in dark mode.
@@ -88,18 +88,18 @@ abstract final class AppColors {
   static const Color surfaceHighestDark = Color(0xFF334155);
 
   /// Hairline outline color on dark surfaces.
-  static const Color outlineDark = Color(0xFF33415F);
+  static const Color outlineDark = Color(0xFF1E293B);
 
   // --- Text (light mode — flagship) -----------------------------------------
 
-  /// Primary text on light surfaces — near black.
-  static const Color textPrimary = Color(0xFF1C1C1E);
+  /// Primary text on light surfaces — near white to contrast with new dark bg.
+  static const Color textPrimary = Color(0xFFF8FAFC);
 
-  /// Secondary, supporting text on light surfaces — iOS systemGray2.
-  static const Color textSecondary = Color(0xFF636366);
+  /// Secondary, supporting text on light surfaces.
+  static const Color textSecondary = Color(0xFF94A3B8);
 
-  /// Tertiary, hint-level text on light surfaces — iOS systemGray.
-  static const Color textTertiary = Color(0xFF8E8E93);
+  /// Tertiary, hint-level text on light surfaces.
+  static const Color textTertiary = Color(0xFF64748B);
 
   /// White text and icons placed on blue fills.
   static const Color textOnPrimary = Color(0xFFFFFFFF);
@@ -131,14 +131,14 @@ abstract final class AppColors {
 
   // --- Glass overlays -------------------------------------------------------
 
-  /// Frosted glass fill — black at roughly 5 percent for light mode.
-  static const Color glassWhite = Color(0x0D000000);
+  /// Frosted glass fill — white opacity for dark background.
+  static const Color glassWhite = Color(0x0AFFFFFF);
 
-  /// Glass border stroke — black at roughly 10 percent for light mode.
-  static const Color glassStroke = Color(0x1A000000);
+  /// Glass border stroke — white opacity.
+  static const Color glassStroke = Color(0x1AFFFFFF);
 
-  /// Stronger glass fill — black at roughly 12 percent for light mode.
-  static const Color glassStrong = Color(0x1F000000);
+  /// Stronger glass fill — white opacity.
+  static const Color glassStrong = Color(0x14FFFFFF);
 
   /// Frosted glass fill for dark mode — white at roughly 8 percent.
   static const Color glassDark = Color(0x14FFFFFF);
