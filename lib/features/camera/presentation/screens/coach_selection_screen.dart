@@ -25,7 +25,7 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
       specialization: 'Yoga Expert',
       rating: 5.0,
       reviewCount: 342,
-      imageUrl: 'https://storage.googleapis.com/posely-assets/mock/coach_sarah.jpg',
+      imageUrl: '',
       description: 'Focuses on balance, breathing, and flexibility.',
       voicePitch: 1.2,
       voiceRate: 0.9,
@@ -36,7 +36,7 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
       specialization: 'Strength & Core',
       rating: 4.9,
       reviewCount: 512,
-      imageUrl: 'https://storage.googleapis.com/posely-assets/mock/coach_max.jpg',
+      imageUrl: '',
       description: 'Pushes you to maintain perfect form for muscle gains.',
       voicePitch: 0.8,
       voiceRate: 1.1,
@@ -47,7 +47,7 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
       specialization: 'Dance & Cardio',
       rating: 4.8,
       reviewCount: 215,
-      imageUrl: 'https://storage.googleapis.com/posely-assets/mock/coach_elena.jpg',
+      imageUrl: '',
       description: 'Energetic and upbeat, focusing on rhythm and flow.',
       voicePitch: 1.3,
       voiceRate: 1.2,
@@ -171,10 +171,12 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: AppColors.surface,
-                image: DecorationImage(
-                  image: NetworkImage(coach.imageUrl),
-                  fit: BoxFit.cover,
-                ),
+                image: coach.imageUrl.isNotEmpty
+                    ? DecorationImage(
+                        image: NetworkImage(coach.imageUrl),
+                        fit: BoxFit.cover,
+                      )
+                    : null,
               ),
               child: coach.imageUrl.isEmpty 
                   ? const Icon(Icons.person, color: AppColors.textSecondary)

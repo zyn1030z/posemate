@@ -1,9 +1,9 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:posely_ai/features/gallery/data/repositories/gallery_repository.dart';
-import 'package:posely_ai/features/gallery/presentation/controllers/gallery_controller.dart';
 import 'package:posely_ai/features/gallery/domain/entities/capture_record.dart';
+import 'package:posely_ai/features/gallery/presentation/controllers/gallery_controller.dart';
 
 class MockGalleryRepository extends Mock implements GalleryRepository {}
 
@@ -34,7 +34,7 @@ void main() {
     when(() => mockRepo.getLocalCaptures()).thenReturn([mockRecord]);
     when(() => mockRepo.syncPendingCaptures()).thenAnswer((_) async {});
 
-    final sub = container.listen(galleryControllerProvider, (_, __) {});
+    final sub = container.listen(galleryControllerProvider, (_, _) {});
     
     // Initial state is loading, wait for build to complete
     final captures = await container.read(galleryControllerProvider.future);

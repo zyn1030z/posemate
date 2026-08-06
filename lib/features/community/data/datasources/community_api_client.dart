@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:retrofit/retrofit.dart';
 import 'package:posely_ai/core/network/paginated.dart';
 import 'package:posely_ai/features/community/domain/entities/community_post.dart';
+import 'package:retrofit/retrofit.dart';
 
 part 'community_api_client.g.dart';
 

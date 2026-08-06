@@ -1,12 +1,13 @@
+import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'dart:async';
 import 'package:go_router/go_router.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:posely_ai/core/design/design.dart';
 import 'package:posely_ai/core/theme/tokens/app_colors.dart';
 import 'package:posely_ai/features/gallery/presentation/controllers/gallery_controller.dart';
+import 'package:share_plus/share_plus.dart';
 
 /// Screen for viewing a captured photo and performing actions (compare, share, delete).
 class CaptureDetailScreen extends ConsumerStatefulWidget {
@@ -41,7 +42,9 @@ class _CaptureDetailScreenState extends ConsumerState<CaptureDetailScreen> {
             onPressed: () async {
               final capture = state.value?.firstWhere((c) => c.id == widget.id);
               if (capture != null) {
-                await Share.shareXFiles([XFile(capture.localPath)]); // Let's use Share.shareXFiles since SharePlus.instance.share might need different args, wait actually I'll change it to Share.shareXFiles, wait no, let's fix it properly.
+                await SharePlus.instance.share(
+                  ShareParams(files: [XFile(capture.localPath)]),
+                );
               }
             },
           ),

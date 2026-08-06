@@ -1,7 +1,8 @@
 import 'dart:io';
+
 import 'package:dio/dio.dart';
-import 'package:retrofit/retrofit.dart';
 import 'package:posely_ai/features/gallery/domain/entities/capture_record.dart';
+import 'package:retrofit/retrofit.dart';
 
 part 'gallery_api_client.g.dart';
 

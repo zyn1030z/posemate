@@ -41,9 +41,25 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
     target.build_configurations.each do |config|
-      config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'DWARF_WITH_DSYM'
-      config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64 i386'
+      # NB: value must be lowercase 'dwarf-with-dsym' — 'DWARF_WITH_DSYM' is
+      # unrecognized by Xcode and silently skips dSYM generation, which causes
+      # App Store Connect "Upload Symbols Failed" for every pod framework.
+      config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf-with-dsym'
+      config.build_settings.delete('EXCLUDED_ARCHS[sdk=iphonesimulator*]')
+      
+      # Setup permission_handler macros
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
+        '$(inherited)',
+        'PERMISSION_CAMERA=1',
+        'PERMISSION_MICROPHONE=1',
+        'PERMISSION_PHOTOS=1'
+      ]
     end
   end
 
+  Dir.glob(File.join(installer.sandbox.root, 'Target Support Files', '**', '*.xcconfig')).each do |xcconfig_path|
+    xcconfig = File.read(xcconfig_path)
+    xcconfig.gsub!(/^EXCLUDED_ARCHS\[sdk=iphonesimulator\*\]\s*=.*\n/, '')
+    File.write(xcconfig_path, xcconfig)
+  end
 end

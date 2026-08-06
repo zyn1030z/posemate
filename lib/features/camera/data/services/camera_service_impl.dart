@@ -21,6 +21,9 @@ class CameraServiceImpl implements CameraService {
   @override
   Stream<CameraState> get stateStream => _stateController.stream;
 
+  @override
+  CameraState get currentState => _currentState;
+
   void _emit(CameraState newState) {
     _currentState = newState;
     _stateController.add(newState);

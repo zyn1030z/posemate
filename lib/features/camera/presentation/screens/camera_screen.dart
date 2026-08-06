@@ -48,10 +48,6 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
       backgroundColor: Colors.black,
       body: cameraStateAsync.when(
         data: (cameraState) {
-          if (!cameraState.isInitialized) {
-            return const AppLoadingView(message: 'Initializing camera...');
-          }
-
           if (cameraState.error != null) {
             return AppErrorView(
               message: cameraState.error!,
@@ -59,6 +55,10 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
                 ref.invalidate(cameraSessionControllerProvider);
               },
             );
+          }
+
+          if (!cameraState.isInitialized) {
+            return const AppLoadingView(message: 'Initializing camera...');
           }
 
           return Stack(
@@ -74,8 +74,7 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
               // 3. Ghost Silhouette Overlay
               if (!transformState.isHidden)
                 const _GhostSilhouetteInteractiveLayer(
-                  imageUrl:
-                      'https://storage.googleapis.com/posely-assets/mock/generated_1_overlay.png',
+                  imagePath: 'assets/mock/lineart_mock.png',
                 ),
 
               // 3.5. AI Coach HUD
@@ -187,12 +186,11 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(color: Colors.white24, width: 2),
-                            image: const DecorationImage(
-                              image: NetworkImage(
-                                'https://storage.googleapis.com/posely-assets/mock/generated_1.jpg',
-                              ),
-                              fit: BoxFit.cover,
-                            ),
+                          ),
+                          child: const Icon(
+                            Icons.photo_library,
+                            color: Colors.white,
+                            size: 24,
                           ),
                         ),
 
@@ -201,15 +199,30 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
                           onTap: cameraState.isCapturing
                               ? null
                               : () async {
-                                  final file = await cameraControllerNotifier
-                                      .takePicture();
-                                  if (file != null && context.mounted) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Photo saved to gallery!',
-                                        ),
-                                      ),
+                                  final (file, saved) =
+                                      await cameraControllerNotifier
+                                          .takePicture();
+                                  if (!context.mounted) {
+                                    return;
+                                  }
+                                  if (file == null) {
+                                    PoselyToast.show(
+                                      context,
+                                      message: 'Capture failed. Try again.',
+                                      kind: PoselyToastKind.error,
+                                    );
+                                  } else if (saved) {
+                                    PoselyToast.show(
+                                      context,
+                                      message: 'Photo saved to gallery',
+                                      kind: PoselyToastKind.success,
+                                    );
+                                  } else {
+                                    PoselyToast.show(
+                                      context,
+                                      message:
+                                          'Captured, but not saved to gallery',
+                                      kind: PoselyToastKind.error,
                                     );
                                   }
                                 },
@@ -274,9 +287,9 @@ class _CameraPreviewWidget extends ConsumerWidget {
 }
 
 class _GhostSilhouetteInteractiveLayer extends ConsumerWidget {
-  final String imageUrl;
+  final String imagePath;
 
-  const _GhostSilhouetteInteractiveLayer({required this.imageUrl});
+  const _GhostSilhouetteInteractiveLayer({required this.imagePath});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -305,8 +318,8 @@ class _GhostSilhouetteInteractiveLayer extends ConsumerWidget {
                     Colors.white,
                     BlendMode.srcIn,
                   ),
-                  child: Image.network(
-                    imageUrl,
+                  child: Image.asset(
+                    imagePath,
                     fit: BoxFit.contain,
                     errorBuilder: (context, error, stackTrace) => const Icon(
                       Icons.broken_image,

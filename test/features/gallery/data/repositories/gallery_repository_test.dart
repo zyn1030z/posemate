@@ -3,7 +3,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:posely_ai/core/storage/local_storage.dart';
 import 'package:posely_ai/features/gallery/data/datasources/gallery_api_client.dart';
 import 'package:posely_ai/features/gallery/data/repositories/gallery_repository.dart';
-import 'package:posely_ai/features/gallery/domain/entities/capture_record.dart';
 
 class MockGalleryApiClient extends Mock implements GalleryApiClient {}
 class MockLocalStorage extends Mock implements LocalStorage {}

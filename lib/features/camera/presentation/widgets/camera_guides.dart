@@ -87,20 +87,16 @@ class _CameraGuidesState extends State<CameraGuides> {
   }
 
   Widget _buildGridLine(bool isHorizontal, double fraction) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Positioned(
-          top: isHorizontal ? constraints.maxHeight * fraction : 0,
-          left: isHorizontal ? 0 : constraints.maxWidth * fraction,
-          right: isHorizontal ? 0 : null,
-          bottom: isHorizontal ? null : 0,
-          child: Container(
-            width: isHorizontal ? constraints.maxWidth : 1,
-            height: isHorizontal ? 1 : constraints.maxHeight,
-            color: Colors.white.withValues(alpha: 0.3),
-          ),
-        );
-      },
+    return Align(
+      alignment: FractionalOffset(
+        isHorizontal ? 0.0 : fraction,
+        isHorizontal ? fraction : 0.0,
+      ),
+      child: Container(
+        width: isHorizontal ? double.infinity : 1,
+        height: isHorizontal ? 1 : double.infinity,
+        color: Colors.white.withValues(alpha: 0.3),
+      ),
     );
   }
 }

@@ -50,9 +50,11 @@ class _AiCoachHudState extends ConsumerState<AiCoachHud> {
         _highScoreStartTime ??= DateTime.now();
         if (DateTime.now().difference(_highScoreStartTime!).inSeconds >= 2) {
           // Trigger capture
-          ref.read(cameraSessionControllerProvider.notifier).takePicture();
+          unawaited(
+            ref.read(cameraSessionControllerProvider.notifier).takePicture(),
+          );
           // Reset so we don't spam captures
-          _highScoreStartTime = null; 
+          _highScoreStartTime = null;
         }
       } else {
         _highScoreStartTime = null;
@@ -63,8 +65,6 @@ class _AiCoachHudState extends ConsumerState<AiCoachHud> {
   @override
   void dispose() {
     _scoreSub?.cancel();
-    // The provider's onDispose will stop the isolate, but we can call stop here too.
-    ref.read(poseMatcherProvider).stop();
     super.dispose();
   }
 

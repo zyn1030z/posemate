@@ -25,7 +25,7 @@ class GalleryScreen extends ConsumerWidget {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: AppBar(
-              backgroundColor: AppColors.background.withOpacity(0.5),
+              backgroundColor: AppColors.background.withValues(alpha: 0.5),
               elevation: 0,
               title: const Text(
                 'Gallery',
@@ -64,7 +64,6 @@ class GalleryScreen extends ConsumerWidget {
                 crossAxisCount: 3,
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
-                childAspectRatio: 1.0,
               ),
               itemCount: captures.length,
               itemBuilder: (context, index) {
@@ -104,7 +103,7 @@ class _GalleryItem extends StatelessWidget {
       },
       child: Hero(
         tag: 'capture_${capture.id}',
-        child: Container(
+        child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: AppColors.surface,

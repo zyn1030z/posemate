@@ -1,11 +1,12 @@
+import 'dart:async';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'dart:async';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:posely_ai/core/design/design.dart';
 import 'package:posely_ai/core/theme/tokens/app_colors.dart';
 import 'package:posely_ai/features/community/domain/entities/community_post.dart';
 import 'package:posely_ai/features/community/presentation/controllers/feed_controller.dart';
-import 'package:posely_ai/core/design/design.dart';
 
 class PostCard extends ConsumerWidget {
   const PostCard({super.key, required this.post});
@@ -96,9 +97,9 @@ class PostCard extends ConsumerWidget {
               imageUrl: post.imageUrl,
               fit: BoxFit.cover,
               height: 400,
-              placeholder: (context, url) => Container(
+              placeholder: (context, url) => const ColoredBox(
                 color: AppColors.background,
-                child: const Center(child: CircularProgressIndicator()),
+                child: Center(child: CircularProgressIndicator()),
               ),
             ),
           ),

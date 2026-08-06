@@ -31,4 +31,7 @@ abstract class CameraService {
 
   /// Stream of state changes.
   Stream<CameraState> get stateStream;
+
+  /// The current state of the camera synchronously.
+  CameraState get currentState;
 }

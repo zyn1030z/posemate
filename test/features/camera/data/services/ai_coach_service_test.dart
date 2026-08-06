@@ -5,10 +5,12 @@ import 'package:posely_ai/features/camera/domain/entities/ai_coach.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  
-  const MethodChannel('flutter_tts').setMockMethodCallHandler((MethodCall methodCall) async {
-    return 1;
-  });
+
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+      .setMockMethodCallHandler(
+        const MethodChannel('flutter_tts'),
+        (MethodCall methodCall) async => 1,
+      );
 
   group('AiCoachService', () {
     late AiCoachService service;

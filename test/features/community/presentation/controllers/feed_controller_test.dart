@@ -1,6 +1,6 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:posely_ai/core/network/paginated.dart';
 import 'package:posely_ai/features/community/data/repositories/community_repository.dart';
 import 'package:posely_ai/features/community/domain/entities/community_post.dart';
@@ -35,7 +35,7 @@ void main() {
       createdAt: DateTime.now(),
     );
 
-    when(() => mockRepo.getFeed(page: 1)).thenAnswer(
+    when(() => mockRepo.getFeed(page: any(named: 'page'))).thenAnswer(
       (_) async => Paginated(
         items: [mockPost],
         page: 1,
@@ -45,13 +45,13 @@ void main() {
       ),
     );
 
-    final sub = container.listen(feedControllerProvider, (_, __) {});
+    final sub = container.listen(feedControllerProvider, (_, _) {});
     final state = await container.read(feedControllerProvider.future);
 
     expect(state.length, 1);
     expect(state.first.id, '1');
-    verify(() => mockRepo.getFeed(page: 1)).called(1);
-    
+    verify(() => mockRepo.getFeed(page: any(named: 'page'))).called(1);
+
     sub.close();
   });
 
@@ -64,10 +64,9 @@ void main() {
       imageUrl: '',
       createdAt: DateTime.now(),
       likesCount: 10,
-      isLiked: false,
     );
 
-    when(() => mockRepo.getFeed(page: 1)).thenAnswer(
+    when(() => mockRepo.getFeed(page: any(named: 'page'))).thenAnswer(
       (_) async => Paginated(
         items: [mockPost],
         page: 1,

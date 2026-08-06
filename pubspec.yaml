@@ -118,6 +118,18 @@ dev_dependencies:
   # ── Testing ───────────────────────────────────────────────────────
   mocktail: ^1.0.5
 
+  # ── App icons ─────────────────────────────────────────────────────
+  flutter_launcher_icons: ^0.14.3
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon.png"
+  min_sdk_version: 23
+  # iOS respects the OS mask; Android uses adaptive foreground over background.
+  adaptive_icon_background: "#0B0D11"
+  adaptive_icon_foreground: "assets/icon/icon.png"
+
 flutter:
   uses-material-design: true
 

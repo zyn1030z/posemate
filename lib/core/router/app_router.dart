@@ -13,12 +13,12 @@ import 'package:posely_ai/features/auth/presentation/screens/forgot_password_scr
 import 'package:posely_ai/features/auth/presentation/screens/login_screen.dart';
 import 'package:posely_ai/features/auth/presentation/screens/onboarding_screen.dart';
 import 'package:posely_ai/features/auth/presentation/screens/register_screen.dart';
-import 'package:posely_ai/features/gallery/presentation/screens/gallery_screen.dart';
-import 'package:posely_ai/features/community/presentation/screens/community_screen.dart';
-import 'package:posely_ai/features/gallery/presentation/screens/capture_detail_screen.dart';
 import 'package:posely_ai/features/camera/presentation/screens/camera_screen.dart';
 import 'package:posely_ai/features/camera/presentation/screens/coach_selection_screen.dart';
+import 'package:posely_ai/features/community/presentation/screens/community_screen.dart';
 import 'package:posely_ai/features/extraction/presentation/screens/upload_pose_screen.dart';
+import 'package:posely_ai/features/gallery/presentation/screens/capture_detail_screen.dart';
+import 'package:posely_ai/features/gallery/presentation/screens/gallery_screen.dart';
 import 'package:posely_ai/features/home/presentation/screens/home_screen.dart';
 import 'package:posely_ai/features/pose/presentation/screens/pose_detail_screen.dart';
 import 'package:posely_ai/features/pose/presentation/screens/pose_library_screen.dart';

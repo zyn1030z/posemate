@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:posely_ai/core/network/dio_client.dart';
 import 'package:posely_ai/core/storage/local_storage.dart';
 import 'package:posely_ai/features/gallery/data/datasources/gallery_api_client.dart';
 import 'package:posely_ai/features/gallery/domain/entities/capture_record.dart';
-import 'dart:io';
 
 /// Provider for [GalleryRepository].
 final galleryRepositoryProvider = Provider<GalleryRepository>((ref) {
@@ -75,7 +76,7 @@ class GalleryRepositoryImpl implements GalleryRepository {
     // Attempt sync
     try {
       final file = File(record.localPath);
-      if (await file.exists()) {
+      if (file.existsSync()) {
         final syncedRecord = await _client.uploadCapture(
           file: file,
           poseId: record.poseId,
@@ -110,7 +111,7 @@ class GalleryRepositoryImpl implements GalleryRepository {
     
     try {
       final file = File(record.localPath);
-      if (await file.exists()) {
+      if (file.existsSync()) {
         await file.delete();
       }
       
@@ -125,14 +126,14 @@ class GalleryRepositoryImpl implements GalleryRepository {
   @override
   Future<void> syncPendingCaptures() async {
     final captures = getLocalCaptures();
-    bool updated = false;
+    var updated = false;
 
-    for (int i = 0; i < captures.length; i++) {
+    for (var i = 0; i < captures.length; i++) {
       final record = captures[i];
       if (!record.isSynced) {
         try {
           final file = File(record.localPath);
-          if (await file.exists()) {
+          if (file.existsSync()) {
             final syncedRecord = await _client.uploadCapture(
               file: file,
               poseId: record.poseId,
